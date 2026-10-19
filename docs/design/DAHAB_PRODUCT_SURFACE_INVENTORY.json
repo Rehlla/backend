@@ -1,0 +1,316 @@
+{
+  "system": "Dahab Platform (Dahab Travel OS)",
+  "version": "4.0.0",
+  "generatedAt": "2026-08-25T23:00:00Z",
+  "architecture": {
+    "framework": "React 18 + Vite + TypeScript",
+    "styling": "Tailwind CSS",
+    "iconography": "lucide-react",
+    "stateManagement": "TripContext (React Context + Local Storage + Cloud Sync)",
+    "server": "Node.js / Express (server.ts)"
+  },
+  "routes": [
+    {
+      "route": "/home",
+      "component": "V2HomeCockpit",
+      "file": "/src/components/home/V2HomeCockpit.tsx",
+      "access": "public",
+      "layout": "floating_header_footer",
+      "subViews": ["first_time_explorer", "returning_active_trip"]
+    },
+    {
+      "route": "/my-trip",
+      "component": "MyTripView",
+      "file": "/src/components/mytrip/MyTripView.tsx",
+      "access": "traveler",
+      "layout": "traveler_subnav_timeline",
+      "subViews": [
+        "overview",
+        "pre-arrival",
+        "early-arrival",
+        "first-two-hours",
+        "companion",
+        "spontaneous",
+        "change-recovery",
+        "food-now",
+        "help-now"
+      ]
+    },
+    {
+      "route": "/trip-builder",
+      "component": "TripPlanner",
+      "file": "/src/components/planner/TripPlanner.tsx",
+      "access": "public",
+      "layout": "wizard_shell",
+      "subViews": ["intent", "details", "budget", "review"]
+    },
+    {
+      "route": "/trip-preview",
+      "component": "TripPreview",
+      "file": "/src/components/preview/TripPreview.tsx",
+      "access": "public",
+      "layout": "preview_shell",
+      "subViews": ["day_timeline", "activity_details"]
+    },
+    {
+      "route": "/explore",
+      "component": "ExploreView",
+      "file": "/src/components/explore/ExploreView.tsx",
+      "access": "public",
+      "layout": "filter_grid_shell",
+      "subViews": ["all", "beach", "experience", "food", "nightlife", "coffee"]
+    },
+    {
+      "route": "/food",
+      "component": "FoodNowView",
+      "file": "/src/components/food/FoodNowView.tsx",
+      "access": "traveler",
+      "layout": "traveler_subnav",
+      "subViews": ["breakfast", "quick", "local", "datenight", "delivery"]
+    },
+    {
+      "route": "/bookings",
+      "component": "BookingsView",
+      "file": "/src/components/bookings/BookingsView.tsx",
+      "access": "traveler",
+      "layout": "bookings_hub",
+      "subViews": ["all", "hotel", "transfer", "diving", "safari"]
+    },
+    {
+      "route": "/help",
+      "component": "HelpMeNowView",
+      "file": "/src/components/help/HelpMeNowView.tsx",
+      "access": "traveler",
+      "layout": "triage_wizard",
+      "subViews": ["categories", "select_booking", "specific_issue", "expert_chat"]
+    },
+    {
+      "route": "/change-recovery",
+      "component": "ChangeAndRecoveryView",
+      "file": "/src/components/recovery/ChangeAndRecoveryView.tsx",
+      "access": "traveler",
+      "layout": "traveler_subnav",
+      "subViews": ["scenario_comparison", "option_a", "option_b", "option_c"]
+    },
+    {
+      "route": "/departure",
+      "component": "DepartureView",
+      "file": "/src/components/departure/DepartureView.tsx",
+      "access": "traveler",
+      "layout": "checklist_transfer_hub",
+      "subViews": ["checklist", "transfer_tracker"]
+    },
+    {
+      "route": "/post-trip",
+      "component": "PostTripView",
+      "file": "/src/components/posttrip/PostTripView.tsx",
+      "access": "traveler",
+      "layout": "review_memories_hub",
+      "subViews": ["review", "places_visited", "photo_memories", "invoice_download"]
+    },
+    {
+      "route": "/profile",
+      "component": "ProfileView",
+      "file": "/src/components/profile/ProfileView.tsx",
+      "access": "authenticated_traveler",
+      "layout": "tabbed_profile",
+      "subViews": ["profile", "saved", "history", "settings"]
+    },
+    {
+      "route": "/live",
+      "component": "DahabLiveView",
+      "file": "/src/components/live/DahabLiveView.tsx",
+      "access": "public",
+      "layout": "camera_radar_shell",
+      "subViews": ["lighthouse", "bluehole", "canyon", "lagoon"]
+    },
+    {
+      "route": "/ai-director",
+      "component": "AiDirectorView",
+      "file": "/src/components/director/AiDirectorView.tsx",
+      "access": "traveler",
+      "layout": "flow_cards_shell",
+      "subViews": ["curated_flows", "custom_prompt"]
+    },
+    {
+      "route": "/daygi",
+      "component": "DayGiConciergeView",
+      "file": "/src/components/daygi/DayGiConciergeView.tsx",
+      "access": "traveler",
+      "layout": "conversational_concierge",
+      "subViews": ["chat_stream", "task_orchestrator", "health_meter", "memory_browser"]
+    },
+    {
+      "route": "/auth/sign-in",
+      "component": "AuthView",
+      "file": "/src/components/auth/AuthView.tsx",
+      "access": "public",
+      "layout": "modal_shell",
+      "subViews": ["sign_in"]
+    },
+    {
+      "route": "/auth/sign-up",
+      "component": "AuthView",
+      "file": "/src/components/auth/AuthView.tsx",
+      "access": "public",
+      "layout": "modal_shell",
+      "subViews": ["sign_up"]
+    },
+    {
+      "route": "/auth/forgot-password",
+      "component": "AuthView",
+      "file": "/src/components/auth/AuthView.tsx",
+      "access": "public",
+      "layout": "modal_shell",
+      "subViews": ["forgot_password"]
+    },
+    {
+      "route": "/ops-console",
+      "component": "OperationsConsoleView",
+      "file": "/src/components/operations/OperationsConsoleView.tsx",
+      "access": "staff_ops",
+      "layout": "ops_console_tabs",
+      "subViews": [
+        "daygi_quality",
+        "radar",
+        "opportunities",
+        "ai_assistant",
+        "ledger",
+        "transfers",
+        "golden_test",
+        "exceptions",
+        "dispatch",
+        "flags",
+        "audit"
+      ]
+    },
+    {
+      "route": "/supplier-portal",
+      "component": "SupplierPortalView",
+      "file": "/src/components/supplier/SupplierPortalView.tsx",
+      "access": "supplier_partner",
+      "layout": "supplier_portal_tabs",
+      "subViews": ["inbox", "inventory", "resources", "reliability", "audit"]
+    },
+    {
+      "route": "/market-intelligence",
+      "component": "MarketIntelligenceView",
+      "file": "/src/components/intelligence/MarketIntelligenceView.tsx",
+      "access": "admin_ops",
+      "layout": "intelligence_subsystems",
+      "subViews": [
+        "sources",
+        "crawler",
+        "observations",
+        "entities",
+        "resolution",
+        "discovery",
+        "competitors",
+        "pricing",
+        "sentiment",
+        "trends",
+        "radar",
+        "regulatory",
+        "audit"
+      ]
+    }
+  ],
+  "modalsAndDrawers": [
+    {
+      "name": "SearchDrawer",
+      "file": "/src/components/search/SearchDrawer.tsx",
+      "trigger": "V2Navbar Search Icon or ⌘K",
+      "stateKey": "isSearchOpen"
+    },
+    {
+      "name": "BookNowCommerceModal",
+      "file": "/src/components/commerce/BookNowCommerceModal.tsx",
+      "trigger": "V2Navbar Quick Book CTA or Activity Card",
+      "stateKey": "isQuickBookOpen"
+    },
+    {
+      "name": "EmergencyModal",
+      "file": "/src/components/common/EmergencyModal.tsx",
+      "trigger": "V2Navbar SOS Button",
+      "stateKey": "isEmergencyOpen"
+    },
+    {
+      "name": "VoucherModal",
+      "file": "/src/components/bookings/BookingsView.tsx",
+      "trigger": "BookingsView Voucher CTA",
+      "stateKey": "selectedBooking"
+    },
+    {
+      "name": "InvoiceModal",
+      "file": "/src/components/bookings/BookingsView.tsx",
+      "trigger": "BookingsView Full Trip Invoice CTA",
+      "stateKey": "isInvoiceModalOpen"
+    },
+    {
+      "name": "DayGiHealthModal",
+      "file": "/src/components/daygi/DayGiConciergeView.tsx",
+      "trigger": "DayGiConciergeView Health Badge",
+      "stateKey": "healthModalOpen"
+    },
+    {
+      "name": "DayGiMemoryModal",
+      "file": "/src/components/daygi/DayGiConciergeView.tsx",
+      "trigger": "DayGiConciergeView Brain Memory Badge",
+      "stateKey": "memoryModalOpen"
+    },
+    {
+      "name": "DayGiTasksModal",
+      "file": "/src/components/daygi/DayGiConciergeView.tsx",
+      "trigger": "DayGiConciergeView Active Tasks Pill",
+      "stateKey": "tasksModalOpen"
+    }
+  ],
+  "stateMachines": {
+    "journeyStages": [
+      "discover",
+      "plan",
+      "preview",
+      "prepare",
+      "arrive",
+      "experience",
+      "spontaneous",
+      "food",
+      "recovery",
+      "help",
+      "departure",
+      "post_trip"
+    ],
+    "daygiTaskStates": [
+      "PROPOSED",
+      "CONFIRMATION_REQUIRED",
+      "EXECUTING",
+      "COMPLETED",
+      "FAILED",
+      "ROLLED_BACK"
+    ],
+    "commerceBookingStates": [
+      "CATALOG_BROWSE",
+      "INVENTORY_HOLD",
+      "CHECKOUT",
+      "CONFIRMATION",
+      "SUPPLIER_DISPATCH"
+    ]
+  },
+  "personas": [
+    {
+      "role": "Traveler",
+      "primaryRoutes": ["/home", "/my-trip", "/trip-builder", "/explore", "/food", "/bookings", "/help", "/daygi"],
+      "defaultLanding": "/home"
+    },
+    {
+      "role": "Supplier",
+      "primaryRoutes": ["/supplier-portal"],
+      "defaultLanding": "/supplier-portal"
+    },
+    {
+      "role": "Operations",
+      "primaryRoutes": ["/ops-console", "/market-intelligence"],
+      "defaultLanding": "/ops-console"
+    }
+  ]
+}

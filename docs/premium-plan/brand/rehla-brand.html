@@ -1,0 +1,374 @@
+<title>REHLA Brand Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;600;700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..600,100;1,9..144,400..600,100&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: brand board — a destination switcher drives every token on the page (colour,
+   motion tempo, texture, landscape); sections: name, logo, lockups, destinations, motion, voice. */
+@property --bg{syntax:'<color>';inherits:true;initial-value:#F5F4F0}
+@property --surface{syntax:'<color>';inherits:true;initial-value:#FFFFFF}
+@property --ink{syntax:'<color>';inherits:true;initial-value:#0B151C}
+@property --ink2{syntax:'<color>';inherits:true;initial-value:#4B4744}
+@property --act{syntax:'<color>';inherits:true;initial-value:#0E7C7A}
+@property --hi{syntax:'<color>';inherits:true;initial-value:#B4523A}
+@property --deep{syntax:'<color>';inherits:true;initial-value:#0B151C}
+@property --sky1{syntax:'<color>';inherits:true;initial-value:#F2C9A8}
+@property --sky2{syntax:'<color>';inherits:true;initial-value:#9CD4D0}
+@property --l1{syntax:'<color>';inherits:true;initial-value:#9A5642}
+@property --l2{syntax:'<color>';inherits:true;initial-value:#6B3B2E}
+@property --water{syntax:'<color>';inherits:true;initial-value:#1F9D97}
+@property --ground{syntax:'<color>';inherits:true;initial-value:#E3CFAE}
+:root{
+  --f-ui:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-ui-ar:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif;
+  --f-disp:"Fraunces","Alexandria",Georgia,serif;
+  --f-disp-ar:"Alexandria","IBM Plex Sans Arabic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --line:color-mix(in oklab,var(--ink) 11%,transparent);
+  --wash:color-mix(in oklab,var(--act) 10%,transparent);
+  --tempo:700ms; --ease:cubic-bezier(.22,1,.36,1);
+}
+/* ---- destination identities (light) ---- */
+.board[data-dest="dahab"]{--bg:#F5F4F0;--surface:#FFFFFF;--ink:#0B151C;--ink2:#4B4744;--act:#0E7C7A;--hi:#B4523A;--deep:#0B151C;--sky1:#F2C9A8;--sky2:#9CD4D0;--l1:#9A5642;--l2:#6B3B2E;--water:#1F9D97;--ground:#E3CFAE;--tempo:520ms;--ease:cubic-bezier(.34,1.3,.64,1)}
+.board[data-dest="nuweiba"]{--bg:#F2F1EB;--surface:#FFFFFF;--ink:#1D2A2E;--ink2:#4F5A5C;--act:#2D7787;--hi:#A97447;--deep:#13232A;--sky1:#E9E4D6;--sky2:#BFDDE2;--l1:#B6A28C;--l2:#8E7C69;--water:#6FB3BF;--ground:#E7DCC6;--tempo:800ms;--ease:cubic-bezier(.45,0,.2,1)}
+.board[data-dest="siwa"]{--bg:#F6F2EA;--surface:#FFFDF8;--ink:#2A2520;--ink2:#5A5047;--act:#4A7445;--hi:#A9573A;--deep:#211C16;--sky1:#F3D7A6;--sky2:#F7EBCF;--l1:#D9B583;--l2:#C29763;--water:#7FC3BD;--ground:#EADBC0;--tempo:1100ms;--ease:cubic-bezier(.37,0,.2,1)}
+/* dark */
+.board.dark[data-dest="dahab"]{--bg:#0B151C;--surface:#0F1C25;--ink:#ECE9E2;--ink2:#BAC3C7;--act:#3CC2BC;--hi:#F08A6C}
+.board.dark[data-dest="nuweiba"]{--bg:#0F1A1E;--surface:#14242A;--ink:#E8EAE6;--ink2:#B3BDBE;--act:#86C6D2;--hi:#E0AE83}
+.board.dark[data-dest="siwa"]{--bg:#16130F;--surface:#1F1B16;--ink:#F1EBDF;--ink2:#C6BAA8;--act:#A8C99A;--hi:#E7A07D}
+.board{background:var(--bg);color:var(--ink);font-family:var(--f-ui);min-height:100vh;
+  transition:--bg var(--tempo) var(--ease),--surface var(--tempo) var(--ease),--ink var(--tempo) var(--ease),--ink2 var(--tempo) var(--ease),--act var(--tempo) var(--ease),--hi var(--tempo) var(--ease),--sky1 1.2s ease,--sky2 1.2s ease,--l1 1.2s ease,--l2 1.2s ease,--water 1.2s ease,--ground 1.2s ease,--deep 1.2s ease}
+body{margin:0;background:var(--bg,#F5F4F0)}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+button:focus-visible{outline:2px solid var(--act);outline-offset:3px;border-radius:10px}
+.board[data-lang="ar"] [lang="en"],.board[data-lang="en"] [lang="ar"]{display:none!important}
+.board[data-lang="ar"]{direction:rtl;font-family:var(--f-ui-ar)}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 72px}
+
+/* top bar */
+.bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding-block:4px 28px}
+.lockup-sm{display:flex;align-items:center;gap:10px}
+.lockup-sm svg{width:34px;height:34px}
+.lockup-sm b{font-family:var(--f-disp);font-variation-settings:"SOFT" 100;font-weight:500;font-size:22px;letter-spacing:.12em}
+.ctl{display:flex;flex-wrap:wrap;gap:10px}
+.seg{display:inline-flex;padding:3px;gap:2px;border:1px solid var(--line);border-radius:999px;background:color-mix(in oklab,var(--surface) 70%,transparent)}
+.seg button{padding:8px 14px;border-radius:999px;font-size:13px;font-weight:500;color:var(--ink2);transition:background .3s,color .3s}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* hero with destination switcher */
+.hero{position:relative;border-radius:32px;overflow:hidden;min-height:440px;display:grid;align-content:end;isolation:isolate}
+.hero svg.scene{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero .in{padding:28px;display:grid;gap:16px;color:#fff;background:linear-gradient(180deg,transparent,rgba(0,0,0,.42))}
+.hero .kick{font:500 12px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+.board[data-lang="ar"] .hero .kick{letter-spacing:0;text-transform:none;font-family:var(--f-ui-ar)}
+.hero h1{margin:0;font-family:var(--f-disp);font-variation-settings:"SOFT" 100,"opsz" 144;font-weight:400;font-size:clamp(40px,7vw,84px);line-height:1;letter-spacing:-.015em;text-wrap:balance}
+.board[data-lang="ar"] .hero h1{font-family:var(--f-disp-ar);font-weight:600;font-size:clamp(34px,6vw,64px);line-height:1.25;letter-spacing:0}
+.hero p{margin:0;max-width:56ch;font-size:16px;line-height:1.7;opacity:.95}
+.dests{display:flex;flex-wrap:wrap;gap:8px}
+.dest{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;background:rgba(255,255,255,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-weight:500;font-size:14px;border:1px solid rgba(255,255,255,.25);transition:background .3s,transform .2s}
+.board[data-lang="ar"] .dest{padding:8px 8px 8px 16px}
+.dest:active{transform:scale(.97)}
+.dest i{width:28px;height:28px;border-radius:50%;display:block;border:2px solid rgba(255,255,255,.7)}
+.dest[aria-pressed="true"]{background:#fff;color:#0B151C}
+.dest small{font-size:12px;opacity:.75;font-weight:400}
+
+section{padding-block:56px 8px}
+.eyebrow{font:500 12px var(--f-mono);color:var(--act);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;display:block}
+.board[data-lang="ar"] .eyebrow{letter-spacing:0;text-transform:none}
+h2{margin:0 0 14px;font-family:var(--f-disp);font-variation-settings:"SOFT" 100;font-weight:500;font-size:clamp(28px,4vw,40px);line-height:1.15;text-wrap:balance}
+.board[data-lang="ar"] h2{font-family:var(--f-disp-ar);font-weight:600;line-height:1.4}
+p.lead{margin:0;max-width:66ch;font-size:16.5px;line-height:1.8;color:var(--ink2)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:24px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:22px;min-width:0}
+.tile h3{margin:0 0 6px;font-size:17px;font-weight:600}
+.board[data-lang="ar"] .tile h3{font-family:var(--f-disp-ar)}
+.tile p{margin:0;font-size:14.5px;line-height:1.7;color:var(--ink2)}
+
+/* name */
+.name-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:760px){.name-hero{grid-template-columns:minmax(0,1fr)}}
+.big-word{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap}
+.big-word .lat{font-family:var(--f-disp);font-variation-settings:"SOFT" 100,"opsz" 144;font-weight:400;font-size:clamp(64px,12vw,128px);line-height:.9;letter-spacing:.08em;direction:ltr}
+.big-word .ar{font-family:var(--f-disp-ar);font-weight:600;font-size:clamp(48px,9vw,96px);line-height:1;color:var(--act)}
+.ipa{font:400 14px var(--f-mono);color:var(--ink2);direction:ltr;unicode-bidi:isolate}
+.alts{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.alts span{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink2)}
+
+/* logo */
+.logo-stage{display:grid;place-items:center;aspect-ratio:1/1;max-width:100%;border-radius:28px;background:var(--surface);border:1px solid var(--line);position:relative;overflow:hidden}
+.logo-stage svg{width:58%;height:auto}
+.logo-stage .guide{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s}
+.logo-stage:hover .guide{opacity:1}
+.lockups{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:20px}
+.lk{border-radius:24px;padding:28px 22px;display:grid;place-items:center;gap:10px;min-height:170px;border:1px solid var(--line)}
+.lk.light{background:var(--surface);color:var(--ink)}
+.lk.deep{background:var(--deep);color:#F1EEE6}
+.lk.act{background:var(--act);color:#fff}
+.lk .h{display:flex;align-items:center;gap:12px;direction:ltr}
+.lk .h svg{width:46px;height:46px}
+.lk .h b{font-family:var(--f-disp);font-variation-settings:"SOFT" 100;font-weight:500;font-size:34px;letter-spacing:.14em}
+.lk .h em{font-style:normal;font-family:var(--f-disp-ar);font-weight:600;font-size:24px;opacity:.8;padding-inline-start:10px;border-inline-start:1px solid currentColor;margin-inline-start:4px}
+.lk .cap{font-size:12px;opacity:.7}
+.icons{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;justify-content:center}
+.icons svg{border-radius:22%;box-shadow:0 16px 30px -18px rgba(0,0,0,.6)}
+
+/* destination cards */
+.dcard{border-radius:26px;overflow:hidden;border:1px solid var(--line);background:var(--surface);display:grid;min-width:0;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s}
+.dcard:hover{transform:translateY(-3px);box-shadow:0 22px 40px -28px rgba(0,0,0,.5)}
+.dcard[aria-current="true"]{outline:2px solid var(--act);outline-offset:3px}
+.dcard .scn{height:150px;position:relative}
+.dcard .scn svg{position:absolute;inset:0;width:100%;height:100%}
+.dcard .b{padding:18px;display:grid;gap:10px}
+.dcard h3{margin:0;font-family:var(--f-disp);font-variation-settings:"SOFT" 100;font-weight:500;font-size:24px}
+.board[data-lang="ar"] .dcard h3{font-family:var(--f-disp-ar);font-weight:600}
+.dcard .sys{font:500 12px var(--f-mono);color:var(--ink2);direction:ltr;text-align:start}
+.dcard p{margin:0;font-size:14px;line-height:1.7;color:var(--ink2)}
+.sw{display:flex;gap:6px}
+.sw i{flex:1;height:30px;border-radius:8px;border:1px solid var(--line)}
+.mood{display:flex;flex-wrap:wrap;gap:6px}
+.mood span{font-size:12px;padding:4px 10px;border-radius:999px;background:var(--wash);color:var(--act)}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px;color:var(--ink2)}
+.spec b{color:var(--ink);font-weight:500}
+
+/* motion demo */
+.tempo{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px}
+.tm{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:12px}
+.tm .track{height:64px;border-radius:14px;background:var(--wash);position:relative;overflow:hidden}
+.tm .ball{position:absolute;top:16px;inset-inline-start:12px;width:32px;height:32px;border-radius:50%;background:var(--act)}
+.tm.go .ball{animation:glide var(--d) var(--e) forwards}
+@keyframes glide{to{inset-inline-start:calc(100% - 44px)}}
+.tm button{justify-self:start;font-size:13px;font-weight:600;color:var(--act);padding:6px 0}
+.tm .t{font-weight:600}
+.tm small{color:var(--ink2);font-size:12.5px;line-height:1.6}
+.tex{height:90px;border-radius:16px;border:1px solid var(--line);margin-top:12px}
+
+/* voice */
+.voice{display:grid;gap:10px;margin-top:20px}
+.vl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media (max-width:640px){.vl{grid-template-columns:minmax(0,1fr)}}
+.vl div{padding:14px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--line);font-size:15px;line-height:1.6}
+.vl .no{opacity:.6;text-decoration:line-through;text-decoration-color:var(--hi)}
+.vl .lab{display:block;font:500 11px var(--f-mono);color:var(--ink2);margin-bottom:4px;text-decoration:none}
+
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink2);line-height:1.7}
+@media (prefers-reduced-motion:reduce){.board{transition:none}.tm.go .ball{animation:none;inset-inline-start:calc(100% - 44px)}*{transition-duration:.01ms!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- The REHLA mark: one continuous line — a journey — that crosses the
+         desert floor, climbs a mountain or dune and runs out as a wave, with
+         the sun above it. One line, one trip, three places. -->
+    <symbol id="mark" viewBox="0 0 64 64">
+      <path d="M7 45h7l10-15.5c1.2-1.8 3.8-1.8 5 0L36 40c1.6 2.4 4.6 2.6 6.4.4 2.9-3.6 7-3.6 9.9 0 1.2 1.5 2.9 2.2 4.7 2.2" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="43" cy="19" r="5.5" fill="var(--mk-sun,currentColor)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="board" id="board" data-dest="dahab" data-lang="ar">
+<div class="wrap">
+
+  <div class="bar">
+    <div class="lockup-sm" style="color:var(--act)"><svg aria-hidden="true"><use href="#mark"/></svg><b style="color:var(--ink)">REHLA</b></div>
+    <div class="ctl">
+      <div class="seg" role="group" aria-label="Language"><button type="button" id="l-ar" aria-pressed="true">عربي</button><button type="button" id="l-en" aria-pressed="false">English</button></div>
+      <div class="seg" role="group" aria-label="Theme"><button type="button" id="t-light" aria-pressed="true"><span lang="ar">نهار</span><span lang="en">Day</span></button><button type="button" id="t-dark" aria-pressed="false"><span lang="ar">ليل</span><span lang="en">Night</span></button></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <svg class="scene" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--sky2)"/><stop offset="1" stop-color="var(--sky1)"/></linearGradient>
+        <linearGradient id="wat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--water)"/><stop offset="1" stop-color="var(--deep)"/></linearGradient>
+      </defs>
+      <rect width="1200" height="520" fill="url(#sky)"/>
+      <circle cx="860" cy="170" r="54" fill="#fff" opacity=".55"/>
+      <g id="hero-land"></g>
+    </svg>
+    <div class="in">
+      <span class="kick" id="h-kick"><span lang="ar">رحلة · دهب</span><span lang="en">REHLA · Dahab</span></span>
+      <h1 id="h-title"><span lang="ar">هنا الصحرا بتقابل البحر</span><span lang="en">Where the desert meets the sea</span></h1>
+      <p id="h-line"><span lang="ar">اختار المكان، والموقع كله ياخد مزاجه: الألوان، والإيقاع، والصور، وحتى سرعة الحركة.</span><span lang="en">Pick a place and the whole site takes on its mood: colour, rhythm, imagery, even the pace of motion.</span></p>
+      <div class="dests" role="group" aria-label="Destination">
+        <button type="button" class="dest" data-d="dahab" aria-pressed="true"><i style="background:linear-gradient(135deg,#1F9D97 50%,#9A5642 50%)"></i><span><span lang="ar">دهب</span><span lang="en">Dahab</span> <small><span lang="ar">بحر وجبل</span><span lang="en">sea &amp; granite</span></small></span></button>
+        <button type="button" class="dest" data-d="nuweiba" aria-pressed="false"><i style="background:linear-gradient(135deg,#6FB3BF 50%,#B6A28C 50%)"></i><span><span lang="ar">نويبع</span><span lang="en">Nuweiba</span> <small><span lang="ar">هدوء وبساطة</span><span lang="en">calm &amp; simple</span></small></span></button>
+        <button type="button" class="dest" data-d="siwa" aria-pressed="false"><i style="background:linear-gradient(135deg,#4A7445 50%,#D9B583 50%)"></i><span><span lang="ar">سيوة</span><span lang="en">Siwa</span> <small><span lang="ar">واحة واستشفاء</span><span lang="en">oasis &amp; healing</span></small></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAME -->
+  <section>
+    <span class="eyebrow"><span lang="ar">٠١ · الاسم</span><span lang="en">01 · Name</span></span>
+    <div class="name-hero">
+      <div>
+        <div class="big-word"><span class="lat">REHLA</span><span class="ar">رحلة</span></div>
+        <p class="ipa">/reh·la/ · “journey”</p>
+      </div>
+      <div>
+        <h2><span lang="ar">«رحلة»: الكلمة اللي كل مصري وعربي فاهمها</span><span lang="en">Rehla: the word every Arabic speaker already knows</span></h2>
+        <p class="lead"><span lang="ar">«رحلة» كلمة دافية ومألوفة، وبتقول على طول المنتج بيعمل إيه: بيمشي معاك الرحلة كلها، من أول ما تحلم بيها لحد ما ترجع. الأجنبي بينطقها بسهولة (Reh-la)، وبتشيل أي مكان: دهب ونويبع وسيوة وأي مكان جاي.</span><span lang="en">A warm, familiar word that says what the product does: it walks with you through the whole trip, from the first daydream to the way home. Easy for visitors to say (Reh-la), and big enough to hold Dahab, Nuweiba, Siwa and every place to come.</span></p>
+        <div class="alts"><span lang="ar">تنبيه قبل الإطلاق: فيه شركة حجوزات اسمها Rehlat شغالة في مصر من 2017، ومنصة «رحلة» بتاعة وزارة السياحة للرحلات المدرسية. لازم نراجع العلامة التجارية والدومين، ويفضّل نميّز الاسم (زي «REHLA by …» أو اسم الدومين).</span><span lang="en">Before launch: Rehlat, a travel booking company, has operated in Egypt since 2017, and the Ministry of Tourism runs a "Rehla" school-trip platform. Check the trademark and domain, and consider a distinguishing form (for example "REHLA by …").</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO -->
+  <section>
+    <span class="eyebrow"><span lang="ar">٠٢ · اللوجو</span><span lang="en">02 · Logo</span></span>
+    <div class="grid2" style="margin-top:0">
+      <div class="logo-stage" style="color:var(--act)">
+        <svg viewBox="0 0 64 64" aria-label="REHLA mark"><use href="#mark"/></svg>
+        <svg class="guide" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="var(--hi)" stroke-width=".25" stroke-dasharray="1 1"><line x1="0" y1="45" x2="64" y2="45"/><line x1="0" y1="29" x2="64" y2="29"/><line x1="0" y1="19" x2="64" y2="19"/><line x1="43" y1="0" x2="43" y2="64"/><circle cx="43" cy="19" r="5.5"/><circle cx="43" cy="19" r="11"/></g></svg>
+      </div>
+      <div style="display:grid;align-content:center;gap:14px">
+        <h2><span lang="ar">خط واحد، رحلة واحدة، ٣ أماكن</span><span lang="en">One line, one journey, three places</span></h2>
+        <p class="lead"><span lang="ar">خط واحد من غير ما يتقطع: بيمشي على أرض الصحرا، ويطلع جبل أو كثيب، وينزل يبقى موجة، والشمس فوقيه. ده مسار الرحلة نفسه، وبيجمع دهب ونويبع وسيوة في شكل واحد. بسيط، فبيفضل واضح حتى في أيقونة صغيرة. عدّي بالماوس على اللوجو عشان تشوف خطوط البناء.</span><span lang="en">A single unbroken line walks the desert floor, climbs a mountain or dune and runs out as a wave, under the sun. It is the trip itself, joining Dahab, Nuweiba and Siwa in one shape, and simple enough to stay crisp at icon size. Hover the mark to see its construction.</span></p>
+        <p class="lead" style="font-size:14.5px"><span lang="ar">الحروف: REHLA بخط Fraunces بمسافات واسعة، ورحلة بخط Alexandria. لون اللوجو بيتغيّر مع كل مكان.</span><span lang="en">Wordmark: REHLA in widely tracked Fraunces, رحلة in Alexandria. The mark takes each destination's colour.</span></p>
+      </div>
+    </div>
+    <div class="lockups">
+      <div class="lk light"><div class="h"><svg style="color:var(--act)"><use href="#mark"/></svg><b>REHLA</b><em>رحلة</em></div><span class="cap"><span lang="ar">الأساسي · فاتح</span><span lang="en">Primary · light</span></span></div>
+      <div class="lk deep"><div class="h"><svg style="color:var(--act);--mk-sun:var(--hi)"><use href="#mark"/></svg><b>REHLA</b><em>رحلة</em></div><span class="cap"><span lang="ar">على الغامق</span><span lang="en">On deep</span></span></div>
+      <div class="lk act"><div class="h"><svg><use href="#mark"/></svg><b>REHLA</b></div><span class="cap"><span lang="ar">على لون المكان</span><span lang="en">On destination colour</span></span></div>
+      <div class="lk light"><div class="icons" id="icons"></div><span class="cap"><span lang="ar">أيقونة التطبيق · دهب · نويبع · سيوة</span><span lang="en">App icon · Dahab · Nuweiba · Siwa</span></span></div>
+    </div>
+  </section>
+
+  <!-- DESTINATIONS -->
+  <section>
+    <span class="eyebrow"><span lang="ar">٠٣ · هوية لكل مكان</span><span lang="en">03 · One identity per place</span></span>
+    <h2><span lang="ar">نفس البراند، ومزاج مختلف لكل مكان</span><span lang="en">One brand, a different mood per place</span></h2>
+    <p class="lead"><span lang="ar">الخطوط واللوجو والتنظيم ثابتين، فالمستخدم دايماً عارف هو فين. اللي بيتغيّر: الألوان، والصور، والملمس، وسرعة الحركة. كل ده مدروس على الإحساس اللي المكان بيدّيه: دهب نشاط، ونويبع هدوء، وسيوة استشفاء. دوس على أي كارت.</span><span lang="en">Type, logo and structure stay fixed, so people always know where they are. What changes is colour, imagery, texture and the pace of motion, each tuned to how the place feels: Dahab is energy, Nuweiba is stillness, Siwa is healing. Tap a card.</span></p>
+    <div class="grid3" id="dcards">
+      <article class="dcard" data-d="dahab" tabindex="0" aria-current="true">
+        <div class="scn" data-scene="dahab"></div>
+        <div class="b">
+          <h3><span lang="ar">دهب</span><span lang="en">Dahab</span></h3>
+          <span class="sys">Granite &amp; Lagoon</span>
+          <div class="sw"><i style="background:#0E7C7A"></i><i style="background:#B4523A"></i><i style="background:#9A5642"></i><i style="background:#F5F4F0"></i><i style="background:#0B151C"></i></div>
+          <div class="mood"><span lang="ar">نشاط</span><span lang="en">Energetic</span><span lang="ar">مغامرة</span><span lang="en">Adventurous</span><span lang="ar">اجتماعي</span><span lang="en">Social</span></div>
+          <div class="spec"><b><span lang="ar">الحركة</span><span lang="en">Motion</span></b><span class="mono">spring · 520ms</span><b><span lang="ar">الملمس</span><span lang="en">Texture</span></b><span><span lang="ar">تموّج المية</span><span lang="en">Water ripple</span></span><b><span lang="ar">الصور</span><span lang="en">Imagery</span></b><span><span lang="ar">تحت المية، جرانيت، كايت</span><span lang="en">Underwater, granite, kites</span></span></div>
+          <p><span lang="ar">فيروزي اللاجونا للأكشن، وكورال الغروب للإبراز. تباين عالي وحركة بنطّة خفيفة، عشان دهب مليانة حاجات تتعمل.</span><span lang="en">Lagoon teal for action, sunset coral to highlight. Higher contrast and a lively spring, because Dahab is full of things to do.</span></p>
+        </div>
+      </article>
+      <article class="dcard" data-d="nuweiba" tabindex="0">
+        <div class="scn" data-scene="nuweiba"></div>
+        <div class="b">
+          <h3><span lang="ar">نويبع</span><span lang="en">Nuweiba</span></h3>
+          <span class="sys">Driftwood &amp; Shallows</span>
+          <div class="sw"><i style="background:#2D7787"></i><i style="background:#A97447"></i><i style="background:#B6A28C"></i><i style="background:#F2F1EB"></i><i style="background:#13232A"></i></div>
+          <div class="mood"><span lang="ar">هدوء</span><span lang="en">Still</span><span lang="ar">بساطة</span><span lang="en">Simple</span><span lang="ar">فصل عن الدوشة</span><span lang="en">Unplugged</span></div>
+          <div class="spec"><b><span lang="ar">الحركة</span><span lang="en">Motion</span></b><span class="mono">ease-in-out · 800ms</span><b><span lang="ar">الملمس</span><span lang="en">Texture</span></b><span><span lang="ar">خطوط أفق طويلة</span><span lang="en">Long horizon lines</span></span><b><span lang="ar">الصور</span><span lang="en">Imagery</span></b><span><span lang="ar">عشش خشب، مية رايقة، أفق فاضي</span><span lang="en">Palm huts, glassy shallows, empty horizon</span></span></div>
+          <p><span lang="ar">أزرق المية الضحلة وبني خشب البحر. تباين أهدى ومسافات أوسع ومحتوى أقل في الشاشة، وحركة بطيئة بدون نطّ، عشان نويبع للي عايز يرتاح.</span><span lang="en">Shallow-water blue and driftwood brown. Softer contrast, wider spacing, fewer items per screen and slow, unbouncy motion: Nuweiba is for slowing down.</span></p>
+        </div>
+      </article>
+      <article class="dcard" data-d="siwa" tabindex="0">
+        <div class="scn" data-scene="siwa"></div>
+        <div class="b">
+          <h3><span lang="ar">سيوة</span><span lang="en">Siwa</span></h3>
+          <span class="sys">Salt &amp; Palm</span>
+          <div class="sw"><i style="background:#4A7445"></i><i style="background:#A9573A"></i><i style="background:#D9B583"></i><i style="background:#F6F2EA"></i><i style="background:#211C16"></i></div>
+          <div class="mood"><span lang="ar">استشفاء</span><span lang="en">Healing</span><span lang="ar">دفا</span><span lang="en">Warm</span><span lang="ar">تأمّل</span><span lang="en">Contemplative</span></div>
+          <div class="spec"><b><span lang="ar">الحركة</span><span lang="en">Motion</span></b><span class="mono">breath · 1100ms</span><b><span lang="ar">الملمس</span><span lang="en">Texture</span></b><span><span lang="ar">بلورات الملح وطوب الكرشيف</span><span lang="en">Salt crystal, kershef brick</span></span><b><span lang="ar">الصور</span><span lang="en">Imagery</span></b><span><span lang="ar">بحيرات ملح، نخيل، عيون، شالي</span><span lang="en">Salt lakes, palms, springs, Shali</span></span></div>
+          <p><span lang="ar">أخضر النخل وطين الكرشيف على أبيض الملح. ألوان دافية بتهدّي، وحركة على إيقاع النفس، عشان سيوة للسياحة العلاجية والعيون والرمل الساخن.</span><span lang="en">Palm green and kershef clay on salt white. Warm, grounding colour and motion paced like a breath, for Siwa's healing springs, salt lakes and hot sand.</span></p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section>
+    <span class="eyebrow"><span lang="ar">٠٤ · الإيقاع</span><span lang="en">04 · Tempo</span></span>
+    <h2><span lang="ar">كل مكان ليه إيقاعه</span><span lang="en">Every place moves at its own pace</span></h2>
+    <p class="lead"><span lang="ar">نفس العنصر بيتحرك بإحساس مختلف حسب المكان. دوس «شغّل» وقارن.</span><span lang="en">The same element moves with a different feeling per place. Press play and compare.</span></p>
+    <div class="tempo">
+      <div class="tm" style="--d:520ms;--e:cubic-bezier(.34,1.3,.64,1)"><span class="t"><span lang="ar">دهب · spring</span><span lang="en">Dahab · spring</span></span><div class="track"><span class="ball"></span></div><small><span lang="ar">سريع وفيه نطّة خفيفة. حيوي.</span><span lang="en">Quick, with a light overshoot. Alive.</span></small><button type="button"><span lang="ar">شغّل ▸</span><span lang="en">Play ▸</span></button><div class="tex" style="background:repeating-radial-gradient(circle at 30% 120%,transparent 0 10px,color-mix(in oklab,#0E7C7A 18%,transparent) 10px 11px)"></div></div>
+      <div class="tm" style="--d:800ms;--e:cubic-bezier(.45,0,.2,1)"><span class="t"><span lang="ar">نويبع · ease</span><span lang="en">Nuweiba · ease</span></span><div class="track"><span class="ball"></span></div><small><span lang="ar">أبطأ ومن غير نطّ. زي موجة هادية.</span><span lang="en">Slower, no overshoot. Like a still tide.</span></small><button type="button"><span lang="ar">شغّل ▸</span><span lang="en">Play ▸</span></button><div class="tex" style="background:repeating-linear-gradient(180deg,transparent 0 13px,color-mix(in oklab,#2D7787 22%,transparent) 13px 14px)"></div></div>
+      <div class="tm" style="--d:1100ms;--e:cubic-bezier(.37,0,.2,1)"><span class="t"><span lang="ar">سيوة · breath</span><span lang="en">Siwa · breath</span></span><div class="track"><span class="ball"></span></div><small><span lang="ar">على إيقاع النفس. بيهدّي.</span><span lang="en">Paced like a breath. Settling.</span></small><button type="button"><span lang="ar">شغّل ▸</span><span lang="en">Play ▸</span></button><div class="tex" style="background:conic-gradient(from 30deg at 50% 50%,color-mix(in oklab,#D9B583 30%,transparent) 0 60deg,transparent 60deg 120deg) 0 0/22px 22px,linear-gradient(90deg,color-mix(in oklab,#A9573A 10%,transparent) 0 1px,transparent 1px) 0 0/22px 22px"></div></div>
+    </div>
+  </section>
+
+  <!-- VOICE -->
+  <section>
+    <span class="eyebrow"><span lang="ar">٠٥ · طريقة الكلام</span><span lang="en">05 · Voice</span></span>
+    <h2><span lang="ar">عامية مصرية خفيفة، زي صاحبك</span><span lang="en">Light Egyptian Arabic, like a friend</span></h2>
+    <p class="lead"><span lang="ar">بالعربي: عامية خفيفة ومحترمة. بالإنجليزي: دافي وواضح ومن غير مبالغة.</span><span lang="en">Arabic: light, respectful colloquial. English: warm, clear, no hype.</span></p>
+    <div class="voice">
+      <div class="vl"><div class="no"><span class="lab">✕</span>يرجى إتمام عملية الدفع خلال المهلة المحددة</div><div><span class="lab">✓</span>محجوزلك ١٥ دقيقة، كمّل الدفع براحتك</div></div>
+      <div class="vl"><div class="no"><span class="lab">✕</span>لا توجد نتائج مطابقة لبحثك</div><div><span class="lab">✓</span>مالقيناش حاجة بالاسم ده. جرّب «غطس» أو «مكان هادي»</div></div>
+      <div class="vl"><div class="no"><span class="lab">✕</span>Unlock unforgettable experiences!</div><div><span class="lab">✓</span>Snorkel the Eel Garden at sunset, 10 minutes from your hotel.</div></div>
+    </div>
+  </section>
+
+  <footer class="foot"><span lang="ar">الخطوط كلها مجانية (OFL). الألوان والإيقاع لكل مكان هيتحطوا كـ tokens في الكود (data-destination)، والموقع يبدأ بدهب افتراضياً. اسم REHLA محتاج مراجعة علامة تجارية ودومين قبل الإطلاق (شوف ملاحظة الاسم فوق).</span><span lang="en">All fonts are free (OFL). Each place's colour and tempo ship as tokens in code (data-destination); the site opens on Dahab by default. REHLA needs a trademark and domain check before launch (see the note under the name).</span></footer>
+</div>
+</div>
+
+<script>
+(function(){
+  var board = document.getElementById('board');
+  // landscapes per destination (layered SVG, coloured by the live tokens)
+  var land = {
+    dahab: '<path d="M0 300 L120 210 L210 260 L330 150 L450 250 L560 190 L700 280 L820 200 L960 270 L1080 220 L1200 260 V380 H0Z" fill="var(--l1)"/><path d="M0 340 L160 270 L300 320 L420 260 L600 330 L760 280 L900 330 L1050 290 L1200 320 V390 H0Z" fill="var(--l2)"/><rect y="370" width="1200" height="150" fill="url(#wat)"/><path d="M0 372 H1200" stroke="#fff" stroke-opacity=".5" stroke-width="2"/><g stroke="#fff" stroke-opacity=".22" fill="none"><path d="M80 420 q40 -10 80 0 t80 0"/><path d="M600 450 q40 -10 80 0 t80 0"/><path d="M900 410 q40 -10 80 0 t80 0"/></g>',
+    nuweiba: '<path d="M0 330 L200 290 L420 310 L640 280 L900 305 L1200 285 V380 H0Z" fill="var(--l1)"/><rect y="372" width="1200" height="148" fill="url(#wat)"/><g stroke="#fff" stroke-opacity=".35"><path d="M0 400 H1200"/><path d="M0 430 H1200" stroke-opacity=".2"/><path d="M0 470 H1200" stroke-opacity=".12"/></g><g fill="var(--l2)"><path d="M180 372 v-46 h8 v46z"/><path d="M150 330 L184 300 L218 330z"/><path d="M262 372 v-38 h7 v38z"/><path d="M236 338 L266 312 L296 338z"/></g><path d="M0 372 H1200" stroke="var(--ground)" stroke-width="10"/>',
+    siwa: '<path d="M0 330 Q200 280 380 320 T760 300 T1200 310 V520 H0Z" fill="var(--l1)"/><ellipse cx="760" cy="410" rx="300" ry="34" fill="var(--water)" opacity=".9"/><ellipse cx="760" cy="404" rx="280" ry="22" fill="#fff" opacity=".35"/><path d="M0 440 Q260 400 520 450 T1200 430 V520 H0Z" fill="var(--l2)"/><g fill="var(--act)"><path d="M210 360 q4 -40 2 -70" stroke="#5a4532" stroke-width="5" fill="none"/><path d="M212 292 q-30 -2 -46 18 q22 -10 46 -18z M212 292 q30 -4 48 14 q-24 -8 -48 -14z M212 292 q-12 -24 -36 -30 q16 14 36 30z M212 292 q14 -24 38 -28 q-18 12 -38 28z"/><path d="M300 372 q3 -34 1 -60" stroke="#5a4532" stroke-width="4" fill="none"/><path d="M301 314 q-26 -2 -40 16 q20 -9 40 -16z M301 314 q26 -4 42 12 q-21 -7 -42 -12z M301 314 q-10 -21 -31 -26 q14 12 31 26z"/></g><g fill="var(--hi)" opacity=".85"><path d="M960 330 h120 v-40 h-24 v-22 h-30 v-18 h-34 v30 h-32z"/></g>'
+  };
+  function sceneSVG(d, h){
+    return '<svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="sky-'+d+h+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--sky2)"/><stop offset="1" stop-color="var(--sky1)"/></linearGradient><linearGradient id="wat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--water)"/><stop offset="1" stop-color="var(--deep)"/></linearGradient></defs><rect width="1200" height="520" fill="url(#sky-'+d+h+')"/><circle cx="860" cy="170" r="54" fill="#fff" opacity=".55"/>'+land[d]+'</svg>';
+  }
+  // destination cards render their own palette regardless of the active one
+  var palettes = {
+    dahab:{sky1:'#F2C9A8',sky2:'#9CD4D0',l1:'#9A5642',l2:'#6B3B2E',water:'#1F9D97',ground:'#E3CFAE',deep:'#0B151C',act:'#0E7C7A',hi:'#B4523A'},
+    nuweiba:{sky1:'#E9E4D6',sky2:'#BFDDE2',l1:'#B6A28C',l2:'#8E7C69',water:'#6FB3BF',ground:'#E7DCC6',deep:'#13232A',act:'#2D7787',hi:'#A97447'},
+    siwa:{sky1:'#F3D7A6',sky2:'#F7EBCF',l1:'#D9B583',l2:'#C29763',water:'#7FC3BD',ground:'#EADBC0',deep:'#211C16',act:'#4A7445',hi:'#A9573A'}
+  };
+  document.querySelectorAll('.scn').forEach(function(el, i){
+    var d = el.dataset.scene, p = palettes[d], st = '';
+    for (var k in p) st += '--'+k+':'+p[k]+';';
+    el.setAttribute('style', st);
+    el.innerHTML = sceneSVG(d, 'c'+i);
+  });
+  // app icons
+  var icons = document.getElementById('icons');
+  ['dahab','nuweiba','siwa'].forEach(function(d){
+    var p = palettes[d];
+    icons.insertAdjacentHTML('beforeend','<svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="ig-'+d+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+p.deep+'"/><stop offset="1" stop-color="'+p.deep+'"/></linearGradient></defs><rect width="64" height="64" fill="url(#ig-'+d+')"/><rect y="46" width="64" height="18" fill="'+p.water+'" opacity=".35"/><g style="color:'+(d==='siwa'?'#C8DDB9':d==='nuweiba'?'#A9D6DE':'#3CC2BC')+';--mk-sun:'+p.hi+'"><use href="#mark" x="8" y="6" width="48" height="48"/></g></svg>');
+  });
+
+  function setDest(d){
+    board.dataset.dest = d;
+    document.querySelectorAll('.dest').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.d===d ? 'true':'false'); });
+    document.querySelectorAll('.dcard').forEach(function(c){ c.setAttribute('aria-current', c.dataset.d===d ? 'true':'false'); });
+    document.getElementById('hero-land').innerHTML = land[d];
+    var t = {
+      dahab:['رحلة · دهب','REHLA · Dahab','هنا الصحرا بتقابل البحر','Where the desert meets the sea'],
+      nuweiba:['رحلة · نويبع','REHLA · Nuweiba','عشة على البحر، والوقت ملكك','A hut on the shore, and time is yours'],
+      siwa:['رحلة · سيوة','REHLA · Siwa','واحة بتداوي','An oasis that heals']
+    }[d];
+    document.getElementById('h-kick').innerHTML = '<span lang="ar">'+t[0]+'</span><span lang="en">'+t[1]+'</span>';
+    document.getElementById('h-title').innerHTML = '<span lang="ar">'+t[2]+'</span><span lang="en">'+t[3]+'</span>';
+    try{ localStorage.setItem('rehla-dest', d); }catch(e){}
+  }
+  document.querySelectorAll('.dest').forEach(function(b){ b.addEventListener('click', function(){ setDest(b.dataset.d); }); });
+  document.querySelectorAll('.dcard').forEach(function(c){
+    c.addEventListener('click', function(){ setDest(c.dataset.d); window.scrollTo({top:0,behavior:'smooth'}); });
+    c.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); c.click(); } });
+  });
+  var saved = null; try{ saved = localStorage.getItem('rehla-dest'); }catch(e){}
+  setDest(saved && land[saved] ? saved : 'dahab');
+
+  function pair(ids, fn){ ids.forEach(function(id){ document.getElementById(id).addEventListener('click', function(){ ids.forEach(function(o){ document.getElementById(o).setAttribute('aria-pressed', o===id?'true':'false'); }); fn(id); }); }); }
+  pair(['l-ar','l-en'], function(id){ board.dataset.lang = id==='l-ar'?'ar':'en'; document.documentElement.lang = board.dataset.lang; });
+  pair(['t-light','t-dark'], function(id){ board.classList.toggle('dark', id==='t-dark'); });
+
+  document.querySelectorAll('.tm button').forEach(function(b){
+    b.addEventListener('click', function(){ var tm=b.parentElement; tm.classList.remove('go'); void tm.offsetWidth; tm.classList.add('go'); });
+  });
+})();
+</script>

@@ -1,0 +1,33 @@
+# Build inputs only. Anything not needed to run `npm ci && npm run build`
+# stays out of the build context.
+
+.git
+.github
+node_modules
+dist
+build
+coverage
+
+# Secrets and local state. .env holds a live Gemini key; data/ holds session
+# tokens, traveler contact details and supplier payout IBANs. The seed datasets
+# under data/ ARE needed at boot and are re-admitted below.
+.env
+.env.*
+!.env.example
+*.local.md
+*.local.json
+data/*
+!data/dahab_local_commerce.json
+!data/instagram
+
+# Documentation and the legacy self-certification scripts: 77 markdown files and
+# 22 tsx-run scripts that no runtime code path imports.
+docs
+*.md
+!README.md
+server/test
+
+.claude
+.vscode
+.idea
+*.log

@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "module": "ESNext",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": [
+        "./*",
+        "./src/*"
+      ]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  },
+  "include": ["src", "server", "server.ts", "vite.config.ts", "tests"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests/setup.ts",
+    "tests/domain/aiEvalHarness.test.ts",
+    "tests/domain/attractionsCatalogue.test.ts",
+    "tests/domain/bookability.test.ts",
+    "tests/domain/bundleService.test.ts",
+    "tests/domain/cmsWorkflowIntegrity.test.ts",
+    "tests/domain/fraudDetection.test.ts",
+    "tests/domain/marineService.test.ts",
+    "tests/domain/pgFlush.test.ts",
+    "tests/domain/placeMapper.test.ts",
+    "tests/domain/reefPositive.test.ts",
+    "tests/domain/supplierRevenueAnalytics.test.ts",
+    "tests/domain/tripHealthMapper.test.ts",
+    "tests/domain/tripJournal.test.ts",
+    "tests/ui/TripConservationCard.test.tsx"
+  ]
+}

@@ -1,0 +1,2 @@
+node_modules/\nbuild/\ndist/\n.data/\n.env\n.env.local\n*.log\nrun-*/\n*.err.log
+.data/\nrun-*/\n.dahab-ops/\n.idea/

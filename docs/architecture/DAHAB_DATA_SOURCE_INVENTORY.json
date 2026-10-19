@@ -1,0 +1,89 @@
+{
+  "version": "1.0.0",
+  "auditDate": "2026-08-26",
+  "environment": "Production / Preview Hybrid",
+  "dataSources": [
+    {
+      "id": "dahab_geography",
+      "path": "src/data/dahabGeography.ts",
+      "category": "CURATED_DESTINATION",
+      "authorityLevel": "IMMUTABLE_PUBLIC_KNOWLEDGE",
+      "riskLevel": "LOW",
+      "consumers": ["ExploreView", "InteractiveMap", "EnvironmentalWidgets"],
+      "isolated": true,
+      "description": "Geographic boundaries, dive site coordinates, depth charts, reef topography."
+    },
+    {
+      "id": "dahab_content",
+      "path": "src/data/dahabContent.ts",
+      "category": "CURATED_EDITORIAL",
+      "authorityLevel": "IMMUTABLE_PUBLIC_KNOWLEDGE",
+      "riskLevel": "LOW",
+      "consumers": ["ExploreView", "ItineraryView", "TripBuilder"],
+      "isolated": true,
+      "description": "Editorial guides, cultural etiquette, packing recommendations."
+    },
+    {
+      "id": "ready_trips_data",
+      "path": "src/data/readyTripsData.ts",
+      "category": "CURATED_EDITORIAL",
+      "authorityLevel": "BLUEPRINT_PACKAGE",
+      "riskLevel": "LOW",
+      "consumers": ["ReadyTripsView", "TripBuilder"],
+      "isolated": true,
+      "description": "Ready-made 3 to 7-day curated travel programs."
+    },
+    {
+      "id": "intelligence_data",
+      "path": "src/data/intelligenceData.ts",
+      "category": "DKOS_GOVERNANCE",
+      "authorityLevel": "GROUND_VERIFIED_SIGNALS",
+      "riskLevel": "MEDIUM",
+      "consumers": ["DahabLocalIntelligenceCard", "NextBestActionBanner"],
+      "isolated": true,
+      "description": "Ground signals, regulatory decrees, CDWS dive alerts."
+    },
+    {
+      "id": "trip_os_defaults",
+      "path": "src/data/tripOsDefaults.ts",
+      "category": "DEFAULT_STATE",
+      "authorityLevel": "BASELINE_TEMPLATE",
+      "riskLevel": "MEDIUM",
+      "consumers": ["TripContext", "TripBuilder"],
+      "isolated": true,
+      "description": "Default empty profile and trip baseline parameters."
+    },
+    {
+      "id": "my_trip_data",
+      "path": "src/components/mytrip/myTripData.ts",
+      "category": "DEMO_ISOLATED",
+      "authorityLevel": "TEST_SIMULATION_ONLY",
+      "riskLevel": "HIGH_IF_LEAKED",
+      "consumers": ["DailyCompanionDay2View", "ChangeAndRecoveryView", "DemoSuite"],
+      "isolated": true,
+      "description": "Ahmed's 5-day journey dataset for golden test suites."
+    },
+    {
+      "id": "booking_catalog",
+      "path": "src/components/booking/bookingData.ts",
+      "category": "CURATED_COMMERCE_CATALOG",
+      "authorityLevel": "PUBLISHED_OFFERINGS",
+      "riskLevel": "HIGH",
+      "consumers": ["BookingWizard", "QuickBookModal"],
+      "isolated": true,
+      "description": "Hotel, diving, transfer, and safari inventory with published pricing."
+    },
+    {
+      "id": "backend_database",
+      "path": "server/db/database.ts",
+      "category": "AUTHORITATIVE_BACKEND",
+      "authorityLevel": "PRIMARY_SYSTEM_OF_RECORD",
+      "riskLevel": "CRITICAL_AUTHORITY",
+      "consumers": ["ExpressAPI", "CommerceLedgerService", "AuthSessionService"],
+      "isolated": true,
+      "description": "Relational entities: users, trips, bookings, payments, and immutable double-entry ledger."
+    }
+  ],
+  "anonymousIsolationEnforced": true,
+  "doubleEntryLedgerIntegrated": true
+}

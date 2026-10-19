@@ -1,0 +1,50 @@
+{
+  "fetchedAt": "2026-10-18T00:59:37.289Z",
+  "results": [
+    {
+      "url": "https://www.tripadvisor.com/Hotels-g297547-Dahab_South_Sinai_Red_Sea_and_Sinai-Hotels.html",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.booking.com/city/eg/dhahab.en.html?aid=1610684;label=dhahab-_MIPMZBZN3T5GiTsLmKEtgS379614582198:pl:ta:p1:p2:ac:ap:neg:fi:tikwd-13314956200:lp9261640:li:dec:dm:ppccp=UmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt10AsofPfvtt0;ws=&gad_source=1&gad_campaignid=1573322608&gbraid=0AAAAAD_Ls1KZzNsyY4p0LYiHxXYlm1IvP&gclid=CjwKCAjwuczWBhA9EiwAYGgEoRJ7gN--iBqd_p8JHvIXKWTUsyEm1wGLi_y-jRYCZt5rLYVKf-GeWhoCC0wQAvD_BwE",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.tripadvisor.com/Hotels-g297551-Nuweiba_South_Sinai_Red_Sea_and_Sinai-Hotels.html",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.booking.com/searchresults.html?aid=1610684&label=nuwaybi-n6GuDnsHs%2AWnTaS32Tj68AS541115125158%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwd-305534302222%3Alp9261640%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt10AsofPfvtt0&gclid=CjwKCAjwuczWBhA9EiwAYGgEoRwvyvuVqCu210ChwsHT7BBDCnpzHNsJLLrfddaIlAhKYFEZH0cLcxoCjjsQAvD_BwE&dest_type=city&dest_id=-300490&redirected_from_city=1&redirected=1&source=city&keep_landing=1&sid=9620a46bc9fdb7bee31b7c429ce3ec9e",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.tripadvisor.com/Hotels-g303857-Siwa_Matrouh_Governorate-Hotels.html",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.booking.com/searchresults.html?aid=356980&label=gog235jc-10CAMoQ0IKc2l3YS1vYXNpc0gzWANoQ4gBAZgBM7gBF8gBDNgDA-gBAfgBAYgCAagCAbgCtq3Q1gbAAgHSAiQ1MzEzYjRiMy0zMDJmLTRlYjAtOTAyZi03ZDg1YjRmZTY2NDXYAgHgAgE&city=900063059",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.airbnb.com/s/Dahab--Egypt/homes?place_id=ChIJX1itvylLqxURvxkzeY0jZaw&refinement_paths%5B%5D=%2Fhomes&checkin=2026-10-25&checkout=2026-10-26&date_picker_type=calendar&adults=1&guests=1&search_type=HOMEPAGE_CAROUSEL_CLICK",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.airbnb.com/s/Nuweiba--Egypt/homes?adults=1&refinement_paths%5B%5D=%2Fhomes&property_type_id%5B%5D=42&place_id=ChIJRz-OQnYkVRQRM9co1YxqbX4&location=Nuweiba%2C+Egypt",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.airbnb.com/s/Siwa-Oasis--Egypt/homes?adults=1&refinement_paths%5B%5D=%2Fhomes&place_id=ChIJI6Xz6KyvehQRTQea8fhdM28&location=Siwa+Oasis%2C+Egypt",
+      "data": null,
+      "error": "fetch failed"
+    }
+  ]
+}

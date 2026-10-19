@@ -1,0 +1,658 @@
+<title>Dahab Premium Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=Fraunces:opsz,wght,SOFT@9..144,400..700,50..100&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: long-form plan document — sticky table of contents on the start side (right, RTL) + one reading column; specimens break out as full-width plates. */
+:root{
+  --salt:#F5F4F0;        /* page ground: Dahab salt flat, cool off-white */
+  --paper:#FFFFFF;       /* raised surfaces */
+  --abyss:#0D1A22;       /* ink: Red Sea at depth */
+  --granite:#6B5A52;     /* secondary ink: Sinai granite */
+  --lagoon:#0E7C7A;      /* single action colour: lagoon water */
+  --coral:#D2694C;       /* highlight, once per view: sunset over Sinai */
+  --line:#E2DED6;
+  --muted:#8A8079;
+  --tint:#E8F2F1;        /* lagoon wash */
+  --warn-bg:#FBEFE9; --warn-fg:#9A3F27;
+  --ok-bg:#E6F2EC;   --ok-fg:#1F6B47;
+  --info-bg:#EEF0F6; --info-fg:#33446E;
+  --sw-abyss:#0D1A22; --sw-salt:#F5F4F0; --sw-granite:#6B5A52; --sw-lagoon:#0E7C7A; --sw-lagoon-d:#3CC2BC; --sw-coral:#D2694C; --sw-sand:#D9C3A5;
+
+  --f-display-lat:"Fraunces", "Iowan Old Style", Georgia, serif;
+  --f-display-ar:"Alexandria", "Geeza Pro", "Segoe UI", sans-serif;
+  --f-ui:"IBM Plex Sans Arabic", "IBM Plex Sans", "Geeza Pro", "Segoe UI", system-ui, sans-serif;
+  --f-ui-lat:"IBM Plex Sans", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:72px;
+  --r-sm:6px; --r-md:12px; --r-lg:20px;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --salt:#0B151C; --paper:#111F28; --abyss:#ECE9E2; --granite:#BBA99E; --lagoon:#3CC2BC; --coral:#F08A6C;
+  --line:#22323C; --muted:#8C9AA2; --tint:#12302F;
+  --warn-bg:#3A2019; --warn-fg:#F4B29C; --ok-bg:#14301F; --ok-fg:#8DD3AE; --info-bg:#1A2236; --info-fg:#AFC0EA;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --salt:#0B151C; --paper:#111F28; --abyss:#ECE9E2; --granite:#BBA99E; --lagoon:#3CC2BC; --coral:#F08A6C;
+  --line:#22323C; --muted:#8C9AA2; --tint:#12302F;
+  --warn-bg:#3A2019; --warn-fg:#F4B29C; --ok-bg:#14301F; --ok-fg:#8DD3AE; --info-bg:#1A2236; --info-fg:#AFC0EA;
+  color-scheme:dark;
+}
+body{background:var(--salt);color:var(--abyss);font-family:var(--f-ui);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:var(--lagoon);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--lagoon);outline-offset:2px;border-radius:4px}
+.lat{font-family:var(--f-ui-lat);direction:ltr;unicode-bidi:isolate}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+code{font-family:var(--f-mono);font-size:.86em;background:var(--tint);padding:1px 6px;border-radius:4px;direction:ltr;unicode-bidi:isolate;word-break:break-word}
+
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:var(--s7) var(--s8)}
+.grid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:var(--s7);align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
+
+/* hero */
+.hero{display:grid;gap:var(--s4);padding-block-end:var(--s7);border-bottom:1px solid var(--line);margin-bottom:var(--s7)}
+.eyebrow{font-family:var(--f-ui-lat);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--granite);direction:ltr;text-align:right}
+.hero h1{font-family:var(--f-display-ar);font-weight:600;font-size:clamp(34px,6vw,58px);line-height:1.25;margin:0;text-wrap:balance}
+.hero h1 .en{display:block;font-family:var(--f-display-lat);font-weight:400;font-variation-settings:"SOFT" 100;font-size:.6em;color:var(--lagoon);direction:ltr;text-align:right;margin-top:6px;font-style:italic}
+.lede{font-size:19px;max-width:62ch;color:var(--abyss);margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);color:var(--muted);font-size:14px}
+
+/* toc */
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);font-size:14px}
+.toc p{font-size:12px;color:var(--muted);margin:0 0 var(--s2)}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:t}
+.toc a{display:flex;gap:10px;color:var(--abyss);text-decoration:none;padding:6px 10px;border-radius:var(--r-sm)}
+.toc a:hover{background:var(--tint)}
+.toc a span{color:var(--muted);font-family:var(--f-mono);font-size:12px;min-width:18px}
+
+/* sections */
+main{min-width:0}
+section{padding-block:var(--s6);border-bottom:1px solid var(--line)}
+section:last-child{border-bottom:0}
+h2{font-family:var(--f-display-ar);font-weight:600;font-size:30px;line-height:1.35;margin:0 0 var(--s2);text-wrap:balance}
+h2 small{display:block;font-family:var(--f-display-lat);font-weight:400;font-size:17px;color:var(--granite);direction:ltr;text-align:right;font-style:italic;font-variation-settings:"SOFT" 100}
+h3{font-family:var(--f-display-ar);font-weight:500;font-size:20px;line-height:1.5;margin:var(--s6) 0 var(--s3)}
+p{margin:0 0 var(--s4);max-width:70ch}
+ul,ol{margin:0 0 var(--s4);padding-inline-start:22px;max-width:72ch}
+li{margin-bottom:6px}
+li::marker{color:var(--lagoon)}
+.secno{font-family:var(--f-mono);font-size:13px;color:var(--lagoon);margin-bottom:var(--s2);display:block}
+
+/* tables */
+.tbl{overflow-x:auto;margin:var(--s4) 0 var(--s5);border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th,td{text-align:right;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;font-size:13px;color:var(--granite);background:var(--salt)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:500}
+
+/* callouts & pills */
+.callout{border-radius:var(--r-md);padding:var(--s4) var(--s5);margin:var(--s4) 0 var(--s5);background:var(--tint)}
+.callout p:last-child,.callout ul:last-child{margin-bottom:0}
+.callout.warn{background:var(--warn-bg)}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.p-crit{background:var(--warn-bg);color:var(--warn-fg)}
+.p-ok{background:var(--ok-bg);color:var(--ok-fg)}
+.p-info{background:var(--info-bg);color:var(--info-fg)}
+.p-sim{background:var(--tint);color:var(--lagoon)}
+
+/* flow */
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:var(--s2);margin:var(--s4) 0 var(--s5)}
+.flow .step{flex:1 1 150px;min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;font-size:14px;line-height:1.55}
+.flow .step b{display:block;font-family:var(--f-display-ar);font-weight:600;font-size:15px;margin-bottom:2px}
+.flow .step .num{color:var(--lagoon);font-size:13px}
+.flow .arrow{align-self:center;color:var(--muted);font-size:18px}
+@media (max-width:640px){.flow .arrow{display:none}}
+
+/* cards row */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--s3);margin:var(--s4) 0 var(--s5)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s4);min-width:0}
+.card h4{margin:0 0 6px;font-family:var(--f-display-ar);font-weight:600;font-size:16px}
+.card p{font-size:14px;margin:0;color:var(--granite);line-height:1.65}
+.card .tag{font-family:var(--f-mono);font-size:11.5px;color:var(--lagoon);display:block;margin-bottom:6px;direction:ltr;text-align:right}
+
+/* plates: specimens */
+.plate{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s5);margin:var(--s4) 0 var(--s5)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--s3)}
+.sw{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);font-size:13px}
+.sw i{display:block;height:74px}
+.sw div{padding:8px 10px;line-height:1.45}
+.sw b{display:block;font-family:var(--f-display-ar);font-weight:600}
+.sw .num{color:var(--muted);font-size:12px}
+
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s5)}
+.spec .row{border-top:1px solid var(--line);padding-top:var(--s3)}
+.spec .lbl{font-size:12px;color:var(--muted);margin-bottom:6px}
+.d-ar{font-family:var(--f-display-ar);font-weight:600;font-size:40px;line-height:1.35}
+.d-en{font-family:var(--f-display-lat);font-weight:400;font-variation-settings:"SOFT" 100,"opsz" 120;font-size:42px;line-height:1.1;direction:ltr;text-align:left}
+.d-en em{color:var(--lagoon)}
+.b-ar{font-family:"IBM Plex Sans Arabic",sans-serif;font-size:17px;line-height:1.8}
+.b-en{font-family:"IBM Plex Sans",sans-serif;font-size:16px;line-height:1.6;direction:ltr;text-align:left}
+
+/* demo: listing card + currency */
+.demo{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:var(--s6);align-items:start}
+@media (max-width:760px){.demo{grid-template-columns:minmax(0,1fr)}}
+.lc{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;transition:transform .32s var(--ease-out),box-shadow .32s var(--ease-out)}
+.lc:hover{transform:translateY(-3px);box-shadow:0 18px 40px -22px rgba(13,26,34,.45)}
+.lc:active{transform:scale(.985)}
+.lc .img{aspect-ratio:4/3;max-width:100%;background:
+  radial-gradient(120% 70% at 70% 0%, #59C3C3 0%, transparent 60%),
+  linear-gradient(180deg,#1C7C8C 0%,#0E5468 45%,#0B3446 100%);position:relative}
+.lc .img::after{content:"";position:absolute;inset:auto 0 0 0;height:38%;background:linear-gradient(180deg,transparent,#D9C3A5 80%);opacity:.9;clip-path:polygon(0 60%,18% 40%,34% 55%,52% 30%,70% 52%,86% 38%,100% 50%,100% 100%,0 100%)}
+.lc .badge{position:absolute;top:12px;inset-inline-start:12px;background:rgba(255,255,255,.92);color:#0D1A22;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;z-index:1}
+.lc .body{padding:14px 16px 16px;display:grid;gap:6px}
+.lc .title{font-family:var(--f-display-ar);font-weight:600;font-size:18px;line-height:1.45}
+.lc .facts{font-size:13px;color:var(--granite)}
+.lc .price{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:4px;flex-wrap:wrap}
+.lc .price .big{font-size:20px;font-weight:600}
+.lc .price .sub{font-size:12.5px;color:var(--muted)}
+.lc .cancel{font-size:12.5px;color:var(--ok-fg)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;background:var(--salt);flex-wrap:wrap}
+.seg button{border:0;background:transparent;color:var(--abyss);font:500 13px var(--f-ui-lat);padding:6px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--lagoon);color:var(--paper)}
+@keyframes tick{from{opacity:.2;transform:translateY(4px)}to{opacity:1;transform:none}}
+.tickin{animation:tick .32s var(--ease-out)}
+
+/* motion tokens */
+.mtok{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--s3)}
+.mt{background:var(--salt);border:1px solid var(--line);border-radius:var(--r-md);padding:12px;font-size:13px}
+.mt .track{height:6px;border-radius:3px;background:var(--line);position:relative;margin:10px 0 8px;overflow:hidden}
+.mt .dot{position:absolute;inset-block:0;inset-inline-start:0;width:22px;border-radius:3px;background:var(--lagoon)}
+.mtok:hover .dot{animation:slide var(--d) var(--e) forwards}
+@keyframes slide{to{inset-inline-start:calc(100% - 22px)}}
+
+/* phases */
+.phase{display:grid;grid-template-columns:110px minmax(0,1fr);gap:var(--s5);padding-block:var(--s4);border-top:1px solid var(--line)}
+.phase:first-of-type{border-top:0}
+.phase .when{font-family:var(--f-mono);font-size:13px;color:var(--lagoon);line-height:1.6}
+.phase .when b{display:block;font-family:var(--f-display-ar);font-size:22px;color:var(--abyss);font-weight:600}
+.phase h4{margin:0 0 6px;font-family:var(--f-display-ar);font-weight:600;font-size:18px}
+@media (max-width:560px){.phase{grid-template-columns:minmax(0,1fr);gap:var(--s2)}}
+
+/* screens */
+.screen{border-inline-start:3px solid var(--lagoon);padding-inline-start:var(--s4);margin:var(--s5) 0}
+.screen h4{margin:0 0 4px;font-family:var(--f-display-ar);font-weight:600;font-size:18px}
+.screen .why{font-size:13.5px;color:var(--granite);margin-bottom:8px}
+
+.foot{color:var(--muted);font-size:13px;padding-top:var(--s5)}
+@media (prefers-reduced-motion:reduce){.lc,.lc:hover{transition:none;transform:none}.mtok:hover .dot,.tickin{animation:none}}
+</style>
+
+<div class="wrap" dir="rtl" lang="ar">
+  <header class="hero">
+    <div class="eyebrow">Dahab · Product, AI &amp; Design Plan · Oct 2026</div>
+    <h1>دهب، زي ما يعرفها صاحبك اللي عايش هناك
+      <span class="en">A premium, AI-native companion for Dahab</span></h1>
+    <p class="lede">الخطة دي ليها ٣ أجزاء. الأول فهم كامل للبيزنس زي ما هو مكتوب في الكود. التاني تشخيص صريح للفرق بين اللي شغّال بجد واللي متمثّل بس. التالت خطة منتج وتصميم بمستوى عالمي بتجمّع المنصة في تجربة واحدة: بريميوم، سهلة، والـ AI جزء من أساسها.</p>
+    <div class="meta"><span>مبني على: <code>server.ts</code> و<code>server/</code> و<code>src/</code> و<code>PRODUCT.md</code> و<code>DESIGN.md</code></span><span>commit <span class="num">fe38825</span></span><span>+ تشغيل فعلي للتطبيق على localhost</span></div>
+  </header>
+
+  <div class="grid">
+    <nav class="toc" aria-label="المحتويات">
+      <p>المحتويات</p>
+      <ol>
+        <li><a href="#summary"><span>01</span>الخلاصة</a></li>
+        <li><a href="#business"><span>02</span>البيزنس</a></li>
+        <li><a href="#reality"><span>03</span>الواقع الحالي</a></li>
+        <li><a href="#strategy"><span>04</span>استراتيجية المنتج</a></li>
+        <li><a href="#ai"><span>05</span>تجربة الـ AI</a></li>
+        <li><a href="#design"><span>06</span>نظام التصميم</a></li>
+        <li><a href="#motion"><span>07</span>الحركة</a></li>
+        <li><a href="#screens"><span>08</span>الشاشات الأساسية</a></li>
+        <li><a href="#trust"><span>09</span>الدفع والثقة</a></li>
+        <li><a href="#roadmap"><span>10</span>خارطة التنفيذ</a></li>
+        <li><a href="#kpis"><span>11</span>مقاييس النجاح</a></li>
+        <li><a href="#refs"><span>12</span>المراجع العالمية</a></li>
+        <li><a href="#decisions"><span>13</span>قرارات مطلوبة</a></li>
+      </ol>
+    </nav>
+
+    <main>
+<!-- 01 -->
+<section id="summary">
+  <span class="secno">01</span>
+  <h2>الخلاصة<small>Executive summary</small></h2>
+  <p><b>المنتج إيه؟</b> دهب منصة لمدينة واحدة بالكامل. فيها marketplace للأنشطة (غطس، سنوركل، كايت، سفاري، سانت كاترين)، والإقامة (فنادق، كامبات، شقق، إقامة طويلة)، والتنقّل (Sharm ⇄ Dahab وتنقّل داخلي)، وإيجار العجل، والأكل. فوق ده كله في concierge ذكي اسمه <b>DayGi</b> بيخطّط الرحلة ويتابعها لحد ما تخلص. المنصة بتكسب من عمولة <span class="num">15%</span> على كل حجز، والفلوس بتعدّي على escrow فيه ledger محمي بـ hash chain.</p>
+  <p><b>التشخيص.</b> الأفكار والمعمارية في الـ backend قوية ومدروسة: state machines، وholds، وledger، وصلاحيات deny-by-default، وconfirmation tokens للـ AI. المشكلة في حاجتين. الأولى إن جزء كبير من "الفلوس والذكاء" لسه <b>محاكاة</b>: الدفع simulated، ورسايل WhatsApp مجرد صفوف في الداتابيز، وأفعال DayGi بترجّع ردود جاهزة. التانية إن الواجهة اتراكم فيها <b>٥ اتجاهات تصميم</b> ورا بعض من غير ما تتوحّد: ٣ مداخل للتخطيط، و٣ واجهات حجز، و٢ CMS، و٤ مصادر للـ theme، و٥ عائلات خطوط.</p>
+  <div class="callout">
+    <p><b>الخطة في جملة:</b> نجمع المنتج في <b>٤ مساحات بس</b> (اكتشف، خطّط مع DayGi، رحلتي، حسابي)، والـ AI يبقى موجود في كل شاشة بدل ما يكون صفحة لوحده. نبني design system واحد اسمه <b>Granite &amp; Lagoon</b> بخطوط عربي/لاتيني متكافئة وحركة بفيزياء حقيقية. وقبل أي تجميل، نصلّح منطق الفلوس عشان المنصة تبقى قابلة للإطلاق التجاري.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><span class="tag">PHASE 0</span><h4>الحقيقة أولاً</h4><p>نصلّح ٨ ثغرات في منطق الفلوس والحجز، ونشيل بيانات الديمو من الإنتاج، ونوحّد مصدر الـ theme.</p></div>
+    <div class="card"><span class="tag">PHASE 1</span><h4>الأساس البريميوم</h4><p>tokens، وخطوط، وprimitives، والتنقّل الجديد، وصفحة منتج وcheckout واحد، وPaymob حقيقي.</p></div>
+    <div class="card"><span class="tag">PHASE 2</span><h4>DayGi + وضع "اليوم"</h4><p>canvas للتخطيط فيه شات وخريطة، وتعديل الخطة في مكانها، وتذاكر offline، وWhatsApp حقيقي.</p></div>
+    <div class="card"><span class="tag">PHASE 3+</span><h4>الموردين والتوسّع</h4><p>تطبيق الموردين، والـ onboarding، والـ copilots، والتوزيع جوه ChatGPT وGemini.</p></div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section id="business">
+  <span class="secno">02</span>
+  <h2>فهم البيزنس بالكامل<small>How the business works, from the code</small></h2>
+
+  <h3>المهمة والمستخدمين</h3>
+  <p>حسب <code>PRODUCT.md</code>، الهدف إن المسافر يستغني بتطبيق واحد عن خليط Google وInstagram وWhatsApp وBooking وTripadvisor والخرايط. السؤال اللي المنتج كله بيجاوب عليه: <b>«المسافر ده محتاج إيه دلوقتي؟»</b>. والكود فيه ٣ أنواع مستخدمين أساسيين:</p>
+  <div class="tbl"><table>
+    <tr><th>المستخدم</th><th>بيعمل إيه</th><th>الدور في الكود</th></tr>
+    <tr><td>المسافر</td><td>يكتشف، ويخطّط، ويحجز، ويدفع، ويتابع رحلته، ويقيّم. أجانب (أوروبا، روسيا، الخليج) ومصريين، بالعربي والإنجليزي</td><td><code>Traveler</code>. أي حساب جديد بيتعمل بالدور ده</td></tr>
+    <tr><td>المورّد</td><td>مراكز غطس، وسفاري، وفنادق، وكامبات، وسواقين، وإيجار عجل، ومطاعم. بيقبل الحجوزات ويدير التقويم والتوفّر ويتابع أرباحه</td><td><code>Supplier</code>، مربوط بـ <code>supplierId</code> واحد</td></tr>
+    <tr><td>فريق التشغيل</td><td>ريفاند، ودعم، ومراجعة التقييمات، والاحتيال، والتسعير، والـ CMS، وجودة البيانات، والـ Intelligence Core</td><td><code>Operations</code> و<code>Product</code> و<code>Admin</code></td></tr>
+  </table></div>
+
+  <h3>الخدمات (الـ Verticals)</h3>
+  <div class="tbl"><table>
+    <tr><th>الخدمة</th><th>إزاي بتشتغل</th><th>الحالة</th></tr>
+    <tr><td>أنشطة وتجارب</td><td>SKU لكل نشاط، وslots بسعة لكل يوم وساعة، وhold لمدة ١٥ دقيقة، وبرامج جاهزة (First Timer 5 أيام، Adventure 6 أيام…)</td><td><span class="pill p-ok">شغّال</span> بيانات حقيقية جزئياً</td></tr>
+    <tr><td>إقامة</td><td>كتالوج بيحدّده الـ admin، وSKU لكل عقار (باكدج ٥ ليالي للفنادق، وليلة واحدة للشقق والكامبات)، وأسعار أسبوعية وشهرية</td><td><span class="pill p-info">جزئي</span> تسعير الإقامة الطويلة للعرض بس</td></tr>
+    <tr><td>تنقّل</td><td>السعر = أساس + <span class="num">⌈km × perKm⌉</span> × معامل الفئة (shared ×1، وprivate ×1.8، وpremium ×2.6) مقرّب لأقرب ٥ جنيه. فيه تتبّع لحالة السواق</td><td><span class="pill p-ok">منطق جيد</span></td></tr>
+    <tr><td>إيجار عجل</td><td>Listing بيوافق عليه الـ Ops، وسعر يومي وأسبوعي وخصم، وتأمين، وصيانة، وغرامة تأخير</td><td><span class="pill p-crit">ناقص</span> مفيش استلام، فالحالة عمرها ما بتبقى ACTIVE</td></tr>
+    <tr><td>أكل وتجارة محلية</td><td>بيانات من Instagram وWhatsApp ومواقع، وأسعار ملحوظة، ومقارنة، وتاريخ أسعار</td><td><span class="pill p-info">بيانات ثابتة</span> التحديث بيعيد معالجة نفس المصادر</td></tr>
+    <tr><td>معرفة دهب (DKOS)</td><td>مناطق، وأماكن، وطوارئ، ولوايح كحقائق ليها تاريخ صلاحية، وكشف تعارض ودمج تكرارات</td><td><span class="pill p-info">جيد</span> بس "الظروف الحية" قيم ثابتة في الكود</td></tr>
+    <tr><td>DayGi</td><td>concierge: نية المستخدم ← رد محسوب ← Gemini بيعيد صياغة النص بس ← أفعال بتأكيد</td><td><span class="pill p-sim">نصّه محاكاة</span></td></tr>
+  </table></div>
+
+  <h3>رحلة المسافر كما يدعمها الـ backend</h3>
+  <div class="flow">
+    <div class="step"><b>اكتشاف</b>كتالوج عام، وبحث بالنية، وطقس وبحر حقيقي من Open-Meteo</div><span class="arrow">←</span>
+    <div class="step"><b>تخطيط</b><code>/trip/generate</code>: Gemini يقترح والداتابيز يسعّر</div><span class="arrow">←</span>
+    <div class="step"><b>حجز</b>hold لمدة <span class="num">15 min</span> ← checkout ← حالة PENDING_CONFIRMATION</div><span class="arrow">←</span>
+    <div class="step"><b>في الرحلة</b>nudges للرياح والحرارة والموج، وDayGi «أعمل إيه دلوقتي»، وتعديل أو إلغاء</div><span class="arrow">←</span>
+    <div class="step"><b>بعد الرحلة</b>دعوة للتقييم، ونقاط Reef-positive، ويوميات</div>
+  </div>
+  <p>حالة الرحلة بتتحسب تلقائي بتوقيت القاهرة وبتمشي لقدّام بس: <code>DRAFT → PLANNED → CONFIRMED → IN_DESTINATION → COMPLETED</code>. وحالة الحجز من ناحية المورد ليها state machine لكل خدمة. التنقّل مثلاً: <code>PENDING_CONFIRMATION → CONFIRMED → ASSIGNED → DISPATCHED → EN_ROUTE → ARRIVED → COMPLETED</code>.</p>
+
+  <h3>مسار الفلوس</h3>
+  <div class="flow">
+    <div class="step"><b>المسافر يدفع</b>المبلغ كله يدخل <code>PLATFORM_ESCROW</code></div><span class="arrow">←</span>
+    <div class="step"><b>العمولة</b><span class="num">15%</span> تروح لإيرادات المنصة</div><span class="arrow">←</span>
+    <div class="step"><b>المورد يكمّل الخدمة</b>payout بـ <span class="num">85%</span> بحالة PENDING</div><span class="arrow">←</span>
+    <div class="step"><b>بعد 24 ساعة</b>sweep كل دقيقة بيسوّي الـ payout في الـ ledger</div>
+  </div>
+  <p>الـ ledger بنظام القيد المزدوج وhash chain بـ SHA-256، وفيه فحص سلامة وكشف لو الـ escrow اتسحب منه أكتر من رصيده. الريفاند بيرجّع العمولة المقابلة. ودي معمارية مالية محترمة، والمشكلة في المدخلات بس (القسم الجاي).</p>
+
+  <h3>DayGi بيعمل إيه فعلاً</h3>
+  <ul>
+    <li>بيحدد النية بقواعد كلمات مفتاحية زي «بدري» و«seafood» و«2000»، وبعدين بيبني ردّ محسوب. <b>Gemini بيعيد صياغة النص بس</b> ومش بيحدد أي فعل. وده قرار صح عشان يمنع الهلوسة.</li>
+    <li>الأفعال اللي فيها فلوس بتحتاج confirmation token صلاحيته ١٠ دقايق ومربوط بالجلسة، وكل حاجة بتتسجّل في audit.</li>
+    <li>فيه task orchestrator لمهام متعددة الخطوات (DRAFT ← WAITING ← EXECUTING ← VERIFYING ← COMPLETED) مع idempotency.</li>
+    <li>فيه ذاكرة للتفضيلات (الإيقاع، بدري ولا متأخر، أكل بحري…) وتقييم لـ "صحة الرحلة" بيبدأ من 100.</li>
+  </ul>
+
+  <h3>رحلة المورد وفريق التشغيل</h3>
+  <p><b>المورد:</b> dashboard (عدد الحجوزات المعلّقة، والأرباح بنسبة 85%، والـ escrow)، وقبول أو رفض أو dispatch أو إكمال الحجز، وحجب أيام في التقويم، وpayouts، ودرجة اعتمادية (قبول ×40 + سرعة رد ×30 + عكس معدل الإلغاء ×30)، ودرجة Reef. <b>التشغيل:</b> console فيه ٢٠ قسم، وريفاند، وتحقق الـ ledger، وطابور دعم بأولويات، ومراجعة تقييمات، وقواعد احتيال، وCMS بمسودات ونسخ، و<b>Intelligence Core</b> فيه حوالي ٢٠ أداة قراءة وأدوات تعديل بتأكيد.</p>
+</section>
+
+<!-- 03 -->
+<section id="reality">
+  <span class="secno">03</span>
+  <h2>الواقع الحالي: اللي شغّال واللي متمثّل<small>Honest diagnosis</small></h2>
+  <p>قبل ما نتكلم في الشكل لازم نبقى صرحاء: المنتج البريميوم <b>مايقدرش</b> يعرض سعر غلط أو يأكّد حجز ما حصلش. أنا راجعت النقط دي بنفسي في الكود.</p>
+
+  <h3>منطق الفلوس والحجز (لازم يتصلّح قبل الإطلاق)</h3>
+  <div class="tbl"><table>
+    <tr><th>المشكلة</th><th>المكان</th><th>الأثر</th></tr>
+    <tr><td>الدفع محاكاة بالكامل، ومفيش أي استدعاء لـ Paymob</td><td><code>paymentService.ts:106</code></td><td><span class="pill p-crit">حرج</span> مفيش تحصيل حقيقي</td></tr>
+    <tr><td>الـ checkout المتعدد بيقبل <code>amountEGP</code> من العميل، والـ hold اختياري</td><td><code>server.ts:2170</code></td><td><span class="pill p-crit">حرج</span> العميل يقدر يحدد سعره ويتخطّى السعة</td></tr>
+    <tr><td>مبلغ الـ hold = سعر الـ SKU مهما كان عدد الأفراد</td><td><code>commerceService.ts:294</code></td><td><span class="pill p-crit">حرج</span> مجموعة من ٦ تدفع زي فرد واحد</td></tr>
+    <tr><td>مهلة الإلغاء المجاني محسوبة من وقت الحجز، مش من وقت الخدمة</td><td><code>bookingService.ts:265</code></td><td><span class="pill p-crit">حرج</span> وعد مختلف عن اللي المسافر فاهمه</td></tr>
+    <tr><td>الدفع عند الوصول بيقيّد فلوس في الـ escrow ماوصلتش</td><td><code>paymentService.ts:130</code></td><td><span class="pill p-crit">حرج</span> payout من فلوس مش موجودة</td></tr>
+    <tr><td>مسارين لإكمال الحجز: واحد بيعمل payout ويتخطّى الـ state machine، والتاني مابيعملش payout خالص</td><td><code>server.ts:2759 / 3077</code></td><td><span class="pill p-crit">عالي</span></td></tr>
+    <tr><td>SMS بتتبعت لأرقام وهمية ثابتة في الكود مع كل حجز</td><td><code>smsGatewayService.ts:191</code></td><td><span class="pill p-crit">عالي</span> لو اتفعّل Twilio</td></tr>
+    <tr><td>المورد الموقوف لسه ممكن يتحجز، والتقييم مسموح قبل ما الخدمة تحصل</td><td><code>reviewService.ts:67</code></td><td><span class="pill p-crit">عالي</span> الثقة</td></tr>
+    <tr><td>أفعال DayGi بترجّع نتايج جاهزة: «Laguna Windsurfing بـ 1,800» دايماً، و«وفّرت 3,600»، و«السواق محمود سالم»</td><td><code>daygiReasoningService.ts:1654</code></td><td><span class="pill p-sim">محاكاة</span></td></tr>
+    <tr><td>«الظروف الحية» في DKOS ثابتة (مياه <span class="num">27.5°C</span>، رياح <span class="num">11.5 kn</span>)، رغم إن Open-Meteo متوصّل فعلاً</td><td><code>dahabKnowledgeOs.ts:442</code></td><td><span class="pill p-sim">محاكاة</span></td></tr>
+    <tr><td>مفيش WhatsApp حقيقي، ولا عملات غير الجنيه، ولا onboarding للموردين</td><td><code>notificationService</code></td><td><span class="pill p-info">ناقص</span></td></tr>
+    <tr><td>ملف الـ seed <code>data/dahab_accommodations.json</code> عمره ما اتعمله commit، فأي checkout جديد للريبو مابيشتغلش</td><td><code>importDahabAccommodations.ts:37</code></td><td><span class="pill p-crit">بلوكر</span></td></tr>
+  </table></div>
+
+  <h3>الواجهة</h3>
+  <div class="cards">
+    <div class="card"><span class="tag">FRAGMENTATION</span><h4>منتجات جوه منتج</h4><p>٣ مداخل للتخطيط (plan-for-me، وtrip-builder، وDayGi)، و٣ واجهات حجز، وexplore/listings/attractions/experiences متداخلين، و٢ CMS.</p></div>
+    <div class="card"><span class="tag">DESIGN DEBT</span><h4>٥ اتجاهات متراكبة</h4><p>Tidal ← Star Chart ← Luxury ← Living Chart ← Concierge. و٤ مصادر للألوان (CSS، وThemeContext، والـ CMS، و<span class="num">304</span> شرط <code>isDark</code>)، و<span class="num">2,446</span> لون Tailwind خام.</p></div>
+    <div class="card"><span class="tag">TYPE</span><h4>٥ عائلات خطوط</h4><p><span class="num">1,114</span> نص بحجم 9–11px، و<span class="num">2,814</span> <code>font-bold</code>. وEl Messiri معندوش italic، فالمتصفح بيعمل "مائل مزيّف".</p></div>
+    <div class="card"><span class="tag">MOTION</span><h4>الحركة شبه مش موجودة</h4><p>مكتبة <code>motion</code> مستخدمة في ٣ ملفات بس، و<span class="num">121</span> class من نوع <code>animate-in</code> مالهاش أي تأثير لأن الـ plugin مش متسطّب.</p></div>
+    <div class="card"><span class="tag">TRUTH</span><h4>بيانات ديمو في الإنتاج</h4><p>«Good morning, Ahmed» و«Day 2 of 5» ثابتين، و"قريب منك" بمسافات وهمية (180m)، وخيارات الحجز في الـ planner من arrays ثابتة.</p></div>
+    <div class="card"><span class="tag">SEEN LIVE</span><h4>لاحظتها وأنا شغّال التطبيق</h4><p>ترتيب الـ bottom nav بيتغيّر من صفحة للتانية، والأسعار من غير عملة («1,200–1,600»)، وصورة جِمال على كارت «Try Scuba Dive»، وصفحة DayGi مكسورة على الموبايل، وزرارين عايمين فوق المحتوى.</p></div>
+  </div>
+  <p><b>الحلو في الموجود:</b> الـ i18n فيه قواميس منفصلة متطابقة (<span class="num">3,948</span> سطر لكل لغة) واتجاه الصفحة بيتحدد قبل التحميل. فيه lazy loading. وفيه UI kit متماسك في console التشغيل. والـ homepage بقت مرتّبة من الـ CMS. ومنطق الـ ledger والـ state machines قوي. يعني الأساس موجود، والمطلوب <b>توحيد وتنظيف</b> قبل أي إضافة.</p>
+</section>
+
+<!-- 04 -->
+<section id="strategy">
+  <span class="secno">04</span>
+  <h2>استراتيجية المنتج: «دهب واحدة»<small>One Dahab</small></h2>
+  <p><b>التموضع:</b> مش مجرد سوق حجوزات، ومش chatbot. هو <b>صاحبك المحلي في دهب، ومعاه ذكاء اصطناعي</b>: عارف إيه المتاح فعلاً النهارده، والرياح عاملة إيه، والمكان ده مناسب ليك ولا لأ. التطبيق بيكسب Google وBooking في ٣ حاجات: <b>عمق محلي</b>، و<b>توفّر حقيقي</b>، و<b>رفقة أثناء الرحلة نفسها</b>.</p>
+
+  <h3>الهيكل الجديد: ٤ مساحات بس</h3>
+  <div class="tbl"><table>
+    <tr><th>المساحة</th><th>بتجمع إيه من الموجود</th><th>الهدف</th></tr>
+    <tr><td>اكتشف <span class="lat">Discover</span></td><td>home، وexplore، وlistings، وattractions، وexperiences، وfood، وrestaurants، وhotels، وrentals، وtransfers، وlive</td><td>صفحة واحدة بـ ٦ verticals وخريطة وقائمة متزامنين وبحث طبيعي</td></tr>
+    <tr><td>خطّط <span class="lat">Plan · DayGi</span></td><td>plan-for-me، وtrip-builder، وdaygi، وai-director</td><td>canvas واحد: شات + خطة + خريطة. التخطيط والحجز في نفس المكان</td></tr>
+    <tr><td>رحلتي <span class="lat">Trip → Today</span></td><td>my-trip، وbookings، وarrive، وfirst-two-hours، وhelp، وdeparture، وmemories</td><td>بتتحول لـ «النهارده» أوتوماتيك لما الرحلة تبدأ</td></tr>
+    <tr><td>حسابي <span class="lat">Account</span></td><td>profile، والتفضيلات، والعملة، واللغة، والمدفوعات</td><td>هادية ومرتّبة</td></tr>
+  </table></div>
+  <p>وفوق كل ده <b>شريط «اسأل DayGi»</b> موجود في كل شاشة، بيفهم عربي مصري وإنجليزي بالكتابة أو بالصوت، وبيعرف إنت فين في التطبيق. لو بتتفرّج على رحلة سفاري وسألت «ينفع بكرة بدري؟»، هو عارف إنك بتسأل عن السفاري دي.</p>
+
+  <h3>المنتج بيتغيّر حسب مرحلة الرحلة</h3>
+  <div class="flow">
+    <div class="step"><b>قبل الرحلة</b>إلهام، وبرامج جاهزة، و«ابني رحلتي»، وأسعار بعملتك</div><span class="arrow">←</span>
+    <div class="step"><b>قبل الوصول بـ 48 ساعة</b>briefing: النقل، وأول ساعتين، والطقس، والشنطة</div><span class="arrow">←</span>
+    <div class="step"><b>أثناء الرحلة</b>الصفحة الرئيسية = «النهارده»: الجاي، والـ pickup، والـ QR، والسواق</div><span class="arrow">←</span>
+    <div class="step"><b>بعد الرحلة</b>ذكريات، وتقييم، و«ارجع تاني» بخطة جاهزة</div>
+  </div>
+  <p>المنطق ده موجود بالفعل في <code>tripStatusReconciler</code> و<code>ConciergeNextStep</code>. المطلوب إن الواجهة <b>تتحوّل فعلاً</b> بناءً عليه، بدل ما تبقى شاشات منفصلة متداري جوه sub-flows.</p>
+
+  <h3>قواعد الحذف</h3>
+  <ul>
+    <li>أي شاشة مالهاش مصدر بيانات حقيقي تتشال أو تتقفل ورا feature flag.</li>
+    <li>بيانات الديمو («Ahmed») تتنقل لملفات fixtures للتيستات بس.</li>
+    <li>CMS واحد بس (console التشغيل)، و<code>/admin/content</code> يتدمج فيه.</li>
+    <li>حوالي ٢٠ ملف orphaned (CinematicVideoHero، وAccommodationsPage، وDahabSplash…) تتمسح.</li>
+  </ul>
+</section>
+
+<!-- 05 -->
+<section id="ai">
+  <span class="secno">05</span>
+  <h2>تجربة الـ AI: ذكاء يعمل حاجات، مش يكتب كلام<small>AI-native, grounded, action-taking</small></h2>
+  <p>أهم درس من Mindtrip وGoogle AI Mode وBooking.com وAirbnb: الناس بتثق في الـ AI لما <b>يوريها حاجات حقيقية تقدر تلمسها وتعدّلها</b>، مش لما يكتب فقرات طويلة. الـ backend عندنا عامل نص الشغل الصعب: Gemini مش بيحدد أفعال، والأسعار من الداتابيز، والأفعال الحساسة بتأكيد. المطلوب نكمّل على نفس الأساس.</p>
+
+  <div class="cards">
+    <div class="card"><span class="tag">CANVAS</span><h4>شات + خطة + خريطة</h4><p>على الديسكتوب: الشات على جنب والخطة والخريطة على الجنب التاني. على الموبايل: شات وbottom sheet بتسحبها لفوق. أي تعديل بيظهر على الخطة فوراً.</p></div>
+    <div class="card"><span class="tag">GROUNDED CARDS</span><h4>كروت حقيقية جوه الرد</h4><p>كل نشاط أو مكان DayGi يذكره يظهر ككارت فيه صورة وتقييم بعدده وسعر بعملتك وزرار «أضف لليوم» أو «احجز»، وبيفتح نفس صفحة المنتج.</p></div>
+    <div class="card"><span class="tag">EDIT IN PLACE</span><h4>تعديل من غير إعادة توليد</h4><p>كل بلوك في الخطة عليه: بدّل، أو انقل ليوم تاني، أو احذف، ومعاه سطر «ليه ده؟» وسطر trade-off زي «الصبح = pickup <span class="num">06:30</span> بس المية أهدى».</p></div>
+    <div class="card"><span class="tag">APPROVAL GATE</span><h4>مفيش فلوس من غير موافقة</h4><p>كارت تأكيد فيه المبلغ والعملة وآخر ميعاد للإلغاء المجاني والمورد، وزرار «وافق / عدّل / إلغاء». ومفيش حجز أوتوماتيك أبداً.</p></div>
+    <div class="card"><span class="tag">START ANYWHERE</span><h4>خطة من أي لينك</h4><p>الصق ريل Instagram أو TikTok أو screenshot، وDayGi يطلّع منه الأنشطة اللي ممكن تتحجز. ومصادر Instagram موجودة عندنا أصلاً في <code>data/instagram/</code>.</p></div>
+    <div class="card"><span class="tag">TRIP HEALTH</span><h4>متابعة حقيقية</h4><p>رياح للكايت، وموج للغطس، وحر فوق <span class="num">38°</span>، ومواعيد رمضان، وطريق سانت كاترين. ولو حاجة اتغيّرت DayGi يقترح بديل بنفسه. البيانات الحقيقية من Open-Meteo موجودة ومحتاجة بس تتربط.</p></div>
+    <div class="card"><span class="tag">SUPPORT</span><h4>دعم بينفّذ</h4><p>إلغاء أو تغيير ميعاد أو طلب ريفاند بكارت تأكيد، ومعاه زرار «كلّم إنسان» على WhatsApp طول الوقت. المقياس الأساسي: نسبة المشاكل اللي اتحلّت من غير إنسان (Airbnb وصلت ~45%).</p></div>
+    <div class="card"><span class="tag">VOICE · AR</span><h4>صوت وعامية مصرية</h4><p>«عايز مكان هادي على البحر أنا ومراتي ٣ أيام». الـ prompt ده موجود في <code>PRODUCT.md</code> كهدف، ودلوقتي ممكن نحققه بنموذج بيفهم اللهجة، والردود تيجي streaming.</p></div>
+  </div>
+
+  <h3>التغيير في المعمارية</h3>
+  <ol>
+    <li><b>نستبدل الردود الجاهزة بـ tool use حقيقي:</b> النموذج بيختار من أدوات محددة النوع (<code>searchCatalog</code> و<code>checkAvailability</code> و<code>createHold</code> و<code>proposeItineraryEdit</code>…)، والـ server هو اللي بينفّذ ويرجّع داتا حقيقية. والقاعدة الحالية «الموديل مايحددش الأفعال الحساسة» تفضل زي ما هي.</li>
+    <li><b>Structured output للكروت:</b> الرد يرجع JSON بـ schema محدد (نص، كروت، تعديلات على الخطة، تأكيدات)، والواجهة بترسمه. مفيش parsing للنص.</li>
+    <li><b>Streaming</b> بـ SSE عشان أول كلمة تظهر في أقل من ثانية.</li>
+    <li><b>Citations:</b> أي معلومة فيها رقم تبيّن مصدرها، زي «الرياح: Open-Meteo، 08:00» أو «4.8 · 212 تقييم».</li>
+    <li><b>Evals:</b> مجموعة اختبارات ثابتة لـ DayGi بالعربي والإنجليزي، والقاعدة: صفر أسعار متخترعة وصفر حجوزات من غير تأكيد.</li>
+    <li><b>Supplier copilot:</b> ردود مقترحة، واقتراح تسعير، وكتابة الـ listing من بوستات Instagram بتاعة المورد.</li>
+    <li><b>التوزيع:</b> schema.org (Product وOffer وEvent) وAPI عام للكتالوج، عشان نقدر بعد كده نبقى app جوه ChatGPT وGemini. Viator بقت أول connected app في Gemini في يوليو 2026، وAlmosafer جوه ChatGPT.</li>
+  </ol>
+</section>
+
+<!-- 06 -->
+<section id="design">
+  <span class="secno">06</span>
+  <h2>نظام التصميم: Granite &amp; Lagoon<small>One system, two scripts, real materials</small></h2>
+  <p><b>الفكرة:</b> دهب هي المكان اللي الجرانيت الأحمر بتاع سينا بيقابل فيه لون اللاجونا الفيروزي. الألوان مأخوذة من مواد حقيقية في المكان، والصور هي اللي بتدّي الإحساس. الأسلوب <b>هادي بثقة</b> زي Aman، وبعيد عن الـ glass والـ pills المتكررة في كل حتة. والقاعدة: <b>لون أكشن واحد</b> (اللاجونا)، ولون إبراز واحد في الشاشة (الكورال).</p>
+
+  <div class="plate">
+    <div class="swatches">
+      <div class="sw"><i style="background:var(--sw-abyss)"></i><div><b>Abyss</b>الحبر والخلفية الداكنة <span class="num">#0D1A22</span></div></div>
+      <div class="sw"><i style="background:var(--sw-salt)"></i><div><b>Salt</b>الخلفية الفاتحة <span class="num">#F5F4F0</span></div></div>
+      <div class="sw"><i style="background:var(--sw-granite)"></i><div><b>Granite</b>النص الثانوي <span class="num">#6B5A52</span></div></div>
+      <div class="sw"><i style="background:var(--sw-lagoon)"></i><div><b>Lagoon</b>الأكشن الوحيد <span class="num">#0E7C7A</span></div></div>
+      <div class="sw"><i style="background:var(--sw-lagoon-d)"></i><div><b>Lagoon · dark</b>الأكشن في الوضع الداكن <span class="num">#3CC2BC</span></div></div>
+      <div class="sw"><i style="background:var(--sw-coral)"></i><div><b>Sunset coral</b>إبراز، مرة واحدة في الشاشة <span class="num">#D2694C</span></div></div>
+      <div class="sw"><i style="background:var(--sw-sand)"></i><div><b>Sand</b>خلفيات تحريرية <span class="num">#D9C3A5</span></div></div>
+    </div>
+  </div>
+  <p>وألوان الحالات (نجاح، تحذير، خطأ) منفصلة عن ألوان البراند. والوضع الداكن متصمّم لوحده بعناية، مش مجرد عكس للألوان. وكل ده يبقى <b>مصدر واحد</b>: CSS variables، وThemeContext يقرأ منها بس، والـ CMS يغيّر tokens محددة بس.</p>
+
+  <h3>الخطوط: عربي ولاتيني متكافئين</h3>
+  <div class="plate">
+    <div class="spec">
+      <div class="row"><div class="lbl">Display · Arabic: Alexandria 600</div><div class="d-ar">حيث تلتقي الصحراء بالبحر</div></div>
+      <div class="row"><div class="lbl">Display · Latin: Fraunces (SOFT 100)</div><div class="d-en">Where the desert <em>meets the sea</em></div></div>
+      <div class="row"><div class="lbl">UI / Body · IBM Plex Sans Arabic</div><div class="b-ar">غطسة تجريبية في اللايت هاوس، ساعتين، معاها pickup من الفندق، وإلغاء مجاني لحد الخميس الساعة ٢ الضهر.</div></div>
+      <div class="row"><div class="lbl">UI / Body · IBM Plex Sans</div><div class="b-en">Try-dive at the Lighthouse, 2 hours, hotel pickup included. Free cancellation until Thu 14:00.</div></div>
+    </div>
+  </div>
+  <div class="tbl"><table>
+    <tr><th>الاختيار</th><th>Display</th><th>UI / Body</th><th>الترخيص</th></tr>
+    <tr><td>المقترح: <b>Coastal Editorial</b></td><td>Fraunces (لاتيني) + Alexandria (عربي، صمّمها محمد جابر من القاهرة)</td><td>IBM Plex Sans + IBM Plex Sans Arabic (عائلة واحدة)</td><td><span class="pill p-ok">OFL مجاني</span> ينفع self-host</td></tr>
+    <tr><td>هادي جداً: <b>Quiet Luxury</b></td><td>Instrument Serif + Noto Naskh Arabic</td><td>Inter + Readex Pro</td><td><span class="pill p-ok">OFL</span> بس مفيش bold في الـ serif</td></tr>
+    <tr><td>توقيع إقليمي: <b>Signature</b></td><td>29LT Bukra أو Zawi (نظام واحد للغتين) + Canela</td><td>Plex أو Inter</td><td><span class="pill p-info">مدفوع</span> رخصة ويب بعدد الزيارات</td></tr>
+  </table></div>
+  <ul>
+    <li><b>Type scale</b> ثابت: <span class="num">12 · 14 · 16 · 18 · 22 · 28 · 36 · 48 · 64</span>. ومفيش نص في الواجهة أصغر من <span class="num">13px</span>، فالـ <span class="num">1,114</span> حالة بتاعة 9–11px لازم تختفي.</li>
+    <li>وزنين بس للـ UI (<span class="num">400</span> و<span class="num">600</span>). التدرّج يجي من الحجم والمسافات، مش من <code>font-black</code>.</li>
+    <li>العربي line-height أعلى بـ ١٠–٢٠%، و<b>ممنوع</b> letter-spacing أو uppercase في العربي. الـ small caps للاتيني بس.</li>
+    <li>الأرقام: <code>Intl.NumberFormat</code> بدل <span class="num">217</span> استدعاء <code>toLocaleString</code>، و<code>tabular-nums</code> في الأسعار. والأرقام الغربية افتراضياً في اللغتين (المعتاد في الأسعار في مصر)، مع إعداد لمين عايز يغيّرها.</li>
+    <li>تحميل الخطوط بـ <code>unicode-range</code> عشان صفحة عربي ماتحمّلش أوزان اللاتيني والعكس. من ٥ عائلات (٢٦ ملف) لـ ٤ عائلات بأوزان محسوبة.</li>
+  </ul>
+
+  <h3>باقي الأساسيات</h3>
+  <div class="tbl"><table>
+    <tr><th>العنصر</th><th>القاعدة</th></tr>
+    <tr><td>المسافات</td><td>شبكة <span class="num">4pt</span>: <span class="num">4 · 8 · 12 · 16 · 24 · 32 · 48 · 72</span></td></tr>
+    <tr><td>الحواف</td><td><span class="num">6</span> للحقول، و<span class="num">12</span> للكروت، و<span class="num">20</span> للـ sheets، و<code>full</code> للـ chips بس. (حالياً <span class="num">1,044</span> عنصر <code>rounded-full</code>)</td></tr>
+    <tr><td>الظلال</td><td>٣ مستويات بس: card، وsheet، وmodal. والـ glass فوق الصور بس.</td></tr>
+    <tr><td>الأيقونات</td><td>Lucide بسُمك <span class="num">1.5</span> للـ UI، و<b>٦ أيقونات ثلاثية الأبعاد</b> للـ verticals (ماسك غطس، وكايت، وجمل، وجبل، وخيمة، وعربية) بحركة one-shot عند الضغط زي Airbnb 2025. وممنوع emoji كأيقونات.</td></tr>
+    <tr><td>الصور</td><td>تصوير حقيقي لدهب بتوجيه واحد (ضوء الصبح بدري والغروب)، ونسب ثابتة، وblurhash، و<code>width/height</code> دايماً. وفحص تلقائي بالـ AI إن الصورة مطابقة للمحتوى (مفيش جِمال على كارت غطس).</td></tr>
+    <tr><td>Primitives</td><td>Button، وIconButton، وChip، وCard، وListingCard، وPriceTag، وRating، وBadge، وSheet، وDialog، وTabs، وField، وDatePicker، وSkeleton، وEmptyState، وToast. ونبدأ من الـ kit الموجود في <code>command-center/ui</code>.</td></tr>
+    <tr><td>RTL</td><td>logical properties بس (<code>ms-</code>/<code>ps-</code>/<code>start-</code>)، ونمسح <span class="num">91</span> <code>dir</code> زيادة، ومانعكسش الحاجات اللي اتجاهها ليه معنى (play، والبوصلة، والأرقام).</td></tr>
+  </table></div>
+</section>
+
+<!-- 07 -->
+<section id="motion">
+  <span class="secno">07</span>
+  <h2>الحركة: فيزياء هادية مش استعراض<small>Motion system</small></h2>
+  <p>القاعدة: <b>لحظة حركة واحدة مدروسة في كل شاشة</b>، وباقي الحركة تكون feedback سريع. مكتبة <code>motion</code> موجودة في المشروع أصلاً، ومحتاجين نستخدمها بجد. عدّي بالماوس على الـ tokens تحت عشان تشوف الإيقاع.</p>
+  <div class="plate">
+    <div class="mtok">
+      <div class="mt" style="--d:120ms;--e:linear"><b class="lat">instant · 120ms</b><div class="track"><span class="dot"></span></div>ضغط، وtoggle، وhover</div>
+      <div class="mt" style="--d:200ms;--e:cubic-bezier(.22,1,.36,1)"><b class="lat">quick · 200ms</b><div class="track"><span class="dot"></span></div>chips، وtooltips، وtabs</div>
+      <div class="mt" style="--d:320ms;--e:cubic-bezier(.22,1,.36,1)"><b class="lat">base · 320ms</b><div class="track"><span class="dot"></span></div>sheets، وتوسيع الكروت</div>
+      <div class="mt" style="--d:520ms;--e:cubic-bezier(.34,1.3,.64,1)"><b class="lat">spring · ~520ms</b><div class="track"><span class="dot"></span></div>الانتقال من كارت لصفحة، والتأكيد</div>
+    </div>
+  </div>
+  <div class="tbl"><table>
+    <tr><th>النمط</th><th>فين</th><th>إزاي</th></tr>
+    <tr><td>Shared element</td><td>كارت النشاط ← صفحته، وبلوك الخطة ← تفاصيله، وكارت DayGi ← الصفحة</td><td><code>layoutId</code> من motion، spring بـ stiffness <span class="num">380</span> وdamping <span class="num">32</span></td></tr>
+    <tr><td>Route transitions</td><td>التنقل بين المساحات الأربعة</td><td>View Transitions API مع feature check، وcrossfade مدته <span class="num">200ms</span></td></tr>
+    <tr><td>Bottom sheet</td><td>خطة DayGi، والفلاتر، والـ checkout على الموبايل</td><td>سحب بفيزياء ونقط توقف عند <span class="num">40%</span> و<span class="num">92%</span></td></tr>
+    <tr><td>Scroll-driven</td><td>الـ hero: من البحر للصحرا، والصفحات التحريرية</td><td><code>animation-timeline</code> جوه <code>@supports</code> ومن غير JavaScript</td></tr>
+    <tr><td>شخصية DayGi</td><td>الأفاتار: هادي، بيسمع، بيفكر، بيتكلم، نجح</td><td>Rive state machine في chunk منفصل</td></tr>
+    <tr><td>Micro-interactions</td><td>ضغط الكارت (<span class="num">0.97</span>)، وعدّاد السعر لما العملة تتغيّر، وعلامة ✓ تتشكّل عند التأكيد</td><td>motion + Lottie للنجاح</td></tr>
+    <tr><td>تحميل</td><td>skeleton بنفس شكل المحتوى، وبعدين crossfade</td><td>من غير spinners في الصفحات</td></tr>
+    <tr><td>Reduced motion</td><td>كل الحاجات اللي فوق</td><td>fade مدته <span class="num">150ms</span> بدل الـ springs، والفيديو يقف، وDayGi ثابت. <code>useReducedMotion</code></td></tr>
+  </table></div>
+</section>
+
+<!-- 08 -->
+<section id="screens">
+  <span class="secno">08</span>
+  <h2>الشاشات الأساسية<small>Key screens</small></h2>
+
+  <div class="demo">
+    <div>
+      <article class="lc" aria-label="مثال كارت نشاط">
+        <div class="img" role="img" aria-label="لاجونا ورمل"><span class="badge">تأكيد فوري</span></div>
+        <div class="body">
+          <div class="title">غطسة تجريبية في اللايت هاوس</div>
+          <div class="facts">ساعتين · pickup من الفندق · عربي، English، Русский · لحد ٦ أفراد</div>
+          <div class="price">
+            <span><span class="big num" id="priceMain">EGP 1,400</span> <span class="sub">للفرد</span></span>
+            <span class="sub" id="priceSub">المبلغ الإجمالي يظهر قبل الدفع</span>
+          </div>
+          <div class="cancel">✓ إلغاء مجاني لحد الخميس <span class="num">14:00</span></div>
+        </div>
+      </article>
+    </div>
+    <div>
+      <p><b>كارت المنتج الموحّد</b> بيظهر في كل الأماكن: الاكتشاف، والبحث، وجوه ردود DayGi، والخطة. وترتيب المعلومات فيه ثابت: صورة ← اسم ← شريط حقائق ← سعر بعملتك وتحته الجنيه ← آخر ميعاد للإلغاء بتاريخ وساعة.</p>
+      <div class="seg" role="group" aria-label="عملة العرض">
+        <button type="button" id="cur-EGP" aria-pressed="true">EGP</button>
+        <button type="button" id="cur-USD" aria-pressed="false">USD</button>
+        <button type="button" id="cur-EUR" aria-pressed="false">EUR</button>
+        <button type="button" id="cur-SAR" aria-pressed="false">SAR</button>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:10px">جرّب تغيّر العملة. أسعار الصرف هنا أمثلة للتوضيح بس. في المنتج الحقيقي السعر يتحسب على السيرفر، والمسافر يشوف «هيتخصم منك EGP X» قبل الدفع.</p>
+    </div>
+  </div>
+
+  <div class="screen"><h4>الرئيسية: قبل الرحلة</h4><div class="why">الهدف: إلهام، وبعده تحرّك واضح.</div>
+    <p>hero واحد بفيديو صامت (بحر، وبعده صحرا، وبعده نار كامب) وفيه poster frame، وبعده سطر بحث كبير «اسأل DayGi أو دوّر…»، وبعده ٦ أيقونات للـ verticals، و«النهارده في دهب» بظروف حقيقية (رياح، ومية، وغروب)، وبرامج جاهزة، وقصص. ونمسح الـ hero المكرر وقسم «Where should we start?» اللي بيكرر نفس الأزرار.</p></div>
+  <div class="screen"><h4>الرئيسية: أثناء الرحلة («النهارده»)</h4><div class="why">زي Marriott لما الضيف يعمل check-in: أهم حاجة على طول قدامك.</div>
+    <p>كارت «الجاي»: نشاط الساعة <span class="num">09:30</span>، والـ pickup، وصورة السواق ونمرة العربية، وزرار WhatsApp. وبعده الـ QR (يشتغل offline)، وتنبيه رياح لو فيه، و«أعمل إيه بعد كده؟» من DayGi، وطلبات بلمسة واحدة (تأخير الـ pickup، غطسة زيادة).</p></div>
+  <div class="screen"><h4>اكتشف</h4><div class="why">قائمة وخريطة بيكلّموا بعض، زي Airbnb.</div>
+    <p>chips للتاريخ: «النهارده / بكرة / الأسبوع ده / أيام رحلتي». وفلاتر ذكية حسب كل vertical (الغطس مثلاً ليه شهادة PADI وعمق). وخريطة بستايل خاص بدهب (Lighthouse وMasbat وAsala وBlue Hole وLagoon). وسطر «ليه ده مناسب ليك؟» تحت كل نتيجة.</p></div>
+  <div class="screen"><h4>صفحة المنتج</h4><div class="why">نوحّد صفحتي Experience وProgram، والشريط اللي تحت يبقى component واحد.</div>
+    <p>صور كبيرة، وشريط حقائق، وملخص AI للتقييمات بعدد وتاريخ، وكارت المورد (اسم، وصورة، وترخيص، ونسبة الاعتمادية)، و«بيشمل إيه» ومعاها السلامة (تصاريح، ودليل بدوي باسمه، وتأمين للغطس)، ونقطة التجمّع على الخريطة. وتحت شريط ثابت فيه السعر الإجمالي وزرار «احجز».</p></div>
+  <div class="screen"><h4>Checkout واحد بـ ٣ خطوات</h4><div class="why">بدل ٣ واجهات حجز.</div>
+    <p>(١) التاريخ والعدد ← (٢) بياناتك ← (٣) الدفع. مؤقّت الـ hold ظاهر وهادي، والسعر الإجمالي مفصّل (رسوم المحميات ودخول البلو هول ظاهرين، والبقشيش اختياري)، وطرق الدفع حسب الجمهور (القسم الجاي). وبعد الدفع حالتين واضحين: <b>«مدفوع»</b> و<b>«المورد أكّد»</b>، ولكل واحدة وقت وSLA.</p></div>
+  <div class="screen"><h4>DayGi canvas</h4><div class="why">مدخل التخطيط الوحيد.</div>
+    <p>رسالة ترحيب فيها ٣ اقتراحات حسب مرحلتك، وردود streaming فيها كروت، وخطة تتعدّل جوه الشات، وكارت موافقة قبل أي حجز. ونمسح فورم الـ beta feedback من الشات ويكفي 👍/👎 صغيرين. ونكتفي بـ ٤ أنواع كروت (option، وplan diff، وconfirm، وbrief) بدل ٨.</p></div>
+  <div class="screen"><h4>تطبيق المورد (موبايل أولاً)</h4><div class="why">المورد في دهب شغّال من موبايله على الشط.</div>
+    <p>صندوق الحجوزات: قبول بلمسة واحدة وعدّاد للـ SLA. وتقويم بالسحب. وأرباح بالجنيه ومواعيد الـ payout. وردود مقترحة بالـ AI. وonboarding بالـ ID والترخيص والـ IBAN، بموافقة فريق التشغيل.</p></div>
+</section>
+
+<!-- 09 -->
+<section id="trust">
+  <span class="secno">09</span>
+  <h2>الدفع والثقة لأجانب ومصريين<small>Payments &amp; trust</small></h2>
+  <div class="tbl"><table>
+    <tr><th>الجمهور</th><th>طرق الدفع</th><th>ملاحظات</th></tr>
+    <tr><td>أجانب</td><td>كروت دولية، وApple Pay وGoogle Pay عن طريق Paymob، و«عربون دلوقتي والباقي كاش في اليوم» للموردين الصغيرين</td><td>نعرض سعرهم بعملتهم ونقول بوضوح «هيتخصم منك EGP X». تأكيد Apple Pay لازم يتعمل مع Paymob</td></tr>
+    <tr><td>مصريين</td><td>ميزة، وفودافون كاش ومحافظ تانية، وتقسيط valU وSouhoola، وكود فوري</td><td>InstaPay لما Paymob تأكد إنها شغالة</td></tr>
+    <tr><td>خليج</td><td>كروت وApple Pay</td><td>Tabby وTamara مش متاحين لحجوزات السفر في مصر حالياً</td></tr>
+  </table></div>
+  <ul>
+    <li><b>Paymob حقيقي:</b> نعمل order، والـ 3DS جوه الصفحة، والـ webhook (موجود ومحمي بـ HMAC) هو اللي يحرّك الحالة. السعر يتحسب على السيرفر بس، والـ hold إجباري.</li>
+    <li><b>الإلغاء:</b> نعرض «إلغاء مجاني لحد الخميس <span class="num">14:00</span>» بتوقيت المسافر، ونحسبه من <b>وقت الخدمة</b>.</li>
+    <li><b>Auto-expire:</b> أي حجز المورد مارّدش عليه خلال SLA يتلغي أوتوماتيك مع ريفاند، وDayGi يقترح بديل.</li>
+    <li><b>WhatsApp Business API:</b> رسايل تأكيد بـ templates، وتذكير بلينك الدفع، وكارت خطة ينفع يتشارك مع الجروب، و«كلّم إنسان» من أي مكان.</li>
+    <li><b>شارات بنفس الترتيب دايماً:</b> إلغاء مجاني ← تأكيد فوري (أو «المورد بيأكد خلال X ساعة») ← احجز وادفع بعدين ← pickup متضمّن ← مورد محلي موثّق.</li>
+    <li><b>السلامة:</b> تراخيص وزارة السياحة وشهادات مراكز الغطس ظاهرة، وملاحظات طبية للبلو هول، ورقم غرفة الضغط موجود أصلاً في الـ footer ويستاهل مكان أوضح في «النهارده».</li>
+  </ul>
+</section>
+
+<!-- 10 -->
+<section id="roadmap">
+  <span class="secno">10</span>
+  <h2>خارطة التنفيذ<small>Roadmap: estimates for a small team</small></h2>
+  <div class="phase"><div class="when"><b>0</b>~٢ أسبوع</div><div>
+    <h4>الحقيقة أولاً</h4>
+    <ul>
+      <li>السعر من السيرفر بس، والـ hold إجباري، والسعر × عدد الأفراد، ومهلة الإلغاء من وقت الخدمة.</li>
+      <li>الكاش عند الوصول مايدخلش الـ escrow، ومسار واحد لإكمال الحجز والـ payout، وربط <code>cancelPayout</code> بالريفاند.</li>
+      <li>نشيل أرقام الـ SMS الثابتة، ونمنع الحجز من مورد موقوف، والتقييم بعد إكمال الخدمة بس.</li>
+      <li>نشيل «Ahmed» من الإنتاج، ونقفل أفعال DayGi اللي ردودها جاهزة ورا flag، ونربط الظروف الحية بـ Open-Meteo.</li>
+      <li>commit لملف <code>dahab_accommodations.json</code>، ومصدر واحد للـ theme، ومسح الكود الميت.</li>
+    </ul></div></div>
+  <div class="phase"><div class="when"><b>1</b>~٤–٦ أسابيع</div><div>
+    <h4>الأساس البريميوم</h4>
+    <ul>
+      <li>Design tokens، والخطوط، و١٦ primitive، وStorybook أو صفحة <code>/design</code> حقيقية.</li>
+      <li>الـ IA الجديدة: ٤ مساحات، وbottom nav ثابت، وشريط DayGi، وroutes حقيقية بـ links.</li>
+      <li>اكتشف بخريطة وقائمة، وصفحة منتج موحّدة، وCheckout واحد، وPaymob حقيقي، وعملات متعددة للعرض.</li>
+      <li>Query cache، والصور بأبعاد، وتقسيم الـ chunks (الهدف: index أقل من <span class="num">250 kB</span> بدل <span class="num">875 kB</span>).</li>
+    </ul></div></div>
+  <div class="phase"><div class="when"><b>2</b>~٤–٦ أسابيع</div><div>
+    <h4>DayGi والرحلة</h4>
+    <ul>
+      <li>Canvas بـ streaming وtool use وكروت وتعديل في المكان وكارت موافقة، ومعاه evals.</li>
+      <li>وضع «النهارده»، وQR offline (PWA)، وتتبّع النقل بشكل Careem، وWhatsApp Business.</li>
+      <li>Trip health حقيقي واقتراحات استباقية، وخطة من لينك أو screenshot، ودعم بينفّذ وتحويل لإنسان.</li>
+    </ul></div></div>
+  <div class="phase"><div class="when"><b>3</b>~٤ أسابيع</div><div>
+    <h4>الموردين والتشغيل</h4>
+    <ul>
+      <li>Onboarding للموردين، وتطبيق موبايل للحجوزات والتقويم والأرباح، وsupplier copilot، وpayout بنكي فعلي.</li>
+      <li>دمج الـ CMS في واحد، وتبسيط console التشغيل (٢٠ قسم ← حوالي ٨)، والترتيب يستخدم درجة الاعتمادية.</li>
+    </ul></div></div>
+  <div class="phase"><div class="when"><b>4</b>مستمر</div><div>
+    <h4>التوسّع</h4>
+    <ul>
+      <li>schema.org وAPI عام، وبعدهم apps في ChatGPT وGemini. وغلاف native (Capacitor) لو احتجنا haptics وdigital key.</li>
+      <li>الذكريات، والتخطيط الجماعي بدفع مقسّم حقيقي، وتفعيل الـ bundles والإقامة الطويلة في الـ checkout.</li>
+    </ul></div></div>
+</section>
+
+<!-- 11 -->
+<section id="kpis">
+  <span class="secno">11</span>
+  <h2>مقاييس النجاح<small>What we measure</small></h2>
+  <div class="tbl"><table>
+    <tr><th>المقياس</th><th>الهدف المبدئي</th></tr>
+    <tr><td>من أول زيارة لأول خطة</td><td>أقل من <span class="num">3</span> دقايق</td></tr>
+    <tr><td>تحويل صفحة المنتج ← حجز</td><td>baseline في Phase 1 وبعده <span class="num">+30%</span></td></tr>
+    <tr><td>نسبة مشاكل الدعم اللي DayGi حلّها لوحده</td><td><span class="num">35%</span> وبعدين <span class="num">45%</span></td></tr>
+    <tr><td>أسعار أو حجوزات متخترعة في ردود الـ AI</td><td><span class="num">0</span> (في الـ evals والإنتاج)</td></tr>
+    <tr><td>حجوزات المورد أكّدها خلال الـ SLA</td><td>أكتر من <span class="num">90%</span></td></tr>
+    <tr><td>LCP على 4G في مصر / CLS</td><td>أقل من <span class="num">2.5s</span> / أقل من <span class="num">0.1</span></td></tr>
+    <tr><td>إمكانية الوصول</td><td>WCAG 2.2 AA في المساحات الأربعة</td></tr>
+    <tr><td>رجوع المستخدم أثناء الرحلة</td><td>فتح التطبيق مرة في اليوم على الأقل في <span class="num">60%</span> من أيام الرحلة</td></tr>
+  </table></div>
+</section>
+
+<!-- 12 -->
+<section id="refs">
+  <span class="secno">12</span>
+  <h2>المراجع العالمية: ناخد إيه من كل واحد<small>References</small></h2>
+  <div class="tbl"><table>
+    <tr><th>المرجع</th><th>ناخد منه</th></tr>
+    <tr><td><a href="https://www.itsnicethat.com/articles/airbnb-app-redesign-140525">Airbnb 2025</a></td><td>أيقونات ثلاثية الأبعاد بحركة عند الضغط، وصفحات التجارب اللي بتبتدي بالمرشد، وقائمة وخريطة متزامنين، ودعم بالـ AI بينفّذ</td></tr>
+    <tr><td><a href="https://mindtrip.ai/about">Mindtrip</a></td><td>شات وخريطة جنب بعض، وكروت حقيقية، و«ابدأ من أي حاجة» (لينك أو screenshot)</td></tr>
+    <tr><td><a href="https://blog.google/products/search/agentic-plans-booking-travel-canvas-ai-mode/">Google AI Mode Canvas</a></td><td>خطة على جنب بتتعدّل بالمتابعة، وشرح الـ trade-offs، وحجز بموافقة</td></tr>
+    <tr><td><a href="https://www.expedia.com/newsroom/spring-product-release-2024">Expedia Romie</a></td><td>متابعة الرحلة واقتراح بدائل، ومساعد جوه شات الجروب</td></tr>
+    <tr><td><a href="https://skift.com/2026/04/22/getyourguide-ai-updates/">GetYourGuide 2026</a></td><td>ملخص AI للتقييمات، وشريط الحقائق، واحجز وادفع بعدين</td></tr>
+    <tr><td><a href="https://www.pilotplans.com/blog/klook-review">Klook</a></td><td>تذاكر QR بتشتغل offline، و«مدفوع» منفصلة عن «اتأكد»</td></tr>
+    <tr><td><a href="https://www.aman.com">Aman</a></td><td>صور بعرض الشاشة، ووزن خط واحد، وsmall caps بمسافات، والصور هي اللي بتلوّن</td></tr>
+    <tr><td><a href="https://ourhabitas.com">Habitas</a></td><td>hero بفيديو صامت، والأقرب في الإحساس لصحرا وكامبات دهب</td></tr>
+    <tr><td><a href="https://www.experiencealula.com">Experience AlUla</a></td><td>بوابة عربي وإنجليزي بتجمع موردين صغيرين كتير في حجز واحد</td></tr>
+    <tr><td><a href="https://www.businesstraveller.com/news/marriott-bonvoy-unveils-app-redesign/">Marriott Bonvoy</a></td><td>الصفحة الرئيسية بتتحوّل أثناء الإقامة، وطلبات بلمسة واحدة</td></tr>
+    <tr><td><a href="https://www.careem.com">Careem</a></td><td>timeline حي للنقل (السواق، والنمرة، والصورة)، ومحفظة ظاهرة</td></tr>
+    <tr><td><a href="https://tripadvisor.mediaroom.com/2026-07-30-Viator-Becomes-Googles-First-Connected-App-for-Travel-Experiences">Viator × Gemini</a></td><td>التوزيع جوه المساعدات الذكية محتاج داتا منظّمة من دلوقتي</td></tr>
+    <tr><td><a href="https://motion.dev/docs/react-layout-animations">motion.dev</a></td><td><code>layoutId</code> وsprings وLazyMotion (~4.6 kB)</td></tr>
+  </table></div>
+</section>
+
+<!-- 13 -->
+<section id="decisions">
+  <span class="secno">13</span>
+  <h2>قرارات محتاجة منكم<small>Open decisions</small></h2>
+  <ol>
+    <li><b>الخطوط:</b> Coastal Editorial المجاني (المقترح)، ولا نستثمر في 29LT عشان يبقى لينا توقيع إقليمي؟</li>
+    <li><b>نبرة الكلام في العربي:</b> عامية مصرية خفيفة في الـ UI ولا فصحى مبسّطة؟ (حالياً الاتنين متلخبطين). اقتراحي: فصحى مبسّطة في الـ UI، وDayGi يرد باللهجة اللي المستخدم كتب بيها.</li>
+    <li><b>Paymob:</b> تأكيد Apple Pay وInstaPay للتاجر، وهل نسمح بالعربون مع الكاش؟</li>
+    <li><b>WhatsApp:</b> نتعامل مع BSP مين؟ ورقم مين الرسمي؟</li>
+    <li><b>PWA ولا native:</b> PWA كفاية لـ Phase 1–2، والـ native (Capacitor) لما نحتاج haptics وwallet passes.</li>
+    <li><b>التصوير:</b> ميزانية لجلسة تصوير أصلية في دهب. ده أكبر فرق بين "بريميوم" و"قالب".</li>
+    <li><b>الاسم:</b> «DAHAB» كبراند ولا اسم مستقل يقبل التوسّع لمدن تانية (نويبع، سانت كاترين، الجونة)؟</li>
+  </ol>
+  <p class="foot">المصادر: تحليل الكود في commit <span class="num">fe38825</span> وتشغيل فعلي للتطبيق. الأرقام اللي جاية من مراجع خارجية (زي نسبة حل الدعم عند Airbnb) أرقام الشركات نفسها. والمدد في خارطة التنفيذ تقديرات مبدئية.</p>
+</section>
+    </main>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Illustrative display rates only — real conversion must come from the server.
+  var base = 1400;
+  var rates = {EGP:1, USD:1/48.5, EUR:1/56.4, SAR:1/12.9};
+  var main = document.getElementById('priceMain');
+  var sub = document.getElementById('priceSub');
+  function fmt(v, c){
+    try { return new Intl.NumberFormat('en', {style:'currency', currency:c, maximumFractionDigits: c==='EGP'?0:0}).format(v); }
+    catch(e){ return c + ' ' + Math.round(v); }
+  }
+  ['EGP','USD','EUR','SAR'].forEach(function(c){
+    var b = document.getElementById('cur-'+c);
+    if(!b) return;
+    b.addEventListener('click', function(){
+      ['EGP','USD','EUR','SAR'].forEach(function(o){ var x=document.getElementById('cur-'+o); if(x) x.setAttribute('aria-pressed', o===c?'true':'false'); });
+      main.textContent = fmt(base*rates[c], c);
+      sub.textContent = c==='EGP' ? 'المبلغ الإجمالي يظهر قبل الدفع' : 'هيتخصم منك ' + fmt(base,'EGP') + ' للفرد';
+      main.classList.remove('tickin'); void main.offsetWidth; main.classList.add('tickin');
+    });
+  });
+})();
+</script>

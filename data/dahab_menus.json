@@ -1,0 +1,786 @@
+{
+ "metadata": {
+  "dataset": "dahab_menus",
+  "version": 1,
+  "currency": "EGP",
+  "venueCount": 10,
+  "note": "Menus, delivery policy and table inventory for the curated Dahab dining venues. Prices are EGP as charged (fxService keeps every charge in EGP; the client only converts for display). Delivery geography lives in server/data/deliveryZones.ts; what this file owns is the ECONOMICS per venue, because a kitchen 200m from Eel Garden must not quote the same drop as one 6km away."
+ },
+ "menus": [
+  {
+   "venueId": "dining_ali_baba_seafood",
+   "slug": "ali-baba-waterfront-seafood",
+   "supplier": {
+    "id": "SUP-DINING-ALIBABA",
+    "businessName": "Ali Baba Waterfront Seafood",
+    "businessNameAr": "علي بابا للأسماك والمأكولات البحرية",
+    "phone": "+20 69 364 0055",
+    "email": "table@alibabadahab.example",
+    "area": "Lighthouse Promenade Centre"
+   },
+   "tableBooking": {
+    "skuId": "SKU-DINING-ALIBABA",
+    "title": "Waterfront Table at Ali Baba",
+    "titleAr": "حجز طاولة على البحر في علي بابا",
+    "description": "Table minimum per person, deducted from your final bill.",
+    "descriptionAr": "حد أدنى لكل شخص، يُخصم من فاتورتك النهائية.",
+    "basePriceEGP": 150,
+    "maxCapacityPerSlot": 24,
+    "timeSlots": [
+     "13:00",
+     "14:00",
+     "15:00",
+     "19:00",
+     "20:00",
+     "21:00",
+     "22:00"
+    ],
+    "cancellationPolicyHours": 2
+   },
+   "delivery": {
+    "acceptsDelivery": true,
+    "minOrderEGP": 200,
+    "serviceFeePercent": 5,
+    "prepMinutes": 25,
+    "zones": [
+     {
+      "zoneId": "lighthouse",
+      "feeEGP": 20,
+      "etaMinutes": 8
+     },
+     {
+      "zoneId": "eel_garden",
+      "feeEGP": 25,
+      "etaMinutes": 12
+     },
+     {
+      "zoneId": "masbat",
+      "feeEGP": 30,
+      "etaMinutes": 16
+     }
+    ]
+   },
+   "items": [
+    {
+     "id": "AB-01",
+     "nameEn": "Grilled Hammour Fillet",
+     "nameAr": "فيليه هامور مشوي",
+     "category": "seafood",
+     "priceEGP": 480,
+     "dietary": [],
+     "prepMinutes": 25,
+     "available": true,
+     "sortOrder": 1,
+     "descriptionEn": "Whole Red Sea hammour, olive oil, lemon and parsley.",
+     "descriptionAr": "هامور البحر الأحمر كامل، زيت زيتون، ليمون، بقدونس."
+    },
+    {
+     "id": "AB-02",
+     "nameEn": "Grilled Calamari",
+     "nameAr": "كاليماري مشوي",
+     "category": "seafood",
+     "priceEGP": 340,
+     "dietary": [],
+     "prepMinutes": 20,
+     "available": true,
+     "sortOrder": 2
+    },
+    {
+     "id": "AB-03",
+     "nameEn": "Red Sea Shrimp Plate",
+     "nameAr": "طبق روبيان البحر الأحمر",
+     "category": "seafood",
+     "priceEGP": 420,
+     "dietary": [],
+     "prepMinutes": 20,
+     "available": true,
+     "sortOrder": 3
+    },
+    {
+     "id": "AB-04",
+     "nameEn": "Sayadieh Rice",
+     "nameAr": "رز صيادية",
+     "category": "mains",
+     "priceEGP": 180,
+     "dietary": [],
+     "prepMinutes": 15,
+     "available": true,
+     "sortOrder": 4
+    },
+    {
+     "id": "AB-05",
+     "nameEn": "Egyptian Mixed Grill",
+     "nameAr": "مشويات مصرية مشكلة",
+     "category": "grill",
+     "priceEGP": 360,
+     "dietary": [],
+     "prepMinutes": 30,
+     "available": true,
+     "sortOrder": 5
+    },
+    {
+     "id": "AB-06",
+     "nameEn": "Tahina Dip & Hot Pita",
+     "nameAr": "طحينة وخبز بلدي ساخن",
+     "category": "mains",
+     "priceEGP": 90,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 8,
+     "available": true,
+     "sortOrder": 6
+    },
+    {
+     "id": "AB-07",
+     "nameEn": "Rocket & Parmesan Salad",
+     "nameAr": "سلطة جرجير وجبنة البارميزان",
+     "category": "mains",
+     "priceEGP": 130,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 8,
+     "available": true,
+     "sortOrder": 7
+    },
+    {
+     "id": "AB-08",
+     "nameEn": "Baladi Rice",
+     "nameAr": "رز بلدي",
+     "category": "mains",
+     "priceEGP": 70,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 12,
+     "available": true,
+     "sortOrder": 8
+    },
+    {
+     "id": "AB-09",
+     "nameEn": "Grilled Aubergine with Yoghurt",
+     "nameAr": "باذنجان مشوي بالزبادي",
+     "category": "mains",
+     "priceEGP": 150,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 15,
+     "available": true,
+     "sortOrder": 9
+    },
+    {
+     "id": "AB-10",
+     "nameEn": "Um Ali",
+     "nameAr": "أم علي",
+     "category": "desserts",
+     "priceEGP": 120,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 10,
+     "available": true,
+     "sortOrder": 10
+    },
+    {
+     "id": "AB-11",
+     "nameEn": "Mint Lemon",
+     "nameAr": "ليمون بالنعناع",
+     "category": "drinks",
+     "priceEGP": 60,
+     "dietary": [],
+     "prepMinutes": 5,
+     "available": true,
+     "sortOrder": 11
+    },
+    {
+     "id": "AB-12",
+     "nameEn": "Fresh Coconut Water",
+     "nameAr": "ماء جوز هند طازج",
+     "category": "drinks",
+     "priceEGP": 55,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 3,
+     "available": true,
+     "sortOrder": 12
+    }
+   ]
+  },
+  {
+   "venueId": "dining_shark_restaurant",
+   "slug": "shark-waterfront-grill",
+   "supplier": {
+    "id": "SUP-DINING-SHARK",
+    "businessName": "Shark Waterfront Grill & Seafood",
+    "businessNameAr": "مطعم شارك للمأكولات البحرية",
+    "phone": "+20 69 364 0099",
+    "email": "grill@sharkdahab.example",
+    "area": "Lighthouse Promenade"
+   },
+   "tableBooking": {
+    "skuId": "SKU-DINING-SHARK",
+    "title": "Waterfront Table at Shark",
+    "titleAr": "حجز طاولة على البحر في شارك",
+    "description": "Table minimum per person, deducted from your final bill.",
+    "descriptionAr": "حد أدنى لكل شخص، يُخصم من فاتورتك النهائية.",
+    "basePriceEGP": 150,
+    "maxCapacityPerSlot": 20,
+    "timeSlots": [
+     "13:00",
+     "14:00",
+     "15:00",
+     "19:00",
+     "20:00",
+     "21:00",
+     "22:00"
+    ],
+    "cancellationPolicyHours": 2
+   },
+   "delivery": {
+    "acceptsDelivery": true,
+    "minOrderEGP": 250,
+    "serviceFeePercent": 5,
+    "prepMinutes": 30,
+    "zones": [
+     {
+      "zoneId": "lighthouse",
+      "feeEGP": 20,
+      "etaMinutes": 8
+     },
+     {
+      "zoneId": "eel_garden",
+      "feeEGP": 25,
+      "etaMinutes": 12
+     },
+     {
+      "zoneId": "masbat",
+      "feeEGP": 30,
+      "etaMinutes": 16
+     }
+    ]
+   },
+   "items": [
+    {
+     "id": "SH-01",
+     "nameEn": "Mixed Grill for Two",
+     "nameAr": "مشويات مشكلة لشخصين",
+     "category": "grill",
+     "priceEGP": 780,
+     "dietary": [],
+     "prepMinutes": 35,
+     "available": true,
+     "sortOrder": 1
+    },
+    {
+     "id": "SH-02",
+     "nameEn": "Grilled Hammour",
+     "nameAr": "هامور مشوي",
+     "category": "seafood",
+     "priceEGP": 520,
+     "dietary": [],
+     "prepMinutes": 28,
+     "available": true,
+     "sortOrder": 2
+    },
+    {
+     "id": "SH-03",
+     "nameEn": "Grilled Kingfish",
+     "nameAr": "ديك مشوي",
+     "category": "seafood",
+     "priceEGP": 440,
+     "dietary": [],
+     "prepMinutes": 25,
+     "available": true,
+     "sortOrder": 3
+    },
+    {
+     "id": "SH-04",
+     "nameEn": "Fish Fillet Sayadieh",
+     "nameAr": "فيليه صيادية",
+     "category": "seafood",
+     "priceEGP": 490,
+     "dietary": [],
+     "prepMinutes": 30,
+     "available": true,
+     "sortOrder": 4
+    },
+    {
+     "id": "SH-05",
+     "nameEn": "Grilled Lamb Chops",
+     "nameAr": "ريش غنم مشوية",
+     "category": "grill",
+     "priceEGP": 560,
+     "dietary": [],
+     "prepMinutes": 30,
+     "available": true,
+     "sortOrder": 5
+    },
+    {
+     "id": "SH-06",
+     "nameEn": "Mezze Platter",
+     "nameAr": "طبق مزة",
+     "category": "mains",
+     "priceEGP": 280,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 15,
+     "available": true,
+     "sortOrder": 6
+    },
+    {
+     "id": "SH-07",
+     "nameEn": "Rocket Salad",
+     "nameAr": "سلطة جرجير",
+     "category": "mains",
+     "priceEGP": 130,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 8,
+     "available": true,
+     "sortOrder": 7
+    },
+    {
+     "id": "SH-08",
+     "nameEn": "Rice Vermicelli",
+     "nameAr": "رز شعيرية",
+     "category": "mains",
+     "priceEGP": 70,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 12,
+     "available": true,
+     "sortOrder": 8
+    },
+    {
+     "id": "SH-09",
+     "nameEn": "Mahalabia",
+     "nameAr": "مهلبية",
+     "category": "desserts",
+     "priceEGP": 110,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 8,
+     "available": true,
+     "sortOrder": 9
+    },
+    {
+     "id": "SH-10",
+     "nameEn": "Egyptian Tea",
+     "nameAr": "شاي مصري",
+     "category": "drinks",
+     "priceEGP": 40,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 4,
+     "available": true,
+     "sortOrder": 10
+    }
+   ]
+  },
+  {
+   "venueId": "dining_yum_yum_falafel",
+   "slug": "yum-yum-egyptian-kitchen",
+   "supplier": {
+    "id": "SUP-DINING-YUMYUM",
+    "businessName": "Yum Yum Authentic Egyptian Kitchen",
+    "businessNameAr": "مطعم يم يم للمأكولات الشعبية المصرية",
+    "phone": "+20 122 703 6644",
+    "email": "yumyum@dahab.example",
+    "area": "Assala"
+   },
+   "tableBooking": {
+    "skuId": "SKU-DINING-YUMYUM",
+    "title": "Street Counter Table at Yum Yum",
+    "titleAr": "حجز مكان على الكاونتر في يم يم",
+    "description": "Table minimum per person at the street counter.",
+    "descriptionAr": "حد أدنى لكل شخص على كاونتر الشارع.",
+    "basePriceEGP": 50,
+    "maxCapacityPerSlot": 10,
+    "timeSlots": [
+     "07:00",
+     "09:00",
+     "12:00",
+     "15:00",
+     "19:00",
+     "21:00"
+    ],
+    "cancellationPolicyHours": 1
+   },
+   "delivery": {
+    "acceptsDelivery": true,
+    "minOrderEGP": 70,
+    "serviceFeePercent": 0,
+    "prepMinutes": 10,
+    "zones": [
+     {
+      "zoneId": "assala",
+      "feeEGP": 15,
+      "etaMinutes": 6
+     },
+     {
+      "zoneId": "eel_garden",
+      "feeEGP": 20,
+      "etaMinutes": 10
+     },
+     {
+      "zoneId": "lighthouse",
+      "feeEGP": 25,
+      "etaMinutes": 14
+     },
+     {
+      "zoneId": "masbat",
+      "feeEGP": 30,
+      "etaMinutes": 18
+     }
+    ]
+   },
+   "items": [
+    {
+     "id": "YY-01",
+     "nameEn": "Ta'amiya (Ful Medames)",
+     "nameAr": "طعمية وفول مدمس",
+     "category": "street_food",
+     "priceEGP": 45,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 5,
+     "available": true,
+     "sortOrder": 1
+    },
+    {
+     "id": "YY-02",
+     "nameEn": "Foul Medames with Tahina",
+     "nameAr": "فول مدمس بالطحينة",
+     "category": "street_food",
+     "priceEGP": 55,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 5,
+     "available": true,
+     "sortOrder": 2
+    },
+    {
+     "id": "YY-03",
+     "nameEn": "Koshary",
+     "nameAr": "كشري",
+     "category": "street_food",
+     "priceEGP": 60,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 10,
+     "available": true,
+     "sortOrder": 3
+    },
+    {
+     "id": "YY-04",
+     "nameEn": "Fried Falafel Plate",
+     "nameAr": "طبق فلافل مقلي",
+     "category": "street_food",
+     "priceEGP": 75,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 8,
+     "available": true,
+     "sortOrder": 4
+    },
+    {
+     "id": "YY-05",
+     "nameEn": "Egyptian Sausage with Eggs",
+     "nameAr": "سجق مصري بالبيض",
+     "category": "street_food",
+     "priceEGP": 85,
+     "dietary": [],
+     "prepMinutes": 12,
+     "available": true,
+     "sortOrder": 5
+    },
+    {
+     "id": "YY-06",
+     "nameEn": "Grilled Kebab with Rice",
+     "nameAr": "كباب مشوي بالرز",
+     "category": "grill",
+     "priceEGP": 180,
+     "dietary": [],
+     "prepMinutes": 20,
+     "available": true,
+     "sortOrder": 6
+    },
+    {
+     "id": "YY-07",
+     "nameEn": "Fried Rice",
+     "nameAr": "رز مقلي",
+     "category": "mains",
+     "priceEGP": 90,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 10,
+     "available": true,
+     "sortOrder": 7
+    },
+    {
+     "id": "YY-08",
+     "nameEn": "Green Salad & Rice",
+     "nameAr": "سلطة خضراوة ورز",
+     "category": "mains",
+     "priceEGP": 95,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 10,
+     "available": true,
+     "sortOrder": 8
+    },
+    {
+     "id": "YY-09",
+     "nameEn": "Fresh Mint Tea",
+     "nameAr": "شاي بالنعناع",
+     "category": "drinks",
+     "priceEGP": 25,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 3,
+     "available": true,
+     "sortOrder": 9
+    },
+    {
+     "id": "YY-10",
+     "nameEn": "Sahlab",
+     "nameAr": "سحلب",
+     "category": "drinks",
+     "priceEGP": 45,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 5,
+     "available": true,
+     "sortOrder": 10
+    },
+    {
+     "id": "YY-11",
+     "nameEn": "Omelette with Vegetables",
+     "nameAr": "أومليت بالخضار",
+     "category": "breakfast",
+     "priceEGP": 70,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 10,
+     "available": true,
+     "sortOrder": 11
+    }
+   ]
+  },
+  {
+   "venueId": "dining_red_cat_italian",
+   "slug": "red-cat-artisan-trattoria",
+   "supplier": {
+    "id": "SUP-DINING-REDCAT",
+    "businessName": "Red Cat Artisan Trattoria & Pizzeria",
+    "businessNameAr": "مطعم ريد كات الإيطالي",
+    "phone": "+20 100 552 8841",
+    "email": "tavola@redcatdahab.example",
+    "area": "Eel Garden"
+   },
+   "tableBooking": {
+    "skuId": "SKU-DINING-REDCAT",
+    "title": "Courtyard Table at Red Cat",
+    "titleAr": "حجز طاولة في فناء ريد كات",
+    "description": "Table minimum per person for the courtyard garden.",
+    "descriptionAr": "حد أدنى لكل شخص لجلوس الفناء.",
+    "basePriceEGP": 120,
+    "maxCapacityPerSlot": 18,
+    "timeSlots": [
+     "13:00",
+     "14:00",
+     "15:00",
+     "19:00",
+     "20:00",
+     "21:00",
+     "22:00"
+    ],
+    "cancellationPolicyHours": 3
+   },
+   "delivery": {
+    "acceptsDelivery": true,
+    "minOrderEGP": 180,
+    "serviceFeePercent": 5,
+    "prepMinutes": 25,
+    "zones": [
+     {
+      "zoneId": "eel_garden",
+      "feeEGP": 20,
+      "etaMinutes": 8
+     },
+     {
+      "zoneId": "lighthouse",
+      "feeEGP": 25,
+      "etaMinutes": 12
+     },
+     {
+      "zoneId": "masbat",
+      "feeEGP": 30,
+      "etaMinutes": 16
+     },
+     {
+      "zoneId": "lagoon",
+      "feeEGP": 40,
+      "etaMinutes": 22
+     }
+    ]
+   },
+   "items": [
+    {
+     "id": "RC-01",
+     "nameEn": "Margherita Pizza",
+     "nameAr": "بيتزا مارغريتا",
+     "category": "mains",
+     "priceEGP": 260,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 18,
+     "available": true,
+     "sortOrder": 1
+    },
+    {
+     "id": "RC-02",
+     "nameEn": "Diavola Pizza",
+     "nameAr": "بيتزا ديافولا",
+     "category": "mains",
+     "priceEGP": 340,
+     "dietary": [],
+     "prepMinutes": 18,
+     "available": true,
+     "sortOrder": 2
+    },
+    {
+     "id": "RC-03",
+     "nameEn": "Seafood Pizza",
+     "nameAr": "بيتزا بحرية",
+     "category": "mains",
+     "priceEGP": 420,
+     "dietary": [],
+     "prepMinutes": 20,
+     "available": true,
+     "sortOrder": 3
+    },
+    {
+     "id": "RC-04",
+     "nameEn": "Four Cheese Pizza",
+     "nameAr": "بيتزا أربع أجبان",
+     "category": "mains",
+     "priceEGP": 360,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 18,
+     "available": true,
+     "sortOrder": 4
+    },
+    {
+     "id": "RC-05",
+     "nameEn": "Carbonara",
+     "nameAr": "كاربونارا",
+     "category": "mains",
+     "priceEGP": 320,
+     "dietary": [],
+     "prepMinutes": 18,
+     "available": true,
+     "sortOrder": 5
+    },
+    {
+     "id": "RC-06",
+     "nameEn": "Pesto Pasta",
+     "nameAr": "باستا بيستو",
+     "category": "mains",
+     "priceEGP": 290,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 15,
+     "available": true,
+     "sortOrder": 6
+    },
+    {
+     "id": "RC-07",
+     "nameEn": "Bruschetta",
+     "nameAr": "بروشيتا",
+     "category": "mains",
+     "priceEGP": 140,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 8,
+     "available": true,
+     "sortOrder": 7
+    },
+    {
+     "id": "RC-08",
+     "nameEn": "Rocket & Parmesan",
+     "nameAr": "جرجير وبارميزان",
+     "category": "mains",
+     "priceEGP": 150,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 8,
+     "available": true,
+     "sortOrder": 8
+    },
+    {
+     "id": "RC-09",
+     "nameEn": "Tiramisu",
+     "nameAr": "تيراميسو",
+     "category": "desserts",
+     "priceEGP": 160,
+     "dietary": [
+      "vegetarian"
+     ],
+     "prepMinutes": 6,
+     "available": true,
+     "sortOrder": 9
+    },
+    {
+     "id": "RC-10",
+     "nameEn": "Espresso",
+     "nameAr": "إسبرسو",
+     "category": "drinks",
+     "priceEGP": 55,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 4,
+     "available": true,
+     "sortOrder": 10
+    },
+    {
+     "id": "RC-11",
+     "nameEn": "Homemade Lemonade",
+     "nameAr": "ليموندة منزلية",
+     "category": "drinks",
+     "priceEGP": 70,
+     "dietary": [
+      "vegan"
+     ],
+     "prepMinutes": 4,
+     "available": true,
+     "sortOrder": 11
+    }
+   ]
+  }
+ ]
+}

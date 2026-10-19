@@ -1,0 +1,20 @@
+{
+  "fetchedAt": "2026-10-18T00:59:49.714Z",
+  "results": [
+    {
+      "url": "https://www.tripadvisor.com/Attractions-g297547-Activities-oa0-Dahab_South_Sinai_Red_Sea_and_Sinai.html",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.tripadvisor.com/Attractions-g297551-Activities-Nuweiba_South_Sinai_Red_Sea_and_Sinai.html",
+      "data": null,
+      "error": "fetch failed"
+    },
+    {
+      "url": "https://www.tripadvisor.com/Attractions-g303857-Activities-c42-Siwa_Matrouh_Governorate.html",
+      "data": null,
+      "error": "fetch failed"
+    }
+  ]
+}

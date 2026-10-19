@@ -1,0 +1,355 @@
+syntax = "proto3";
+
+package dahab.v1;
+
+// Dahab platform gRPC surface — slice 1.
+//
+// Mirrors the GraphQL gateway and the REST projections the SPA consumes:
+// the support thread, the DayGI concierge state, and platform health. Every
+// rpc resolves through the same domain services (SupportService,
+// DayGiDomainService) as REST and GraphQL — this file is transport shape
+// only, never business logic.
+//
+// Identity arrives as gRPC metadata: "authorization: Bearer <session token>",
+// validated by authService.validateToken — the exact path an Express request
+// takes. A caller-supplied user id is never honoured.
+//
+// Field names are snake_case here; @grpc/proto-loader (keepCase: false)
+// surfaces them as camelCase in TypeScript, matching the domain entities, so
+// handlers can pass domain objects straight through.
+
+// ---------------------------------------------------------------------------
+// Support thread
+// ---------------------------------------------------------------------------
+
+message SupportMessage {
+  string id = 1;
+  string user_id = 2;
+  string traveler_name = 3;
+  string traveler_phone = 4;
+  string traveler_email = 5;
+  string trip_id = 6;
+  string category = 7;
+  string booking_ref = 8;
+  string message = 9;
+  bool urgent = 10;
+  string status = 11;
+  string created_at = 12;
+  string updated_at = 13;
+  string reply = 14;
+  string replied_by = 15;
+  string replied_at = 16;
+}
+
+message SupportThreadRequest {}
+
+message SupportThread {
+  repeated SupportMessage messages = 1;
+  int32 open_count = 2;
+}
+
+message CreateSupportMessageRequest {
+  // Max 2000 characters, enforced by SupportService.
+  string message = 1;
+  string traveler_name = 2;
+  string traveler_phone = 3;
+  string traveler_email = 4;
+  string trip_id = 5;
+  string category = 6;
+  string booking_ref = 7;
+  bool urgent = 8;
+}
+
+// ---------------------------------------------------------------------------
+// DayGI concierge
+// ---------------------------------------------------------------------------
+
+message DayGiPreferences {
+  string pace = 1;
+  string morning_preference = 2;
+  string diving_level = 3;
+  repeated string dietary_preferences = 4;
+  string budget_band = 5;
+  string transfer_preference = 6;
+  bool seafood_preference = 7;
+  bool avoids_long_transfers = 8;
+}
+
+message DayGiMemory {
+  string user_id = 1;
+  DayGiPreferences preferences = 2;
+  repeated string learned_insights = 3;
+  repeated string learned_insights_ar = 4;
+  repeated string recent_intents = 5;
+  string updated_at = 6;
+}
+
+message DayGiMemoryRequest {}
+
+message DayGiTaskStep {
+  // Deliberately excludes actionToken, idempotencyKey, payload and
+  // resultData — the GraphQL projection drops them too; step execution
+  // stays on REST.
+  string step_id = 1;
+  int32 step_number = 2;
+  string name = 3;
+  string name_ar = 4;
+  string state = 5;
+  string risk_level = 6;
+  string error = 7;
+}
+
+message DayGiTask {
+  string task_id = 1;
+  string user_id = 2;
+  string trip_id = 3;
+  string intent = 4;
+  string title_en = 5;
+  string title_ar = 6;
+  int32 current_step_number = 7;
+  int32 total_steps = 8;
+  string risk_level = 9;
+  string state = 10;
+  repeated DayGiTaskStep steps = 11;
+}
+
+message ListDayGiTasksRequest {
+  string trip_id = 1;
+}
+
+message DayGiTaskList {
+  repeated DayGiTask tasks = 1;
+}
+
+message GetDayGiTaskRequest {
+  string task_id = 1;
+}
+
+// ---------------------------------------------------------------------------
+// Platform health (the no-PII subset of GET /api/health — public, like REST)
+// ---------------------------------------------------------------------------
+
+message PlatformHealthRequest {}
+
+message PlatformHealth {
+  string status = 1;
+  string service = 2;
+  string adapter = 3;
+  bool ledger_balanced = 4;
+  bool ledger_chain_intact = 5;
+  string timestamp = 6;
+}
+
+// ---------------------------------------------------------------------------
+// Public catalogue (slice 2) — mirrors GET /api/accommodations?view=card.
+// Zero-valued scalars mean "unset" (min_rating 0 filters nothing).
+// ---------------------------------------------------------------------------
+
+message AccommodationCardFilters {
+  string q = 1;
+  repeated string property_types = 2;
+  repeated string categories = 3;
+  repeated string price_bands = 4;
+  repeated string area_ids = 5;
+  double min_rating = 6;
+  int32 max_per_night_egp = 7;
+  int32 guests = 8;
+  repeated string must_have_amenities = 9;
+  string sort = 10;
+}
+
+message AccommodationCard {
+  string id = 1;
+  string slug = 2;
+  string name = 3;
+  string name_ar = 4;
+  string property_type = 5;
+  string category = 6;
+  string price_band = 7;
+  string area_id = 8;
+  string area = 9;
+  string area_name = 10;
+  string area_name_ar = 11;
+  double rating = 12;
+  int32 review_count = 13;
+  string rating_source = 14;
+  repeated string type_chips = 15;
+  repeated string type_chips_ar = 16;
+  string tagline = 17;
+  string tagline_ar = 18;
+  string description = 19;
+  string description_ar = 20;
+  repeated string amenities = 21;
+  repeated string amenities_ar = 22;
+  int32 per_night_egp = 23;
+  int32 weekly_rate_egp = 24;
+  int32 monthly_rate_egp = 25;
+  int32 package_nights = 26;
+  int32 rooms = 27;
+  int32 max_guests = 28;
+  double latitude = 29;
+  double longitude = 30;
+  string sku_id = 31;
+  bool active = 32;
+  bool featured = 33;
+  string cover_image_url = 34;
+  string source_url = 35;
+  string created_at = 36;
+  string updated_at = 37;
+  int32 package_total_egp = 38;
+}
+
+message AreaGuideEntry {
+  string id = 1;
+  string name = 2;
+  string name_ar = 3;
+  string description = 4;
+  string description_ar = 5;
+}
+
+message CatalogueStats {
+  int32 total = 1;
+  double average_rating = 2;
+  int32 total_reviews = 3;
+  string updated_label = 4;
+}
+
+message AccommodationCardsResponse {
+  repeated AccommodationCard cards = 1;
+  repeated AreaGuideEntry areas = 2;
+  CatalogueStats stats = 3;
+  string disclaimer = 4;
+}
+
+message AreaGuideRequest {}
+
+message AreaGuideList {
+  repeated AreaGuideEntry areas = 1;
+}
+
+// ---------------------------------------------------------------------------
+// Stays (slice 3) — mirrors GET /:slug/room-types and POST /:slug/quote.
+// ---------------------------------------------------------------------------
+
+message RoomType {
+  string id = 1;
+  string accommodation_id = 2;
+  string sku_id = 3;
+  string supplier_id = 4;
+  string code = 5;
+  string name = 6;
+  string name_ar = 7;
+  string description = 8;
+  string description_ar = 9;
+  int32 max_guests_per_unit = 10;
+  string bed_type = 11;
+  int32 bed_count = 12;
+  double size_sqm = 13;
+  string view = 14;
+  int32 base_nightly_egp = 15;
+  int32 weekly_rate_egp = 16;
+  int32 monthly_rate_egp = 17;
+  int32 min_nights = 18;
+  int32 max_nights = 19;
+  int32 cancellation_policy_hours = 20;
+  int32 total_units = 21;
+  string inventory_source = 22;
+  repeated string amenities = 23;
+  repeated string images = 24;
+  bool active = 25;
+  int32 display_order = 26;
+  string created_at = 27;
+  string updated_at = 28;
+}
+
+message RoomTypesRequest {
+  string slug = 1;
+}
+
+message RoomTypesResponse {
+  string accommodation_id = 1;
+  repeated RoomType room_types = 2;
+  bool held_back = 3;
+}
+
+message NightCharge {
+  string date = 1;
+  int32 nightly_egp = 2;
+  int32 rooms = 3;
+  int32 total_egp = 4;
+}
+
+message StayQuote {
+  string accommodation_id = 1;
+  string room_type_id = 2;
+  int32 rooms = 3;
+  int32 adults = 4;
+  int32 children = 5;
+  int32 min_nights = 6;
+  string free_cancellation_until = 7;
+  string expires_at = 8;
+  string inventory_source = 9;
+  int32 nights = 10;
+  repeated NightCharge nights_detail = 11;
+  int32 base_egp = 12;
+  int32 long_stay_discount_egp = 13;
+  int32 service_fee_egp = 14;
+  int32 tax_egp = 15;
+  int32 total_egp = 16;
+  string currency = 17;
+  int32 deposit_egp = 18;
+  int32 balance_due_egp = 19;
+}
+
+message QuoteStayRequest {
+  string slug = 1;
+  string room_type_id = 2;
+  // YYYY-MM-DD, the first slept night.
+  string check_in = 3;
+  // YYYY-MM-DD, the morning of departure (exclusive).
+  string check_out = 4;
+  int32 rooms = 5;
+  int32 adults = 6;
+  int32 children = 7;
+}
+
+// ---------------------------------------------------------------------------
+// Service
+// ---------------------------------------------------------------------------
+
+service DahabService {
+  // The caller's own thread; Operations/Admin see the full queue.
+  rpc GetSupportThread(SupportThreadRequest) returns (SupportThread);
+
+  // Same validation, audit and staff-event path as POST /api/support/messages.
+  rpc CreateSupportMessage(CreateSupportMessageRequest) returns (SupportMessage);
+
+  // The caller's structured memory, auto-created on first read.
+  rpc GetDayGiMemory(DayGiMemoryRequest) returns (DayGiMemory);
+
+  // Tasks for one trip. NOT_FOUND when trip_id is empty (matching the 400
+  // on GET /api/daygi/tasks).
+  rpc ListDayGiTasks(ListDayGiTasksRequest) returns (DayGiTaskList);
+
+  // NOT_FOUND for BOTH a missing task and somebody else's task — the REST
+  // route's flat-404 semantics, so the rpc never confirms a task exists.
+  rpc GetDayGiTask(GetDayGiTaskRequest) returns (DayGiTask);
+
+  // Public like GET /api/health; no session required.
+  rpc GetPlatformHealth(PlatformHealthRequest) returns (PlatformHealth);
+
+  // Public like GET /api/accommodations?view=card; no session required.
+  rpc ListAccommodationCards(AccommodationCardFilters) returns (AccommodationCardsResponse);
+
+  // Public like the REST areas payload; no session required.
+  rpc ListAreas(AreaGuideRequest) returns (AreaGuideList);
+
+  // Public like GET /api/accommodations/:slug/room-types. NOT_FOUND for an
+  // unknown slug.
+  rpc ListRoomTypes(RoomTypesRequest) returns (RoomTypesResponse);
+
+  // Public like POST /api/accommodations/:slug/quote. NOT_FOUND for an
+  // unknown slug; invalid input is INVALID_ARGUMENT. Stateless — the
+  // reservation re-prices under a lock, so the figure is never a promise.
+  rpc QuoteStay(QuoteStayRequest) returns (StayQuote);
+}

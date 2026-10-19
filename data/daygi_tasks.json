@@ -1,0 +1,3502 @@
+{
+  "tasks": [
+    [
+      "TASK-AHMED-DIV-001",
+      {
+        "taskId": "TASK-AHMED-DIV-001",
+        "userId": "USR-AHMED-01",
+        "tripId": "DHB-TRIP-894",
+        "intent": "BOOK_DIVE_THEN_NEARBY_FOOD",
+        "titleEn": "Book Canyon Morning Dive & Reserve Nearby Seaside Lunch",
+        "titleAr": "حجز غطسة الكانيون الصباحية وتنسيق غداء بحري قريب",
+        "currentStepNumber": 1,
+        "totalSteps": 2,
+        "riskLevel": "COMMERCE",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Hold & Confirm Guided Canyon Reef Dive",
+            "nameAr": "حجز وتأكيد غطسة الكانيون مع مرشد معتمد",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "CONFIRM_DIRECT_BOOKING",
+            "payload": {
+              "skuId": "SKU-DIV-001",
+              "tripId": "DHB-TRIP-894",
+              "priceEGP": 2700,
+              "date": "2026-10-11",
+              "timeSlot": "08:30 AM"
+            },
+            "riskLevel": "COMMERCE",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-DIV-001",
+            "idempotencyKey": "IDEMP-INIT-ACT-DIV-001",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          },
+          {
+            "stepId": "STEP-2",
+            "stepNumber": 2,
+            "name": "Locate & Reserve Post-Dive Seaside Table within 10 Mins Walk",
+            "nameAr": "تحديد وحجز طاولة غداء بحري على بعد ١٠ دقائق مشياً",
+            "systemComponent": "MAPS_ENGINE",
+            "actionKey": "RESERVE_FOOD_POST_ACTIVITY",
+            "payload": {
+              "originLocationId": "place-canyon",
+              "availableWindowMins": 90,
+              "preferredCategory": "FOOD"
+            },
+            "riskLevel": "LOW_RISK",
+            "state": "WAITING_FOR_DEPENDENCY",
+            "dependsOnStepIds": [
+              "STEP-1"
+            ],
+            "actionToken": "ACT-FOOD-001",
+            "idempotencyKey": "IDEMP-INIT-ACT-FOOD-001",
+            "verificationRule": "VERIFY_TRIP_TIMELINE"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-11T18:04:45.340Z",
+        "updatedAt": "2026-10-11T18:04:45.340Z"
+      }
+    ],
+    [
+      "TASK-621469-1isu",
+      {
+        "taskId": "TASK-621469-1isu",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-9-1isu-1",
+            "idempotencyKey": "IDEMP-ACT-9-1isu-1-1791773621469",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T02:53:41.469Z",
+        "updatedAt": "2026-10-12T02:53:41.469Z"
+      }
+    ],
+    [
+      "TASK-989912-7ttd",
+      {
+        "taskId": "TASK-989912-7ttd",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-2-7ttd-1",
+            "idempotencyKey": "IDEMP-ACT-2-7ttd-1-1791773989912",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T02:59:49.913Z",
+        "updatedAt": "2026-10-12T02:59:49.913Z"
+      }
+    ],
+    [
+      "TASK-999108-hnrs",
+      {
+        "taskId": "TASK-999108-hnrs",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-8-hnrs-1",
+            "idempotencyKey": "IDEMP-ACT-8-hnrs-1-1791773999108",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T02:59:59.108Z",
+        "updatedAt": "2026-10-12T02:59:59.108Z"
+      }
+    ],
+    [
+      "TASK-460451-9ayz",
+      {
+        "taskId": "TASK-460451-9ayz",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-1-9ayz-1",
+            "idempotencyKey": "IDEMP-ACT-1-9ayz-1-1791774460451",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T03:07:40.451Z",
+        "updatedAt": "2026-10-12T03:07:40.451Z"
+      }
+    ],
+    [
+      "TASK-829136-bjkt",
+      {
+        "taskId": "TASK-829136-bjkt",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-6-bjkt-1",
+            "idempotencyKey": "IDEMP-ACT-6-bjkt-1-1791774829136",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T03:13:49.137Z",
+        "updatedAt": "2026-10-12T03:13:49.137Z"
+      }
+    ],
+    [
+      "TASK-501931-3z1n",
+      {
+        "taskId": "TASK-501931-3z1n",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-1-3z1n-1",
+            "idempotencyKey": "IDEMP-ACT-1-3z1n-1-1791777501931",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T03:58:21.931Z",
+        "updatedAt": "2026-10-12T03:58:21.931Z"
+      }
+    ],
+    [
+      "TASK-659727-bhmr",
+      {
+        "taskId": "TASK-659727-bhmr",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-7-bhmr-1",
+            "idempotencyKey": "IDEMP-ACT-7-bhmr-1-1791777659727",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T04:00:59.727Z",
+        "updatedAt": "2026-10-12T04:00:59.727Z"
+      }
+    ],
+    [
+      "TASK-997675-a508",
+      {
+        "taskId": "TASK-997675-a508",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-5-a508-1",
+            "idempotencyKey": "IDEMP-ACT-5-a508-1-1791777997675",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T04:06:37.675Z",
+        "updatedAt": "2026-10-12T04:06:37.675Z"
+      }
+    ],
+    [
+      "TASK-172649-2s4t",
+      {
+        "taskId": "TASK-172649-2s4t",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-9-2s4t-1",
+            "idempotencyKey": "IDEMP-ACT-9-2s4t-1-1791804172649",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T11:22:52.650Z",
+        "updatedAt": "2026-10-12T11:22:52.650Z"
+      }
+    ],
+    [
+      "TASK-561530-s5q5",
+      {
+        "taskId": "TASK-561530-s5q5",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-s5q5-1",
+            "idempotencyKey": "IDEMP-ACT-0-s5q5-1-1791813561530",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T13:59:21.531Z",
+        "updatedAt": "2026-10-12T13:59:21.531Z"
+      }
+    ],
+    [
+      "TASK-357130-ej98",
+      {
+        "taskId": "TASK-357130-ej98",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-ej98-1",
+            "idempotencyKey": "IDEMP-ACT-0-ej98-1-1791828357130",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T18:05:57.130Z",
+        "updatedAt": "2026-10-12T18:05:57.131Z"
+      }
+    ],
+    [
+      "TASK-934678-je8z",
+      {
+        "taskId": "TASK-934678-je8z",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-8-je8z-1",
+            "idempotencyKey": "IDEMP-ACT-8-je8z-1-1791829934679",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-12T18:32:14.679Z",
+        "updatedAt": "2026-10-12T18:32:14.679Z"
+      }
+    ],
+    [
+      "TASK-740812-tgkf",
+      {
+        "taskId": "TASK-740812-tgkf",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-2-tgkf-1",
+            "idempotencyKey": "IDEMP-ACT-2-tgkf-1-1791850740812",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T00:19:00.812Z",
+        "updatedAt": "2026-10-13T00:19:00.812Z"
+      }
+    ],
+    [
+      "TASK-608010-efdc",
+      {
+        "taskId": "TASK-608010-efdc",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-efdc-1",
+            "idempotencyKey": "IDEMP-ACT-0-efdc-1-1791852608010",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T00:50:08.010Z",
+        "updatedAt": "2026-10-13T00:50:08.010Z"
+      }
+    ],
+    [
+      "TASK-630326-9fpr",
+      {
+        "taskId": "TASK-630326-9fpr",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-6-9fpr-1",
+            "idempotencyKey": "IDEMP-ACT-6-9fpr-1-1791853630326",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T01:07:10.327Z",
+        "updatedAt": "2026-10-13T01:07:10.327Z"
+      }
+    ],
+    [
+      "TASK-394520-csmt",
+      {
+        "taskId": "TASK-394520-csmt",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-csmt-1",
+            "idempotencyKey": "IDEMP-ACT-0-csmt-1-1791856394520",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T01:53:14.520Z",
+        "updatedAt": "2026-10-13T01:53:14.520Z"
+      }
+    ],
+    [
+      "TASK-812292-v9w6",
+      {
+        "taskId": "TASK-812292-v9w6",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-2-v9w6-1",
+            "idempotencyKey": "IDEMP-ACT-2-v9w6-1-1791857812292",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T02:16:52.292Z",
+        "updatedAt": "2026-10-13T02:16:52.292Z"
+      }
+    ],
+    [
+      "TASK-969138-3xpe",
+      {
+        "taskId": "TASK-969138-3xpe",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-8-3xpe-1",
+            "idempotencyKey": "IDEMP-ACT-8-3xpe-1-1791863969138",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T03:59:29.138Z",
+        "updatedAt": "2026-10-13T03:59:29.138Z"
+      }
+    ],
+    [
+      "TASK-472198-1ksn",
+      {
+        "taskId": "TASK-472198-1ksn",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-8-1ksn-1",
+            "idempotencyKey": "IDEMP-ACT-8-1ksn-1-1791864472198",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T04:07:52.198Z",
+        "updatedAt": "2026-10-13T04:07:52.198Z"
+      }
+    ],
+    [
+      "TASK-430838-4lhq",
+      {
+        "taskId": "TASK-430838-4lhq",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-8-4lhq-1",
+            "idempotencyKey": "IDEMP-ACT-8-4lhq-1-1791865430838",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T04:23:50.838Z",
+        "updatedAt": "2026-10-13T04:23:50.838Z"
+      }
+    ],
+    [
+      "TASK-187153-0vow",
+      {
+        "taskId": "TASK-187153-0vow",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-3-0vow-1",
+            "idempotencyKey": "IDEMP-ACT-3-0vow-1-1791868187154",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T05:09:47.154Z",
+        "updatedAt": "2026-10-13T05:09:47.154Z"
+      }
+    ],
+    [
+      "TASK-844861-ozff",
+      {
+        "taskId": "TASK-844861-ozff",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-1-ozff-1",
+            "idempotencyKey": "IDEMP-ACT-1-ozff-1-1791899844861",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-13T13:57:24.861Z",
+        "updatedAt": "2026-10-13T13:57:24.861Z"
+      }
+    ],
+    [
+      "TASK-469447-sl3l",
+      {
+        "taskId": "TASK-469447-sl3l",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-7-sl3l-1",
+            "idempotencyKey": "IDEMP-ACT-7-sl3l-1-1791967469447",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T08:44:29.447Z",
+        "updatedAt": "2026-10-14T08:44:29.447Z"
+      }
+    ],
+    [
+      "TASK-020704-ka5i",
+      {
+        "taskId": "TASK-020704-ka5i",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-4-ka5i-1",
+            "idempotencyKey": "IDEMP-ACT-4-ka5i-1-1792003020704",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T18:37:00.705Z",
+        "updatedAt": "2026-10-14T18:37:00.705Z"
+      }
+    ],
+    [
+      "TASK-615429-l88o",
+      {
+        "taskId": "TASK-615429-l88o",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-9-l88o-1",
+            "idempotencyKey": "IDEMP-ACT-9-l88o-1-1792003615429",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T18:46:55.429Z",
+        "updatedAt": "2026-10-14T18:46:55.429Z"
+      }
+    ],
+    [
+      "TASK-023778-hdjz",
+      {
+        "taskId": "TASK-023778-hdjz",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-8-hdjz-1",
+            "idempotencyKey": "IDEMP-ACT-8-hdjz-1-1792004023778",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T18:53:43.778Z",
+        "updatedAt": "2026-10-14T18:53:43.778Z"
+      }
+    ],
+    [
+      "TASK-014885-gndz",
+      {
+        "taskId": "TASK-014885-gndz",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-5-gndz-1",
+            "idempotencyKey": "IDEMP-ACT-5-gndz-1-1792008014885",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T20:00:14.885Z",
+        "updatedAt": "2026-10-14T20:00:14.885Z"
+      }
+    ],
+    [
+      "TASK-070402-a9rs",
+      {
+        "taskId": "TASK-070402-a9rs",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-2-a9rs-1",
+            "idempotencyKey": "IDEMP-ACT-2-a9rs-1-1792009070402",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T20:17:50.402Z",
+        "updatedAt": "2026-10-14T20:17:50.402Z"
+      }
+    ],
+    [
+      "TASK-865535-3zom",
+      {
+        "taskId": "TASK-865535-3zom",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-5-3zom-1",
+            "idempotencyKey": "IDEMP-ACT-5-3zom-1-1792010865535",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T20:47:45.535Z",
+        "updatedAt": "2026-10-14T20:47:45.535Z"
+      }
+    ],
+    [
+      "TASK-279868-x0ex",
+      {
+        "taskId": "TASK-279868-x0ex",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-8-x0ex-1",
+            "idempotencyKey": "IDEMP-ACT-8-x0ex-1-1792012279868",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T21:11:19.868Z",
+        "updatedAt": "2026-10-14T21:11:19.868Z"
+      }
+    ],
+    [
+      "TASK-977768-xsmo",
+      {
+        "taskId": "TASK-977768-xsmo",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-8-xsmo-1",
+            "idempotencyKey": "IDEMP-ACT-8-xsmo-1-1792013977768",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T21:39:37.768Z",
+        "updatedAt": "2026-10-14T21:39:37.768Z"
+      }
+    ],
+    [
+      "TASK-521990-3ch4",
+      {
+        "taskId": "TASK-521990-3ch4",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-3ch4-1",
+            "idempotencyKey": "IDEMP-ACT-0-3ch4-1-1792016521990",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T22:22:01.990Z",
+        "updatedAt": "2026-10-14T22:22:01.990Z"
+      }
+    ],
+    [
+      "TASK-787320-ifl0",
+      {
+        "taskId": "TASK-787320-ifl0",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-ifl0-1",
+            "idempotencyKey": "IDEMP-ACT-0-ifl0-1-1792017787321",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T22:43:07.321Z",
+        "updatedAt": "2026-10-14T22:43:07.321Z"
+      }
+    ],
+    [
+      "TASK-398234-13jl",
+      {
+        "taskId": "TASK-398234-13jl",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-4-13jl-1",
+            "idempotencyKey": "IDEMP-ACT-4-13jl-1-1792022398234",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-14T23:59:58.234Z",
+        "updatedAt": "2026-10-14T23:59:58.234Z"
+      }
+    ],
+    [
+      "TASK-895519-0tzc",
+      {
+        "taskId": "TASK-895519-0tzc",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-9-0tzc-1",
+            "idempotencyKey": "IDEMP-ACT-9-0tzc-1-1792022895519",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-15T00:08:15.519Z",
+        "updatedAt": "2026-10-15T00:08:15.519Z"
+      }
+    ],
+    [
+      "TASK-060346-16s4",
+      {
+        "taskId": "TASK-060346-16s4",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-6-16s4-1",
+            "idempotencyKey": "IDEMP-ACT-6-16s4-1-1792023060347",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-15T00:11:00.347Z",
+        "updatedAt": "2026-10-15T00:11:00.347Z"
+      }
+    ],
+    [
+      "TASK-417720-7exo",
+      {
+        "taskId": "TASK-417720-7exo",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-7exo-1",
+            "idempotencyKey": "IDEMP-ACT-0-7exo-1-1792056417720",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-15T09:26:57.720Z",
+        "updatedAt": "2026-10-15T09:26:57.720Z"
+      }
+    ],
+    [
+      "TASK-872882-ohdu",
+      {
+        "taskId": "TASK-872882-ohdu",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-2-ohdu-1",
+            "idempotencyKey": "IDEMP-ACT-2-ohdu-1-1792075872882",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-15T14:51:12.882Z",
+        "updatedAt": "2026-10-15T14:51:12.882Z"
+      }
+    ],
+    [
+      "TASK-131556-343y",
+      {
+        "taskId": "TASK-131556-343y",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-6-343y-1",
+            "idempotencyKey": "IDEMP-ACT-6-343y-1-1792077131556",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-15T15:12:11.556Z",
+        "updatedAt": "2026-10-15T15:12:11.556Z"
+      }
+    ],
+    [
+      "TASK-311344-4vlt",
+      {
+        "taskId": "TASK-311344-4vlt",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-4-4vlt-1",
+            "idempotencyKey": "IDEMP-ACT-4-4vlt-1-1792077311344",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-15T15:15:11.344Z",
+        "updatedAt": "2026-10-15T15:15:11.344Z"
+      }
+    ],
+    [
+      "TASK-604413-pspz",
+      {
+        "taskId": "TASK-604413-pspz",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-3-pspz-1",
+            "idempotencyKey": "IDEMP-ACT-3-pspz-1-1792097604413",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-15T20:53:24.413Z",
+        "updatedAt": "2026-10-15T20:53:24.413Z"
+      }
+    ],
+    [
+      "TASK-605683-twzi",
+      {
+        "taskId": "TASK-605683-twzi",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-3-twzi-1",
+            "idempotencyKey": "IDEMP-ACT-3-twzi-1-1792169605683",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-16T16:53:25.683Z",
+        "updatedAt": "2026-10-16T16:53:25.683Z"
+      }
+    ],
+    [
+      "TASK-923023-cwqo",
+      {
+        "taskId": "TASK-923023-cwqo",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-3-cwqo-1",
+            "idempotencyKey": "IDEMP-ACT-3-cwqo-1-1792205923023",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-17T02:58:43.023Z",
+        "updatedAt": "2026-10-17T02:58:43.023Z"
+      }
+    ],
+    [
+      "TASK-919640-8dhs",
+      {
+        "taskId": "TASK-919640-8dhs",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-8dhs-1",
+            "idempotencyKey": "IDEMP-ACT-0-8dhs-1-1792207919640",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-17T03:31:59.641Z",
+        "updatedAt": "2026-10-17T03:31:59.641Z"
+      }
+    ],
+    [
+      "TASK-822432-4g93",
+      {
+        "taskId": "TASK-822432-4g93",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-2-4g93-1",
+            "idempotencyKey": "IDEMP-ACT-2-4g93-1-1792261822432",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-17T18:30:22.432Z",
+        "updatedAt": "2026-10-17T18:30:22.432Z"
+      }
+    ],
+    [
+      "TASK-458536-kr7g",
+      {
+        "taskId": "TASK-458536-kr7g",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-6-kr7g-1",
+            "idempotencyKey": "IDEMP-ACT-6-kr7g-1-1792287458536",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T01:37:38.536Z",
+        "updatedAt": "2026-10-18T01:37:38.536Z"
+      }
+    ],
+    [
+      "TASK-926819-1qeh",
+      {
+        "taskId": "TASK-926819-1qeh",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-9-1qeh-1",
+            "idempotencyKey": "IDEMP-ACT-9-1qeh-1-1792290926819",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T02:35:26.819Z",
+        "updatedAt": "2026-10-18T02:35:26.819Z"
+      }
+    ],
+    [
+      "TASK-636827-z94b",
+      {
+        "taskId": "TASK-636827-z94b",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-7-z94b-1",
+            "idempotencyKey": "IDEMP-ACT-7-z94b-1-1792292636828",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T03:03:56.828Z",
+        "updatedAt": "2026-10-18T03:03:56.828Z"
+      }
+    ],
+    [
+      "TASK-786147-xaem",
+      {
+        "taskId": "TASK-786147-xaem",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-7-xaem-1",
+            "idempotencyKey": "IDEMP-ACT-7-xaem-1-1792292786147",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T03:06:26.147Z",
+        "updatedAt": "2026-10-18T03:06:26.147Z"
+      }
+    ],
+    [
+      "TASK-275160-pn0p",
+      {
+        "taskId": "TASK-275160-pn0p",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-pn0p-1",
+            "idempotencyKey": "IDEMP-ACT-0-pn0p-1-1792295275160",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T03:47:55.160Z",
+        "updatedAt": "2026-10-18T03:47:55.160Z"
+      }
+    ],
+    [
+      "TASK-394180-4doi",
+      {
+        "taskId": "TASK-394180-4doi",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-4doi-1",
+            "idempotencyKey": "IDEMP-ACT-0-4doi-1-1792299394181",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T04:56:34.181Z",
+        "updatedAt": "2026-10-18T04:56:34.181Z"
+      }
+    ],
+    [
+      "TASK-148954-el2i",
+      {
+        "taskId": "TASK-148954-el2i",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-4-el2i-1",
+            "idempotencyKey": "IDEMP-ACT-4-el2i-1-1792300148955",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T05:09:08.955Z",
+        "updatedAt": "2026-10-18T05:09:08.955Z"
+      }
+    ],
+    [
+      "TASK-772178-prs5",
+      {
+        "taskId": "TASK-772178-prs5",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-8-prs5-1",
+            "idempotencyKey": "IDEMP-ACT-8-prs5-1-1792300772178",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T05:19:32.179Z",
+        "updatedAt": "2026-10-18T05:19:32.179Z"
+      }
+    ],
+    [
+      "TASK-938799-xlln",
+      {
+        "taskId": "TASK-938799-xlln",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-9-xlln-1",
+            "idempotencyKey": "IDEMP-ACT-9-xlln-1-1792301938799",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T05:38:58.799Z",
+        "updatedAt": "2026-10-18T05:38:58.799Z"
+      }
+    ],
+    [
+      "TASK-557506-npza",
+      {
+        "taskId": "TASK-557506-npza",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-6-npza-1",
+            "idempotencyKey": "IDEMP-ACT-6-npza-1-1792302557506",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T05:49:17.506Z",
+        "updatedAt": "2026-10-18T05:49:17.506Z"
+      }
+    ],
+    [
+      "TASK-177474-iyis",
+      {
+        "taskId": "TASK-177474-iyis",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-4-iyis-1",
+            "idempotencyKey": "IDEMP-ACT-4-iyis-1-1792303177474",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T05:59:37.474Z",
+        "updatedAt": "2026-10-18T05:59:37.474Z"
+      }
+    ],
+    [
+      "TASK-925437-51dg",
+      {
+        "taskId": "TASK-925437-51dg",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-7-51dg-1",
+            "idempotencyKey": "IDEMP-ACT-7-51dg-1-1792303925437",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T06:12:05.437Z",
+        "updatedAt": "2026-10-18T06:12:05.437Z"
+      }
+    ],
+    [
+      "TASK-455667-p0zq",
+      {
+        "taskId": "TASK-455667-p0zq",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-7-p0zq-1",
+            "idempotencyKey": "IDEMP-ACT-7-p0zq-1-1792314455667",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T09:07:35.667Z",
+        "updatedAt": "2026-10-18T09:07:35.667Z"
+      }
+    ],
+    [
+      "TASK-840385-1upt",
+      {
+        "taskId": "TASK-840385-1upt",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-5-1upt-1",
+            "idempotencyKey": "IDEMP-ACT-5-1upt-1-1792317840385",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T10:04:00.385Z",
+        "updatedAt": "2026-10-18T10:04:00.385Z"
+      }
+    ],
+    [
+      "TASK-745684-3nrp",
+      {
+        "taskId": "TASK-745684-3nrp",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-4-3nrp-1",
+            "idempotencyKey": "IDEMP-ACT-4-3nrp-1-1792320745685",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T10:52:25.685Z",
+        "updatedAt": "2026-10-18T10:52:25.685Z"
+      }
+    ],
+    [
+      "TASK-365193-c7oi",
+      {
+        "taskId": "TASK-365193-c7oi",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-3-c7oi-1",
+            "idempotencyKey": "IDEMP-ACT-3-c7oi-1-1792358365193",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T21:19:25.193Z",
+        "updatedAt": "2026-10-18T21:19:25.193Z"
+      }
+    ],
+    [
+      "TASK-453320-8cmj",
+      {
+        "taskId": "TASK-453320-8cmj",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-0-8cmj-1",
+            "idempotencyKey": "IDEMP-ACT-0-8cmj-1-1792365453320",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-18T23:17:33.320Z",
+        "updatedAt": "2026-10-18T23:17:33.320Z"
+      }
+    ],
+    [
+      "TASK-716657-f74m",
+      {
+        "taskId": "TASK-716657-f74m",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-7-f74m-1",
+            "idempotencyKey": "IDEMP-ACT-7-f74m-1-1792369716657",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-19T00:28:36.657Z",
+        "updatedAt": "2026-10-19T00:28:36.657Z"
+      }
+    ],
+    [
+      "TASK-990896-0csi",
+      {
+        "taskId": "TASK-990896-0csi",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-6-0csi-1",
+            "idempotencyKey": "IDEMP-ACT-6-0csi-1-1792370990896",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-19T00:49:50.896Z",
+        "updatedAt": "2026-10-19T00:49:50.896Z"
+      }
+    ],
+    [
+      "TASK-627529-mhmz",
+      {
+        "taskId": "TASK-627529-mhmz",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-9-mhmz-1",
+            "idempotencyKey": "IDEMP-ACT-9-mhmz-1-1792371627529",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-19T01:00:27.529Z",
+        "updatedAt": "2026-10-19T01:00:27.529Z"
+      }
+    ],
+    [
+      "TASK-496385-8spt",
+      {
+        "taskId": "TASK-496385-8spt",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-5-8spt-1",
+            "idempotencyKey": "IDEMP-ACT-5-8spt-1-1792372496385",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-19T01:14:56.385Z",
+        "updatedAt": "2026-10-19T01:14:56.385Z"
+      }
+    ],
+    [
+      "TASK-424111-ltot",
+      {
+        "taskId": "TASK-424111-ltot",
+        "userId": "USR-OWNER-1",
+        "tripId": "TRIP-USR-OWNER-1",
+        "intent": "RESCHEDULE",
+        "titleEn": "Move the dive",
+        "titleAr": "تغيير موعد الغطسة",
+        "currentStepNumber": 1,
+        "totalSteps": 1,
+        "riskLevel": "LOW_RISK",
+        "state": "PLANNED",
+        "steps": [
+          {
+            "stepId": "STEP-1",
+            "stepNumber": 1,
+            "name": "Release the hold",
+            "nameAr": "إلغاء الحجز المؤقت",
+            "systemComponent": "COMMERCE_SERVICE",
+            "actionKey": "RELEASE_HOLD",
+            "payload": {},
+            "riskLevel": "LOW_RISK",
+            "state": "PENDING",
+            "dependsOnStepIds": [],
+            "actionToken": "ACT-1-ltot-1",
+            "idempotencyKey": "IDEMP-ACT-1-ltot-1-1792373424111",
+            "verificationRule": "VERIFY_CLOUD_SQL_BOOKING"
+          }
+        ],
+        "actionLineage": [],
+        "completedTruth": {
+          "confirmedBookings": [],
+          "settledAmountEGP": 0,
+          "timelineUpdated": false
+        },
+        "createdAt": "2026-10-19T01:30:24.111Z",
+        "updatedAt": "2026-10-19T01:30:24.111Z"
+      }
+    ]
+  ],
+  "idempotency": [],
+  "confirmations": [
+    [
+      "ACT-9-1isu-1",
+      {
+        "grantedAt": "2026-10-12T02:53:41.472Z",
+        "expiresAt": "2026-10-12T03:03:41.472Z",
+        "taskId": "TASK-621469-1isu",
+        "actionToken": "ACT-9-1isu-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-2-7ttd-1",
+      {
+        "grantedAt": "2026-10-12T02:59:49.916Z",
+        "expiresAt": "2026-10-12T03:09:49.916Z",
+        "taskId": "TASK-989912-7ttd",
+        "actionToken": "ACT-2-7ttd-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-8-hnrs-1",
+      {
+        "grantedAt": "2026-10-12T02:59:59.110Z",
+        "expiresAt": "2026-10-12T03:09:59.110Z",
+        "taskId": "TASK-999108-hnrs",
+        "actionToken": "ACT-8-hnrs-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-1-9ayz-1",
+      {
+        "grantedAt": "2026-10-12T03:07:40.454Z",
+        "expiresAt": "2026-10-12T03:17:40.454Z",
+        "taskId": "TASK-460451-9ayz",
+        "actionToken": "ACT-1-9ayz-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-6-bjkt-1",
+      {
+        "grantedAt": "2026-10-12T03:13:49.148Z",
+        "expiresAt": "2026-10-12T03:23:49.148Z",
+        "taskId": "TASK-829136-bjkt",
+        "actionToken": "ACT-6-bjkt-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-1-3z1n-1",
+      {
+        "grantedAt": "2026-10-12T03:58:21.936Z",
+        "expiresAt": "2026-10-12T04:08:21.936Z",
+        "taskId": "TASK-501931-3z1n",
+        "actionToken": "ACT-1-3z1n-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-7-bhmr-1",
+      {
+        "grantedAt": "2026-10-12T04:00:59.733Z",
+        "expiresAt": "2026-10-12T04:10:59.733Z",
+        "taskId": "TASK-659727-bhmr",
+        "actionToken": "ACT-7-bhmr-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-5-a508-1",
+      {
+        "grantedAt": "2026-10-12T04:06:37.678Z",
+        "expiresAt": "2026-10-12T04:16:37.678Z",
+        "taskId": "TASK-997675-a508",
+        "actionToken": "ACT-5-a508-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-9-2s4t-1",
+      {
+        "grantedAt": "2026-10-12T11:22:52.652Z",
+        "expiresAt": "2026-10-12T11:32:52.652Z",
+        "taskId": "TASK-172649-2s4t",
+        "actionToken": "ACT-9-2s4t-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-s5q5-1",
+      {
+        "grantedAt": "2026-10-12T13:59:21.533Z",
+        "expiresAt": "2026-10-12T14:09:21.533Z",
+        "taskId": "TASK-561530-s5q5",
+        "actionToken": "ACT-0-s5q5-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-ej98-1",
+      {
+        "grantedAt": "2026-10-12T18:05:57.133Z",
+        "expiresAt": "2026-10-12T18:15:57.133Z",
+        "taskId": "TASK-357130-ej98",
+        "actionToken": "ACT-0-ej98-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-8-je8z-1",
+      {
+        "grantedAt": "2026-10-12T18:32:14.681Z",
+        "expiresAt": "2026-10-12T18:42:14.681Z",
+        "taskId": "TASK-934678-je8z",
+        "actionToken": "ACT-8-je8z-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-2-tgkf-1",
+      {
+        "grantedAt": "2026-10-13T00:19:00.816Z",
+        "expiresAt": "2026-10-13T00:29:00.816Z",
+        "taskId": "TASK-740812-tgkf",
+        "actionToken": "ACT-2-tgkf-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-efdc-1",
+      {
+        "grantedAt": "2026-10-13T00:50:08.015Z",
+        "expiresAt": "2026-10-13T01:00:08.015Z",
+        "taskId": "TASK-608010-efdc",
+        "actionToken": "ACT-0-efdc-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-6-9fpr-1",
+      {
+        "grantedAt": "2026-10-13T01:07:10.329Z",
+        "expiresAt": "2026-10-13T01:17:10.329Z",
+        "taskId": "TASK-630326-9fpr",
+        "actionToken": "ACT-6-9fpr-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-csmt-1",
+      {
+        "grantedAt": "2026-10-13T01:53:14.526Z",
+        "expiresAt": "2026-10-13T02:03:14.526Z",
+        "taskId": "TASK-394520-csmt",
+        "actionToken": "ACT-0-csmt-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-2-v9w6-1",
+      {
+        "grantedAt": "2026-10-13T02:16:52.296Z",
+        "expiresAt": "2026-10-13T02:26:52.296Z",
+        "taskId": "TASK-812292-v9w6",
+        "actionToken": "ACT-2-v9w6-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-8-3xpe-1",
+      {
+        "grantedAt": "2026-10-13T03:59:29.141Z",
+        "expiresAt": "2026-10-13T04:09:29.141Z",
+        "taskId": "TASK-969138-3xpe",
+        "actionToken": "ACT-8-3xpe-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-8-1ksn-1",
+      {
+        "grantedAt": "2026-10-13T04:07:52.204Z",
+        "expiresAt": "2026-10-13T04:17:52.204Z",
+        "taskId": "TASK-472198-1ksn",
+        "actionToken": "ACT-8-1ksn-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-8-4lhq-1",
+      {
+        "grantedAt": "2026-10-13T04:23:50.843Z",
+        "expiresAt": "2026-10-13T04:33:50.843Z",
+        "taskId": "TASK-430838-4lhq",
+        "actionToken": "ACT-8-4lhq-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-3-0vow-1",
+      {
+        "grantedAt": "2026-10-13T05:09:47.159Z",
+        "expiresAt": "2026-10-13T05:19:47.159Z",
+        "taskId": "TASK-187153-0vow",
+        "actionToken": "ACT-3-0vow-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-1-ozff-1",
+      {
+        "grantedAt": "2026-10-13T13:57:24.869Z",
+        "expiresAt": "2026-10-13T14:07:24.869Z",
+        "taskId": "TASK-844861-ozff",
+        "actionToken": "ACT-1-ozff-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-7-sl3l-1",
+      {
+        "grantedAt": "2026-10-14T08:44:29.452Z",
+        "expiresAt": "2026-10-14T08:54:29.452Z",
+        "taskId": "TASK-469447-sl3l",
+        "actionToken": "ACT-7-sl3l-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-4-ka5i-1",
+      {
+        "grantedAt": "2026-10-14T18:37:00.709Z",
+        "expiresAt": "2026-10-14T18:47:00.709Z",
+        "taskId": "TASK-020704-ka5i",
+        "actionToken": "ACT-4-ka5i-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-9-l88o-1",
+      {
+        "grantedAt": "2026-10-14T18:46:55.432Z",
+        "expiresAt": "2026-10-14T18:56:55.432Z",
+        "taskId": "TASK-615429-l88o",
+        "actionToken": "ACT-9-l88o-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-8-hdjz-1",
+      {
+        "grantedAt": "2026-10-14T18:53:43.781Z",
+        "expiresAt": "2026-10-14T19:03:43.781Z",
+        "taskId": "TASK-023778-hdjz",
+        "actionToken": "ACT-8-hdjz-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-5-gndz-1",
+      {
+        "grantedAt": "2026-10-14T20:00:14.888Z",
+        "expiresAt": "2026-10-14T20:10:14.888Z",
+        "taskId": "TASK-014885-gndz",
+        "actionToken": "ACT-5-gndz-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-2-a9rs-1",
+      {
+        "grantedAt": "2026-10-14T20:17:50.405Z",
+        "expiresAt": "2026-10-14T20:27:50.405Z",
+        "taskId": "TASK-070402-a9rs",
+        "actionToken": "ACT-2-a9rs-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-5-3zom-1",
+      {
+        "grantedAt": "2026-10-14T20:47:45.538Z",
+        "expiresAt": "2026-10-14T20:57:45.538Z",
+        "taskId": "TASK-865535-3zom",
+        "actionToken": "ACT-5-3zom-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-8-x0ex-1",
+      {
+        "grantedAt": "2026-10-14T21:11:19.871Z",
+        "expiresAt": "2026-10-14T21:21:19.871Z",
+        "taskId": "TASK-279868-x0ex",
+        "actionToken": "ACT-8-x0ex-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-8-xsmo-1",
+      {
+        "grantedAt": "2026-10-14T21:39:37.773Z",
+        "expiresAt": "2026-10-14T21:49:37.773Z",
+        "taskId": "TASK-977768-xsmo",
+        "actionToken": "ACT-8-xsmo-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-3ch4-1",
+      {
+        "grantedAt": "2026-10-14T22:22:01.997Z",
+        "expiresAt": "2026-10-14T22:32:01.997Z",
+        "taskId": "TASK-521990-3ch4",
+        "actionToken": "ACT-0-3ch4-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-ifl0-1",
+      {
+        "grantedAt": "2026-10-14T22:43:07.326Z",
+        "expiresAt": "2026-10-14T22:53:07.326Z",
+        "taskId": "TASK-787320-ifl0",
+        "actionToken": "ACT-0-ifl0-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-4-13jl-1",
+      {
+        "grantedAt": "2026-10-14T23:59:58.237Z",
+        "expiresAt": "2026-10-15T00:09:58.237Z",
+        "taskId": "TASK-398234-13jl",
+        "actionToken": "ACT-4-13jl-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-9-0tzc-1",
+      {
+        "grantedAt": "2026-10-15T00:08:15.522Z",
+        "expiresAt": "2026-10-15T00:18:15.522Z",
+        "taskId": "TASK-895519-0tzc",
+        "actionToken": "ACT-9-0tzc-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-6-16s4-1",
+      {
+        "grantedAt": "2026-10-15T00:11:00.350Z",
+        "expiresAt": "2026-10-15T00:21:00.350Z",
+        "taskId": "TASK-060346-16s4",
+        "actionToken": "ACT-6-16s4-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-7exo-1",
+      {
+        "grantedAt": "2026-10-15T09:26:57.723Z",
+        "expiresAt": "2026-10-15T09:36:57.723Z",
+        "taskId": "TASK-417720-7exo",
+        "actionToken": "ACT-0-7exo-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-2-ohdu-1",
+      {
+        "grantedAt": "2026-10-15T14:51:12.885Z",
+        "expiresAt": "2026-10-15T15:01:12.885Z",
+        "taskId": "TASK-872882-ohdu",
+        "actionToken": "ACT-2-ohdu-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-6-343y-1",
+      {
+        "grantedAt": "2026-10-15T15:12:11.559Z",
+        "expiresAt": "2026-10-15T15:22:11.559Z",
+        "taskId": "TASK-131556-343y",
+        "actionToken": "ACT-6-343y-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-4-4vlt-1",
+      {
+        "grantedAt": "2026-10-15T15:15:11.347Z",
+        "expiresAt": "2026-10-15T15:25:11.347Z",
+        "taskId": "TASK-311344-4vlt",
+        "actionToken": "ACT-4-4vlt-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-3-pspz-1",
+      {
+        "grantedAt": "2026-10-15T20:53:24.416Z",
+        "expiresAt": "2026-10-15T21:03:24.416Z",
+        "taskId": "TASK-604413-pspz",
+        "actionToken": "ACT-3-pspz-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-3-twzi-1",
+      {
+        "grantedAt": "2026-10-16T16:53:25.686Z",
+        "expiresAt": "2026-10-16T17:03:25.686Z",
+        "taskId": "TASK-605683-twzi",
+        "actionToken": "ACT-3-twzi-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-3-cwqo-1",
+      {
+        "grantedAt": "2026-10-17T02:58:43.026Z",
+        "expiresAt": "2026-10-17T03:08:43.026Z",
+        "taskId": "TASK-923023-cwqo",
+        "actionToken": "ACT-3-cwqo-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-8dhs-1",
+      {
+        "grantedAt": "2026-10-17T03:31:59.645Z",
+        "expiresAt": "2026-10-17T03:41:59.645Z",
+        "taskId": "TASK-919640-8dhs",
+        "actionToken": "ACT-0-8dhs-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-2-4g93-1",
+      {
+        "grantedAt": "2026-10-17T18:30:22.435Z",
+        "expiresAt": "2026-10-17T18:40:22.435Z",
+        "taskId": "TASK-822432-4g93",
+        "actionToken": "ACT-2-4g93-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-6-kr7g-1",
+      {
+        "grantedAt": "2026-10-18T01:37:38.539Z",
+        "expiresAt": "2026-10-18T01:47:38.539Z",
+        "taskId": "TASK-458536-kr7g",
+        "actionToken": "ACT-6-kr7g-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-9-1qeh-1",
+      {
+        "grantedAt": "2026-10-18T02:35:26.822Z",
+        "expiresAt": "2026-10-18T02:45:26.822Z",
+        "taskId": "TASK-926819-1qeh",
+        "actionToken": "ACT-9-1qeh-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-7-z94b-1",
+      {
+        "grantedAt": "2026-10-18T03:03:56.831Z",
+        "expiresAt": "2026-10-18T03:13:56.831Z",
+        "taskId": "TASK-636827-z94b",
+        "actionToken": "ACT-7-z94b-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-7-xaem-1",
+      {
+        "grantedAt": "2026-10-18T03:06:26.150Z",
+        "expiresAt": "2026-10-18T03:16:26.150Z",
+        "taskId": "TASK-786147-xaem",
+        "actionToken": "ACT-7-xaem-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-pn0p-1",
+      {
+        "grantedAt": "2026-10-18T03:47:55.166Z",
+        "expiresAt": "2026-10-18T03:57:55.166Z",
+        "taskId": "TASK-275160-pn0p",
+        "actionToken": "ACT-0-pn0p-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-4doi-1",
+      {
+        "grantedAt": "2026-10-18T04:56:34.184Z",
+        "expiresAt": "2026-10-18T05:06:34.184Z",
+        "taskId": "TASK-394180-4doi",
+        "actionToken": "ACT-0-4doi-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-4-el2i-1",
+      {
+        "grantedAt": "2026-10-18T05:09:08.958Z",
+        "expiresAt": "2026-10-18T05:19:08.958Z",
+        "taskId": "TASK-148954-el2i",
+        "actionToken": "ACT-4-el2i-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-8-prs5-1",
+      {
+        "grantedAt": "2026-10-18T05:19:32.182Z",
+        "expiresAt": "2026-10-18T05:29:32.182Z",
+        "taskId": "TASK-772178-prs5",
+        "actionToken": "ACT-8-prs5-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-9-xlln-1",
+      {
+        "grantedAt": "2026-10-18T05:38:58.803Z",
+        "expiresAt": "2026-10-18T05:48:58.803Z",
+        "taskId": "TASK-938799-xlln",
+        "actionToken": "ACT-9-xlln-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-6-npza-1",
+      {
+        "grantedAt": "2026-10-18T05:49:17.509Z",
+        "expiresAt": "2026-10-18T05:59:17.509Z",
+        "taskId": "TASK-557506-npza",
+        "actionToken": "ACT-6-npza-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-4-iyis-1",
+      {
+        "grantedAt": "2026-10-18T05:59:37.489Z",
+        "expiresAt": "2026-10-18T06:09:37.489Z",
+        "taskId": "TASK-177474-iyis",
+        "actionToken": "ACT-4-iyis-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-7-51dg-1",
+      {
+        "grantedAt": "2026-10-18T06:12:05.441Z",
+        "expiresAt": "2026-10-18T06:22:05.441Z",
+        "taskId": "TASK-925437-51dg",
+        "actionToken": "ACT-7-51dg-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-7-p0zq-1",
+      {
+        "grantedAt": "2026-10-18T09:07:35.673Z",
+        "expiresAt": "2026-10-18T09:17:35.673Z",
+        "taskId": "TASK-455667-p0zq",
+        "actionToken": "ACT-7-p0zq-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-5-1upt-1",
+      {
+        "grantedAt": "2026-10-18T10:04:00.388Z",
+        "expiresAt": "2026-10-18T10:14:00.388Z",
+        "taskId": "TASK-840385-1upt",
+        "actionToken": "ACT-5-1upt-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-4-3nrp-1",
+      {
+        "grantedAt": "2026-10-18T10:52:25.688Z",
+        "expiresAt": "2026-10-18T11:02:25.688Z",
+        "taskId": "TASK-745684-3nrp",
+        "actionToken": "ACT-4-3nrp-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-3-c7oi-1",
+      {
+        "grantedAt": "2026-10-18T21:19:25.198Z",
+        "expiresAt": "2026-10-18T21:29:25.198Z",
+        "taskId": "TASK-365193-c7oi",
+        "actionToken": "ACT-3-c7oi-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-0-8cmj-1",
+      {
+        "grantedAt": "2026-10-18T23:17:33.323Z",
+        "expiresAt": "2026-10-18T23:27:33.323Z",
+        "taskId": "TASK-453320-8cmj",
+        "actionToken": "ACT-0-8cmj-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-7-f74m-1",
+      {
+        "grantedAt": "2026-10-19T00:28:36.662Z",
+        "expiresAt": "2026-10-19T00:38:36.662Z",
+        "taskId": "TASK-716657-f74m",
+        "actionToken": "ACT-7-f74m-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-6-0csi-1",
+      {
+        "grantedAt": "2026-10-19T00:49:50.899Z",
+        "expiresAt": "2026-10-19T00:59:50.899Z",
+        "taskId": "TASK-990896-0csi",
+        "actionToken": "ACT-6-0csi-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-9-mhmz-1",
+      {
+        "grantedAt": "2026-10-19T01:00:27.534Z",
+        "expiresAt": "2026-10-19T01:10:27.534Z",
+        "taskId": "TASK-627529-mhmz",
+        "actionToken": "ACT-9-mhmz-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-5-8spt-1",
+      {
+        "grantedAt": "2026-10-19T01:14:56.388Z",
+        "expiresAt": "2026-10-19T01:24:56.388Z",
+        "taskId": "TASK-496385-8spt",
+        "actionToken": "ACT-5-8spt-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ],
+    [
+      "ACT-1-ltot-1",
+      {
+        "grantedAt": "2026-10-19T01:30:24.114Z",
+        "expiresAt": "2026-10-19T01:40:24.114Z",
+        "taskId": "TASK-424111-ltot",
+        "actionToken": "ACT-1-ltot-1",
+        "scope": "STEP",
+        "userId": "USR-OWNER-1"
+      }
+    ]
+  ],
+  "metrics": {
+    "totalTasksCreated": 0,
+    "totalStepsExecuted": 0,
+    "duplicatePreventions": 0,
+    "recoveriesApplied": 0,
+    "verificationsPassed": 0,
+    "verificationsFailed": 0,
+    "cancellations": 0,
+    "stateViolationsBlocked": 0
+  },
+  "savedAt": "2026-10-19T01:30:24.114Z"
+}
