@@ -1,0 +1,26 @@
+# Coolify + Nixpacks. Same method as Mouaser (C:\laragon\www\mouaser):
+# the image is built from this file and the container starts with one command.
+# This app is Node, so there is no nginx / php-fpm / queue worker.
+
+[phases.setup]
+nixPkgs = ["...", "nodejs_22", "python3", "gcc", "gnumake", "pkg-config"]
+
+[phases.install]
+cmds = [
+  # No package-lock.json in this repo, so npm ci is not used.
+  # Do not set NODE_ENV=production here: vite, esbuild, and tsx are devDependencies.
+  "npm install"
+]
+
+[phases.build]
+cmds = [
+  "npm run build",
+  "chmod +x scripts/start-production.sh",
+  "mkdir -p /app/seed /app/data/locks /app/data/backups",
+  # Seeds must live outside /app/data. Coolify mounts the persistent volume there,
+  # which would hide dahab_local_commerce.json and the server would not boot.
+  "cp -a /app/data/. /app/seed/"
+]
+
+[start]
+cmd = "bash /app/scripts/start-production.sh"
