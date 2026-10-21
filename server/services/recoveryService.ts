@@ -113,7 +113,7 @@ export class RecoveryService {
         channel: 'WHATSAPP',
         title: 'Itinerary Updated · Weather Adaptation',
         message: `Your experience has been smoothly updated to "${params.alternativeTitle}" (${params.newScheduledTime}). Everything is confirmed!`,
-        metadata: { recipientPhone: '+20 100 234 5678', tripId: params.tripId, newItem: params.alternativeTitle }
+        metadata: { recipientPhone: db.users.find(u => u.id === trip.userId)?.phone || '', purpose: 'traveler', tripId: params.tripId, newItem: params.alternativeTitle }
       });
 
       db.logAudit('ChangeEngine', 'System', 'ITINERARY_RECOVERY_EXECUTED', 'TripItem', originalItem.id, {

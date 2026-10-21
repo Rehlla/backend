@@ -9,6 +9,7 @@ import { distributedLockService } from './distributedLockService';
 import { supplierCalendarService } from './supplierCalendarService';
 import { assertCheckoutAllowed } from './fraudDetectionService';
 import { parseSlotClock } from './serviceTime';
+import { moneyInt } from './money';
 
 const HOLD_TTL_MINUTES = 15;
 
@@ -205,7 +206,12 @@ export function priceSkuLine(sku: ProductSkuEntity, passengersCount?: number): {
 } {
   const passengers = Math.max(1, Math.floor(passengersCount ?? 1));
   const basis = pricingBasisOf(sku);
-  const amountEGP = basis === 'per_person' ? sku.basePriceEGP * passengers : sku.basePriceEGP;
+  // Money guard (M-1): the per_person quotation is the multiplication where a
+  // fractional EGP first appears; round at this seam so holds, bookings and
+  // the ledger only ever see whole piaster-free amounts.
+  const amountEGP = moneyInt(
+    basis === 'per_person' ? sku.basePriceEGP * passengers : sku.basePriceEGP
+  );
   return { basis, passengersCount: passengers, unitPriceEGP: sku.basePriceEGP, amountEGP };
 }
 
@@ -829,7 +835,7 @@ export class CommerceService {
           channel: 'WHATSAPP',
           title: `Booking Confirmed: ${booking.serviceType.toUpperCase()}`,
           message: `Your booking ${booking.bookingRef} is confirmed! Voucher code: ${confirmationCode}.`,
-          metadata: { recipientPhone: params.travelerPhone, bookingRef: booking.bookingRef, priceEGP: booking.amountEGP }
+          metadata: { recipientPhone: params.travelerPhone, purpose: 'traveler', bookingRef: booking.bookingRef, priceEGP: booking.amountEGP }
         });
       });
 

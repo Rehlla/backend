@@ -2,12 +2,18 @@ import { Router, Response } from 'express';
 import { AuthenticatedRequest } from '../middleware/correlationMiddleware';
 import {
   optionalString,
+  optionalEnum,
+  optionalCount,
+  optionalNumber,
   requiredCount,
   requiredEnum,
+  requiredObject,
   requiredString,
   requiredNumber
 } from '../middleware/bodyParams';
+import { db } from '../db/database';
 import { transferHubService, TransferHubError, type HubQuoteInput } from '../services/transferHubService';
+import type { BookingEntity } from '../db/schema';
 import type { HubLuggage, HubMode, HubTierId, HubTripType } from '../../src/shared/types/transferHub';
 
 /**
@@ -131,6 +137,113 @@ transferHubRouter.post('/transfers/bookings/:id/cancel', (req: AuthenticatedRequ
   }
 });
 
+/** What a traveller may see of a hub ride: no supplier cost, no internals. */
+function hubSummary(booking: BookingEntity) {
+  const quote = booking.hubQuote;
+  return {
+    id: booking.id,
+    bookingRef: booking.bookingRef,
+    confirmationCode: booking.confirmationCode,
+    amountEGP: booking.amountEGP,
+    paymentState: booking.paymentState,
+    supplierState: booking.supplierState,
+    scheduledDate: booking.scheduledDate,
+    scheduledTime: booking.scheduledTime,
+    freeCancelUntil: quote?.freeCancelUntil || null,
+    originLabel: quote?.originLabelEn || null,
+    originLabelAr: quote?.originLabelAr || null,
+    destinationLabel: quote?.destinationLabelEn || null,
+    destinationLabelAr: quote?.destinationLabelAr || null,
+    driverName: booking.assignedResource?.driverName || null,
+    tripId: booking.tripId
+  };
+}
+
+/** Only operations can write the route catalog, so every writer is staff. */
+function isOps(role?: string): boolean {
+  return role === 'Operations' || role === 'Admin';
+}
+
+/** The optional price-pair body used by pair upserts and request reviews. */
+function pairBody(raw: unknown):
+  | { originId: string; destinationId: string; privateEGP: number; sharedEGP?: number; premiumEGP?: number; supplierPrivateEGP?: number; supplierSharedEGP?: number; supplierPremiumEGP?: number; distanceKm?: number; durationEn?: string; durationAr?: string }
+  | undefined {
+  if (raw === undefined || raw === null) return undefined;
+  const body = requiredObject(raw, 'pair');
+  return {
+    originId: requiredString(body.originId, 'pair.originId', 64),
+    destinationId: requiredString(body.destinationId, 'pair.destinationId', 64),
+    privateEGP: requiredNumber(body.privateEGP, 'pair.privateEGP', 1, 1_000_000),
+    sharedEGP: optionalNumber(body.sharedEGP, 'pair.sharedEGP', 0, 1_000_000),
+    premiumEGP: optionalNumber(body.premiumEGP, 'pair.premiumEGP', 0, 1_000_000),
+    supplierPrivateEGP: optionalNumber(body.supplierPrivateEGP, 'pair.supplierPrivateEGP', 0, 1_000_000),
+    supplierSharedEGP: optionalNumber(body.supplierSharedEGP, 'pair.supplierSharedEGP', 0, 1_000_000),
+    supplierPremiumEGP: optionalNumber(body.supplierPremiumEGP, 'pair.supplierPremiumEGP', 0, 1_000_000),
+    distanceKm: optionalNumber(body.distanceKm, 'pair.distanceKm', 0, 100_000),
+    durationEn: optionalString(body.durationEn, 'pair.durationEn', 32),
+    durationAr: optionalString(body.durationAr, 'pair.durationAr', 32)
+  };
+}
+
+/* --------------------------------------------------------------------------
+ * Traveller reads and review requests (private by default: a session is
+ * required, and ownership is the trip's owner).
+ * ----------------------------------------------------------------------- */
+
+transferHubRouter.get('/transfers/bookings', (req: AuthenticatedRequest, res) => {
+  try {
+    const all = isOps(req.user!.role);
+    res.json({ bookings: transferHubService.bookingsForUser(req.user!.userId, all).map(hubSummary) });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+transferHubRouter.get('/transfers/bookings/:ref', (req: AuthenticatedRequest, res) => {
+  try {
+    const ref = requiredString(req.params.ref, 'ref', 64);
+    const all = isOps(req.user!.role);
+    res.json({ booking: hubSummary(transferHubService.bookingForUser(ref, req.user!.userId, all)) });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+/** "This ride is not on the list" — it goes to the operations queue. */
+transferHubRouter.post('/transfers/requests', (req: AuthenticatedRequest, res) => {
+  try {
+    const actor = req.user!;
+    const account = db.users.find(row => row.id === actor.userId);
+    const request = transferHubService.createRequest(
+      { userId: actor.userId, role: actor.role, name: account?.name, phone: account?.phone },
+      {
+        originLabel: requiredString(req.body?.originLabel, 'originLabel', 120),
+        destinationLabel: requiredString(req.body?.destinationLabel, 'destinationLabel', 120),
+        originId: optionalString(req.body?.originId, 'originId', 64),
+        destinationId: optionalString(req.body?.destinationId, 'destinationId', 64),
+        date: optionalString(req.body?.date, 'date', 10),
+        time: optionalString(req.body?.time, 'time', 8),
+        passengers: optionalCount(req.body?.passengers, 'passengers', 1, 14) || 1,
+        luggage: optionalEnum(req.body?.luggage, LUGGAGE, 'luggage') as HubLuggage | undefined,
+        notes: optionalString(req.body?.notes, 'notes', 500)
+      }
+    );
+    res.status(201).json({ request });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+transferHubRouter.get('/transfers/requests', (req: AuthenticatedRequest, res) => {
+  try {
+    const all = isOps(req.user!.role);
+    const requests = all ? transferHubService.listRequests() : transferHubService.requestsForUser(req.user!.userId);
+    res.json({ requests });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
 transferHubRouter.post('/operations/transfers/quote', (req, res) => {
   try {
     res.json({ quote: transferHubService.quoteOps(quoteInput(req.body)) });
@@ -188,6 +301,130 @@ transferHubRouter.post('/operations/transfers/assign', (req, res) => {
       driverName: booking.assignedResource?.driverName || null,
       supplierState: booking.supplierState
     });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+/* --------------------------------------------------------------------------
+ * Route catalog writes (operations): publish a city, a destination, or an
+ * explicit price pair. Every route below is /api/operations/*, which
+ * apiAccessPolicy gates to Operations and Admin.
+ * ----------------------------------------------------------------------- */
+
+/** Publish a new origin city with its own price matrix. */
+transferHubRouter.post('/operations/transfers/zones', (req: AuthenticatedRequest, res) => {
+  try {
+    const zone = transferHubService.addZone({ userId: req.user!.userId, role: req.user!.role }, {
+      id: requiredString(req.body?.id, 'id', 32),
+      labelEn: requiredString(req.body?.labelEn, 'labelEn', 80),
+      labelAr: requiredString(req.body?.labelAr, 'labelAr', 80),
+      subEn: optionalString(req.body?.subEn, 'subEn', 80),
+      subAr: optionalString(req.body?.subAr, 'subAr', 80),
+      regionEn: optionalString(req.body?.regionEn, 'regionEn', 80),
+      privateEGP: requiredNumber(req.body?.privateEGP, 'privateEGP', 1, 1_000_000),
+      sharedEGP: optionalNumber(req.body?.sharedEGP, 'sharedEGP', 0, 1_000_000),
+      busEGP: optionalNumber(req.body?.busEGP, 'busEGP', 0, 1_000_000),
+      supplierPrivateEGP: optionalNumber(req.body?.supplierPrivateEGP, 'supplierPrivateEGP', 0, 1_000_000),
+      distanceKm: optionalNumber(req.body?.distanceKm, 'distanceKm', 0, 100_000),
+      durationEn: optionalString(req.body?.durationEn, 'durationEn', 32),
+      durationAr: optionalString(req.body?.durationAr, 'durationAr', 32),
+      haul: optionalEnum(req.body?.haul, ['short', 'long'] as const, 'haul')
+    });
+    res.status(201).json({ zone });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+/** Publish a destination (a city, a resort town, a Dahab micro-zone). */
+transferHubRouter.post('/operations/transfers/destinations', (req: AuthenticatedRequest, res) => {
+  try {
+    const kind = requiredEnum(req.body?.kind, ['zone', 'area'] as const, 'kind');
+    const destination = transferHubService.addDestination({ userId: req.user!.userId, role: req.user!.role }, {
+      id: requiredString(req.body?.id, 'id', 32),
+      labelEn: requiredString(req.body?.labelEn, 'labelEn', 80),
+      labelAr: requiredString(req.body?.labelAr, 'labelAr', 80),
+      subEn: optionalString(req.body?.subEn, 'subEn', 80),
+      subAr: optionalString(req.body?.subAr, 'subAr', 80),
+      kind,
+      priceAddEGP: optionalNumber(req.body?.priceAddEGP, 'priceAddEGP', 0, 100_000)
+    });
+    res.status(201).json({ destination });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+transferHubRouter.patch('/operations/transfers/destinations/:id', (req: AuthenticatedRequest, res) => {
+  try {
+    const destination = transferHubService.updateDestination(
+      requiredString(req.params.id, 'id', 64),
+      req.body || {},
+      { userId: req.user!.userId, role: req.user!.role }
+    );
+    res.json({ destination });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+/** Publish (or replace) an explicit origin→destination price pair. */
+transferHubRouter.post('/operations/transfers/pairs', (req: AuthenticatedRequest, res) => {
+  try {
+    const pair = pairBody(req.body?.pair ?? req.body);
+    if (!pair) throw new TransferHubError('A pair needs an origin, a destination and a private price.', 400, 'BAD_REQUEST');
+    const saved = transferHubService.addPair({ userId: req.user!.userId, role: req.user!.role }, pair);
+    res.status(201).json({ pair: saved });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+transferHubRouter.patch('/operations/transfers/pairs/:id', (req: AuthenticatedRequest, res) => {
+  try {
+    const pair = transferHubService.updatePair(
+      requiredString(req.params.id, 'id', 64),
+      req.body || {},
+      { userId: req.user!.userId, role: req.user!.role }
+    );
+    res.json({ pair });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+transferHubRouter.get('/operations/transfers/pairs', (_req, res) => {
+  res.json({ pairs: transferHubService.listPairs() });
+});
+
+/** The "we cannot price this yet" queue. */
+transferHubRouter.get('/operations/transfers/requests', (req: AuthenticatedRequest, res) => {
+  try {
+    const status = optionalEnum(req.query.status, ['PENDING_REVIEW', 'ACCEPTED', 'DECLINED'] as const, 'status');
+    res.json({ requests: transferHubService.listRequests(status) });
+  } catch (err) {
+    sendError(res, err);
+  }
+});
+
+/**
+ * Accepting a request with a price publishes the pair, so the route quotes like
+ * any other from then on and the traveller is not told "review forever".
+ */
+transferHubRouter.post('/operations/transfers/requests/:id/review', (req: AuthenticatedRequest, res) => {
+  try {
+    const decision = requiredEnum(req.body?.decision, ['ACCEPT', 'DECLINE'] as const, 'decision');
+    const request = transferHubService.reviewRequest(
+      requiredString(req.params.id, 'id', 64),
+      { userId: req.user!.userId, role: req.user!.role },
+      {
+        decision,
+        note: optionalString(req.body?.note, 'note', 500),
+        pair: pairBody(req.body?.pair)
+      }
+    );
+    res.json({ request });
   } catch (err) {
     sendError(res, err);
   }

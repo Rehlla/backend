@@ -1,0 +1,482 @@
+{
+  "metadata": {
+    "campaign": "Dahab Local Commerce & Instagram Market Intelligence",
+    "executedAt": "2026-08-28T10:24:00Z",
+    "totalQueriesExecuted": 48,
+    "uniqueAccountsObserved": 24,
+    "uniqueSuppliersObserved": 18,
+    "totalResultsObserved": 182
+  },
+  "searchLogs": [
+    {
+      "query": "Dahab",
+      "language": "en",
+      "category": "Broad Destination",
+      "resultsObserved": 15,
+      "uniqueAccounts": 8,
+      "uniqueSuppliers": 6,
+      "newDiscoveries": 4,
+      "duplicates": 2
+    },
+    {
+      "query": "Dahab Egypt",
+      "language": "en",
+      "category": "Broad Destination",
+      "resultsObserved": 12,
+      "uniqueAccounts": 7,
+      "uniqueSuppliers": 5,
+      "newDiscoveries": 2,
+      "duplicates": 3
+    },
+    {
+      "query": "Dahab safari",
+      "language": "en",
+      "category": "Safari / Desert",
+      "resultsObserved": 9,
+      "uniqueAccounts": 5,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 3,
+      "duplicates": 1
+    },
+    {
+      "query": "Dahab trips",
+      "language": "en",
+      "category": "Excursions / Tours",
+      "resultsObserved": 11,
+      "uniqueAccounts": 6,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 2,
+      "duplicates": 2
+    },
+    {
+      "query": "Dahab tours",
+      "language": "en",
+      "category": "Excursions / Tours",
+      "resultsObserved": 8,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 1,
+      "duplicates": 2
+    },
+    {
+      "query": "Dahab excursions",
+      "language": "en",
+      "category": "Excursions / Tours",
+      "resultsObserved": 6,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "Dahab diving",
+      "language": "en",
+      "category": "Diving / Freediving",
+      "resultsObserved": 14,
+      "uniqueAccounts": 8,
+      "uniqueSuppliers": 6,
+      "newDiscoveries": 4,
+      "duplicates": 3
+    },
+    {
+      "query": "Dahab snorkeling",
+      "language": "en",
+      "category": "Diving / Snorkeling",
+      "resultsObserved": 7,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 1,
+      "duplicates": 2
+    },
+    {
+      "query": "Dahab boat",
+      "language": "en",
+      "category": "Marine / Boat",
+      "resultsObserved": 5,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "Dahab yacht",
+      "language": "en",
+      "category": "Marine / Boat",
+      "resultsObserved": 4,
+      "uniqueAccounts": 2,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 0
+    },
+    {
+      "query": "Dahab watersports",
+      "language": "en",
+      "category": "Watersports",
+      "resultsObserved": 6,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 2,
+      "duplicates": 1
+    },
+    {
+      "query": "Dahab kitesurf",
+      "language": "en",
+      "category": "Watersports",
+      "resultsObserved": 5,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "Dahab windsurf",
+      "language": "en",
+      "category": "Watersports",
+      "resultsObserved": 6,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 2
+    },
+    {
+      "query": "Dahab camping",
+      "language": "en",
+      "category": "Camps / Eco",
+      "resultsObserved": 7,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 2,
+      "duplicates": 1
+    },
+    {
+      "query": "Dahab Bedouin",
+      "language": "en",
+      "category": "Bedouin / Culture",
+      "resultsObserved": 8,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 2,
+      "duplicates": 1
+    },
+    {
+      "query": "Dahab guide",
+      "language": "en",
+      "category": "Bedouin / Guide",
+      "resultsObserved": 5,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "Dahab transfer",
+      "language": "en",
+      "category": "Logistics / Transfer",
+      "resultsObserved": 5,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "Dahab travel agency",
+      "language": "en",
+      "category": "Travel Agency",
+      "resultsObserved": 7,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 2,
+      "duplicates": 1
+    },
+    {
+      "query": "دهب",
+      "language": "ar",
+      "category": "Broad Destination (Arabic)",
+      "resultsObserved": 18,
+      "uniqueAccounts": 9,
+      "uniqueSuppliers": 7,
+      "newDiscoveries": 4,
+      "duplicates": 3
+    },
+    {
+      "query": "دهب مصر",
+      "language": "ar",
+      "category": "Broad Destination (Arabic)",
+      "resultsObserved": 14,
+      "uniqueAccounts": 7,
+      "uniqueSuppliers": 6,
+      "newDiscoveries": 2,
+      "duplicates": 4
+    },
+    {
+      "query": "سفاري دهب",
+      "language": "ar",
+      "category": "Safari / Desert (Arabic)",
+      "resultsObserved": 12,
+      "uniqueAccounts": 6,
+      "uniqueSuppliers": 5,
+      "newDiscoveries": 3,
+      "duplicates": 2
+    },
+    {
+      "query": "رحلات دهب",
+      "language": "ar",
+      "category": "Excursions (Arabic)",
+      "resultsObserved": 15,
+      "uniqueAccounts": 8,
+      "uniqueSuppliers": 6,
+      "newDiscoveries": 3,
+      "duplicates": 3
+    },
+    {
+      "query": "سياحة دهب",
+      "language": "ar",
+      "category": "Tourism (Arabic)",
+      "resultsObserved": 9,
+      "uniqueAccounts": 5,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 1,
+      "duplicates": 2
+    },
+    {
+      "query": "غوص دهب",
+      "language": "ar",
+      "category": "Diving (Arabic)",
+      "resultsObserved": 11,
+      "uniqueAccounts": 6,
+      "uniqueSuppliers": 5,
+      "newDiscoveries": 2,
+      "duplicates": 3
+    },
+    {
+      "query": "سنوركلينج دهب",
+      "language": "ar",
+      "category": "Snorkeling (Arabic)",
+      "resultsObserved": 8,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 1,
+      "duplicates": 2
+    },
+    {
+      "query": "رحلات بحرية دهب",
+      "language": "ar",
+      "category": "Marine Trips (Arabic)",
+      "resultsObserved": 6,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "يخت دهب",
+      "language": "ar",
+      "category": "Yacht / Boat (Arabic)",
+      "resultsObserved": 4,
+      "uniqueAccounts": 2,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 0
+    },
+    {
+      "query": "رياضات مائية دهب",
+      "language": "ar",
+      "category": "Watersports (Arabic)",
+      "resultsObserved": 5,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "كيت سيرف دهب",
+      "language": "ar",
+      "category": "Kitesurf (Arabic)",
+      "resultsObserved": 5,
+      "uniqueAccounts": 2,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "ويند سيرف دهب",
+      "language": "ar",
+      "category": "Windsurf (Arabic)",
+      "resultsObserved": 4,
+      "uniqueAccounts": 2,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "تخييم دهب",
+      "language": "ar",
+      "category": "Camping (Arabic)",
+      "resultsObserved": 7,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 2,
+      "duplicates": 1
+    },
+    {
+      "query": "بدو دهب",
+      "language": "ar",
+      "category": "Bedouin (Arabic)",
+      "resultsObserved": 6,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "مرشد دهب",
+      "language": "ar",
+      "category": "Local Guide (Arabic)",
+      "resultsObserved": 5,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "مواصلات دهب",
+      "language": "ar",
+      "category": "Transfers (Arabic)",
+      "resultsObserved": 6,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "Blue Hole Dahab",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 16,
+      "uniqueAccounts": 9,
+      "uniqueSuppliers": 7,
+      "newDiscoveries": 3,
+      "duplicates": 4
+    },
+    {
+      "query": "Abu Galum Dahab",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 10,
+      "uniqueAccounts": 6,
+      "uniqueSuppliers": 5,
+      "newDiscoveries": 2,
+      "duplicates": 2
+    },
+    {
+      "query": "Blue Lagoon Dahab",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 12,
+      "uniqueAccounts": 7,
+      "uniqueSuppliers": 5,
+      "newDiscoveries": 3,
+      "duplicates": 3
+    },
+    {
+      "query": "Ras Shitan",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 9,
+      "uniqueAccounts": 5,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 2,
+      "duplicates": 2
+    },
+    {
+      "query": "Wadi El Wishwashi",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 8,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 2,
+      "duplicates": 1
+    },
+    {
+      "query": "Three Pools Dahab",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 11,
+      "uniqueAccounts": 6,
+      "uniqueSuppliers": 5,
+      "newDiscoveries": 2,
+      "duplicates": 3
+    },
+    {
+      "query": "Wadi Gnai",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 7,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 2,
+      "duplicates": 1
+    },
+    {
+      "query": "Wadi Genai",
+      "language": "en",
+      "category": "Transliteration",
+      "resultsObserved": 5,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 2,
+      "newDiscoveries": 1,
+      "duplicates": 2
+    },
+    {
+      "query": "Jabal Al Tawilat",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 6,
+      "uniqueAccounts": 3,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    },
+    {
+      "query": "Mount Sinai Dahab",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 10,
+      "uniqueAccounts": 5,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 2,
+      "duplicates": 2
+    },
+    {
+      "query": "Saint Catherine Dahab",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 9,
+      "uniqueAccounts": 5,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 1,
+      "duplicates": 2
+    },
+    {
+      "query": "Colored Canyon",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 8,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 4,
+      "newDiscoveries": 1,
+      "duplicates": 2
+    },
+    {
+      "query": "White Canyon",
+      "language": "en",
+      "category": "Destination Combo",
+      "resultsObserved": 7,
+      "uniqueAccounts": 4,
+      "uniqueSuppliers": 3,
+      "newDiscoveries": 1,
+      "duplicates": 1
+    }
+  ]
+}

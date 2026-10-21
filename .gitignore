@@ -1,2 +1,30 @@
-node_modules/\nbuild/\ndist/\n.data/\n.env\n.env.local\n*.log\nrun-*/\n*.err.log
-.data/\nrun-*/\n.dahab-ops/\n.idea/
+node_modules/
+build/
+dist/
+coverage/
+.data/
+run-*/
+.idea/
+.vscode/
+*.log
+*.err.log
+*.bak
+.env
+.env.local
+.DS_Store
+
+# Runtime state — never commit. Contains user records, live session tokens,
+# traveler phone/email and supplier payout IBANs.
+data/locks/
+data/backups/
+data/cms-media/
+data/payment-receipts/
+data/instagram/dahab_instagram_sources.json
+data/*.sqlite
+data/*.sqlite-shm
+data/*.sqlite-wal
+data/*.seq
+data/audit-archive-*.jsonl
+data/daygi_chats.json
+data/daygi_beta_telemetry.json
+data/daygi_tasks.json

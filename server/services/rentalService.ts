@@ -178,7 +178,7 @@ export class RentalService {
       channel: 'WHATSAPP',
       title,
       message,
-      metadata: { recipientPhone: booking.travelerPhone, rentalBookingId: booking.id, ...metadata }
+      metadata: { recipientPhone: booking.travelerPhone, purpose: 'traveler', rentalBookingId: booking.id, ...metadata }
     });
   }
 

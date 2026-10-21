@@ -156,7 +156,7 @@ export class SupplierService {
         channel: 'WHATSAPP',
         title: `Booking Update: ${booking.serviceType.toUpperCase()}`,
         message: `Your booking ${booking.bookingRef} status is now: ${booking.supplierState}.`,
-        metadata: { recipientPhone: booking.travelerPhone, bookingRef: booking.bookingRef, supplierState: booking.supplierState }
+        metadata: { recipientPhone: booking.travelerPhone, purpose: 'traveler', bookingRef: booking.bookingRef, supplierState: booking.supplierState }
       });
 
       // Review invitation on completion (blueprint row #14). The verified-stay

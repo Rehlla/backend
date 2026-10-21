@@ -42,6 +42,13 @@ export interface GenerateTextOptions {
   prompt: string;
   temperature?: number;
   /**
+   * Upper bound on the completion length, in tokens. Mapped to the provider's
+   * `max_tokens`. Callers that used to pass this under the old Gemini SDK
+   * (`maxOutputTokens`) keep the cap they were written against; callers that
+   * omit it get the provider default.
+   */
+  maxTokens?: number;
+  /**
    * Ask for JSON. Uses the API's own structured-output mode, which guarantees
    * the shape instead of hoping the model remembered the schema.
    */

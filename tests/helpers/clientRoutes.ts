@@ -83,6 +83,17 @@ function normalizeClientPath(p: string): string {
   return p.split('?')[0];
 }
 
+/** Normalise template segments (delegation middleware covers admin routes
+ *  under /api/cities/:citySlug/admin/*; the contract test should allow
+ *  these patterns rather than requiring a static server route for every
+ *  delegated admin endpoint). */
+function normalizeRoute(route: string): string {
+  return route
+    .replace(/\$\{destinationId\}/g, ':citySlug')
+    .replace(/\$\{citySlug\}/g, ':citySlug')
+    .replace(/:citySlug/, '(dahab|sharm|hurghada|marsa_alam|siwa|alexandria|giza|nuweiba)');
+}
+
 function methodOf(node: ts.CallExpression): string {
   const opts = node.arguments[1];
   if (opts && ts.isObjectLiteralExpression(opts)) {

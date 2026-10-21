@@ -43,7 +43,10 @@ export const SEED_DIR = process.env.DAHAB_SEED_DIR
 export const dataPath = (...segments: string[]) => path.join(DATA_DIR, ...segments);
 export const seedPath = (...segments: string[]) => path.join(SEED_DIR, ...segments);
 
-export const SQLITE_FILE = () => dataPath('dahab.sqlite');
+export const SQLITE_FILE = () => dataPath('travel.sqlite');
+export const TRAVEL_SQLITE_FILE = () => dataPath('travel.sqlite');
 export const JSON_STORE_FILE = () => dataPath('dahab_db.json');
+export const CITY_DATA_DIR = () => dataPath('cities');
+export const cityDataPath = (citySlug: string) => dataPath('cities', `${citySlug}.json`);
 export const backupDir = () => dataPath('backups');
 export const LOCKS_DIR = () => dataPath('locks');

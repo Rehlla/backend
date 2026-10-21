@@ -105,6 +105,8 @@ import { AuthenticatedRequest } from './server/middleware/correlationMiddleware'
 import { errorHandler } from './server/middleware/errorHandler';
 import { apiRateLimiter, authRateLimiter, daygiFeedbackLimiter } from './server/middleware/rateLimiter';
 import { dahabRouter } from './server/api/dahabRoutes';
+import { cityRouter, cityRegistryRouter } from './server/api/cityRoutes';
+import { weatherRouter } from './server/api/weatherRoutes';
 import { authRouter, devicesRouter } from './server/api/authRoutes';
 import { dahabPartyRouter } from './server/api/dahabPartyRoutes';
 import { maxMediaUploadBytes, serveMediaHeaders } from './server/services/mediaUpload';
@@ -127,6 +129,9 @@ import { rentalRouter, rentalBookingRouter } from './server/api/rentalRoutes';
 import { diningRouter } from './server/api/diningRoutes';
 import { transferHubRouter } from './server/api/transferHubRoutes';
 import { transferHubService } from './server/services/transferHubService';
+import { whatsappRouter } from './server/api/whatsappRoutes';
+import { whatsappGatewayService } from './server/services/whatsappGatewayService';
+import { whatsappInboundRouter } from './server/services/whatsappInboundService';
 import { priceComparisonRouter } from './server/api/priceComparisonRoutes';
 import { operationsRouter } from './server/api/operationsRoutes';
 import { adminAccessRouter } from './server/api/adminAccessRoutes';
@@ -165,6 +170,7 @@ import {
 import { marketFreshnessService } from './server/services/marketFreshnessService';
 import { autonomousDataOpsService } from './server/services/autonomousDataOpsService';
 import { enrichTripWithAvailability, resolveSkuPrice } from './server/services/availabilityJoinService';
+import { buildDeterministicDays } from './server/services/tripPlannerCore';
 import { reliabilityService } from './server/services/reliabilityService';
 import { intelligenceCoreService } from './server/services/intelligenceCoreService';
 import { supplierCalendarService } from './server/services/supplierCalendarService';
@@ -242,6 +248,17 @@ log.info('catalogue', 'bookability reconciled at boot', {
   requestNowIds: bookability.downgradedIds
 });
 
+// WhatsApp transport: seed the pilot session row (env-derived, operator-editable
+// afterwards) and start the outbox dispatcher. Both are no-ops when OpenWA is
+// disabled - the default until a number is linked and verified.
+whatsappGatewayService.seedDefaultSession();
+if ((process.env.OPENWA_ENABLED || '').toLowerCase() === 'true') {
+  whatsappGatewayService.startDispatcher();
+  console.log('[WhatsApp] transport enabled; outbox dispatcher running');
+} else {
+  console.log('[WhatsApp] transport disabled - sends are recorded, never delivered (OPENWA_ENABLED=false)');
+}
+
 const app = express();
 // Cloud Run (and most PaaS hosts) inject the port to listen on via PORT.
 // Hardcoding 3000 means the container never passes its health check.
@@ -295,7 +312,11 @@ app.use(
   express.json({ limit: Math.ceil(3 * 1024 * 1024 * (4 / 3)) + 64 * 1024 })
 );
 
-app.use(express.json({ limit: '100kb' }));
+  // The raw body is kept alongside the parsed one so webhook signatures can be
+  // verified over exactly what the provider sent (see /api/webhooks/openwa).
+  // Order-preserving verification needs the bytes, not a re-stringified object.
+  const keepRawBody = (req: any, _res: any, buf: Buffer) => { req.rawBody = buf; };
+  app.use(express.json({ limit: '100kb', verify: keepRawBody }));
 app.use(cookieParser());
 app.use(correlationMiddleware);
 
@@ -346,6 +367,18 @@ app.use('/api/dahab', dahabRouter);
 // and the /admin/parties CRUD carry their own entries in apiAccessPolicy.
 app.use('/api/dahab', dahabPartyRouter);
 
+// Multi-city surface (Sprint 1). /api/cities/:citySlug/* serves the MVP
+// cities (dahab, sharm, hurghada, marsa_alam, siwa). For 'dahab' the router
+// delegates to the original Dahab routers so the payload is identical to
+// /api/dahab/*; for the other cities it serves the geojson-derived seed in
+// data/cities/<slug>.json. The /api/dahab mounts above stay untouched, so the
+// existing client keeps working while it migrates to /api/cities/{destinationId}.
+// Registry reads first (single-segment GET / and GET /:citySlug), so the
+// delegation middleware inside cityRouter cannot swallow the dahab record.
+app.use('/api/cities', cityRegistryRouter);
+app.use('/api/cities', cityRouter);
+app.use('/api/weather', weatherRouter);
+
 // CMS Content Management routes (dedicated upload parser is registered
 // above the global 100kb parser — see the block after helmet).
 
@@ -392,6 +425,7 @@ app.use('/api/rental-bookings', rentalBookingRouter);
 // Dining: public browsing/menu/quote, traveler orders, operations drives status.
 app.use('/api/dining', diningRouter);
 app.use('/api', transferHubRouter);
+app.use('/api/operations/whatsapp', whatsappRouter);
 
 // Price comparison across booking platforms (StayingAPI live -> mock fallback)
 app.use('/api/price-comparison', priceComparisonRouter);
@@ -500,6 +534,15 @@ const AI_MODEL = llmModel();
 // ---------------------------------------------------------------------------
 // 1. Health, Database Status & Verification
 // ---------------------------------------------------------------------------
+app.get('/api/nile-cruise/routes', (req, res) => {
+  try {
+    const p = require('path').join(process.cwd(), 'data', 'nile_cruise_route.json');
+    const data = JSON.parse(require('fs').readFileSync(p, 'utf-8'));
+    res.json({ status: 'ok', route: data.id, stops: data.stops, duration: data.durationLabel, type: data.type });
+  } catch (e) {
+    res.status(500).json({ error: 'Cruise route data missing', detail: String(e), cwd: process.cwd() });
+  }
+});
 app.get('/api/health', (req, res) => {
   const ledgerIntegrity = ledgerService.verifyLedgerIntegrity();
   const adapterName = db.getAdapter().constructor.name;
@@ -2917,7 +2960,9 @@ app.get('/api/payouts/pending', (req: AuthenticatedRequest, res) => {
 
 /** Trip: list members. */
 app.get('/api/trips/:tripId/members', (req: AuthenticatedRequest, res) => {
+  const trip = db.trips.find(t => t.id === req.params.tripId);
   if (!groupPlanningService.isMember(req.params.tripId, req.user!.userId) &&
+      !(trip && trip.userId === req.user!.userId) &&
       !['Operations', 'Admin'].includes(req.user!.role)) {
     return res.status(403).json({ error: 'You are not a member of this trip.' });
   }
@@ -3297,6 +3342,46 @@ app.post('/api/payments/paymob-webhook', (req, res) => {
   const hmacHeader = req.headers['x-paymob-hmac'] as string | undefined;
   const result = paymentService.handleWebhook(req.body, hmacHeader);
   res.json(result);
+});
+
+// ---------------------------------------------------------------------------
+// WhatsApp inbound (OpenWA webhook). HMAC-SHA256 over the RAW body, verified
+// before the JSON is trusted: an unsigned POST is a 401, not a message.
+// ---------------------------------------------------------------------------
+app.post('/api/webhooks/openwa', (req: AuthenticatedRequest, res) => {
+  const secret = process.env.OPENWA_WEBHOOK_SECRET || '';
+  const signature = req.headers['x-webhook-hmac'] as string | undefined || req.headers['x-openwa-signature'] as string | undefined;
+  if (!secret || !signature) {
+    return res.status(401).json({ error: 'Webhook signing is not configured.' });
+  }
+  // The raw body survives JSON parsing because the signature covers exactly
+  // what the provider sent; re-stringifying a parsed body changes key order.
+  const raw = (req as unknown as { rawBody?: Buffer }).rawBody;
+  if (!raw) {
+    return res.status(400).json({ error: 'Raw body required for signature verification.' });
+  }
+  const expected = crypto.createHmac('sha256', secret).update(raw).digest('hex');
+  const provided = signature.replace(/^sha256=/, '');
+  const providedBuf = Buffer.from(provided, 'utf8');
+  const expectedBuf = Buffer.from(expected, 'utf8');
+  if (providedBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(providedBuf, expectedBuf)) {
+    return res.status(401).json({ error: 'Signature mismatch.' });
+  }
+
+  const event = String(req.body?.event || req.body?.type || '');
+  const payload = req.body?.payload || req.body?.data || req.body;
+  try {
+    whatsappInboundRouter(event, payload, req.correlationId);
+    res.json({ received: true });
+  } catch (err: any) {
+    // A malformed message must not make the provider retry forever: we accepted
+    // the signature, so the event is ours to log, not the provider's to resend.
+    console.error('[WhatsApp webhook] handler error', err);
+    db.logAudit('WhatsAppWebhook', 'System', 'WHATSAPP_WEBHOOK_REJECTED', 'Webhook', event || 'unknown', {
+      error: err?.message || String(err), correlationId: req.correlationId
+    });
+    res.json({ received: true, ignored: true });
+  }
 });
 
 app.get('/api/commerce/ledger', (req, res) => {
@@ -4761,64 +4846,7 @@ Return ONLY valid JSON matching this schema:
     summaryAr: 'مزيج متوازن يجمع بين غوص الشعاب المرجانية، ومغامرات الكانيون الجبلية، وسهرات العشاء البدوي الهادئة على البحر.',
     totalEstimatedEGP: 0,
     fitScore: 96,
-    days: [
-      {
-        dayNumber: 1,
-        title: 'Arrival, Oceanfront Check-in & Sunset Lighthouse Promenade',
-        titleAr: 'الوصول، تسجيل الإقامة، وجلسة غروب اللايتهاوس',
-        theme: 'Arrival & Acclimatization',
-        activities: [
-          {
-            id: 'act-1-1',
-            title: 'Private Airport Transfer from SSH Airport',
-            titleAr: 'انتقال خاص ومريح من مطار شرم الشيخ',
-            timeSlot: '10:30 AM',
-            location: 'SSH Airport → Dahab',
-            category: 'transfer',
-            estimatedPriceEGP: 1400,
-            description: 'Comfortable air-conditioned private vehicle with experienced local driver.'
-          },
-          {
-            id: 'act-1-2',
-            title: 'Lighthouse Sunset Snorkel & Habak Tea on Shore',
-            titleAr: 'سنوركلينج الغروب باللايتهاوس وشاي بالحبق',
-            timeSlot: '05:00 PM',
-            location: 'Lighthouse Promenade',
-            category: 'relax',
-            estimatedPriceEGP: 250,
-            description: 'Gentle shore entry with vibrant corals and panoramic views of the Saudi mountain silhouette.'
-          }
-        ]
-      },
-      {
-        dayNumber: 2,
-        title: 'The Canyon Slits & Blue Hole Natural Sanctuary',
-        titleAr: 'غطس الكانيون ومحمية البلو هول العالمية',
-        theme: 'World-Class Diving',
-        activities: [
-          {
-            id: 'act-2-1',
-            title: 'Guided Morning Dive at The Canyon & Bells',
-            titleAr: 'غطسة صباحية استرشادية بالكانيون والبيلز',
-            timeSlot: '09:00 AM',
-            location: 'The Canyon, Dahab',
-            category: 'diving',
-            estimatedPriceEGP: 1350,
-            description: 'Explore the natural light curtains inside the cavern under the guidance of certified PADI instructors.'
-          },
-          {
-            id: 'act-2-2',
-            title: 'Seaside Fresh Catch Lunch at Eel Garden Beach',
-            titleAr: 'غداء سمك طازج على شاطئ إيل جاردن',
-            timeSlot: '01:30 PM',
-            location: 'Eel Garden Promenade',
-            category: 'food',
-            estimatedPriceEGP: 450,
-            description: 'Grilled Red Sea fish with Bedouin tahini and fresh local salads.'
-          }
-        ]
-      }
-    ]
+    days: buildDeterministicDays(durationDays)
   });
   res.json({ generatedWith: 'dahab-deterministic-core', trip: enriched });
 });

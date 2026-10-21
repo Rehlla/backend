@@ -12,6 +12,22 @@ import type {
   PartyVibeTag,
   PartyZone
 } from '../../src/shared/dahabParties';
+import type { CitySeed } from './citiesSeed';
+
+/**
+ * `cities` table row — the city registry (report 08 §4; gap C-3 of 11).
+ * Deliberately named CityRegistryEntity: the legacy `CityEntity` display type
+ * further down this file keeps its name while screens migrate. Only the
+ * identity/promoted fields change shape; the full record hydrates from the
+ * `data` JSON, which mirrors the CitySeed authoring source. Nothing references
+ * it as an FK yet — the catalogue tables gain `city` columns in the next
+ * multi-city migration step (plan 10 §6), where this table becomes their
+ * parent.
+ */
+export interface CityRegistryEntity extends CitySeed {
+  /** Row id — the city slug. */
+  id: string;
+}
 
 export interface UserEntity {
   id: string;
@@ -665,6 +681,7 @@ export interface InventorySlotEntity {
  */
 export interface HotelEntity {
   id: string;
+  city_slug?: string;
   slug: string;
   name: string;
   nameAr: string;
@@ -1488,6 +1505,144 @@ export interface TransferDriverEntity {
   plate: string;
 }
 
+/**
+ * Destination catalog for the future-ride hub. Runtime-editable: operations
+ * can publish a new destination (a city, a resort town, a Dahab micro-zone)
+ * without a deploy. `zone` destinations price from the origin row plus
+ * `priceAddEGP`; `area` destinations price from their own matrix row.
+ */
+export interface TransferDestinationEntity {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  subEn: string;
+  subAr: string;
+  priceAddEGP: number;
+  kind: 'zone' | 'area';
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * Explicit origin→destination price pair. This is how operations sells a route
+ * the seed matrix does not cover (city to city, a new airport, a resort town):
+ * the pair carries its own per-tier sell and supplier figures, and it overrides
+ * any derived price. A pair is what makes the hub dynamic rather than a fixed
+ * catalog — adding a route is a row, not a code change.
+ */
+export interface TransferPairPriceEntity {
+  id: string;
+  originId: string;
+  destinationId: string;
+  privateEGP: number;
+  sharedEGP: number;
+  premiumEGP: number;
+  supplierPrivateEGP: number;
+  supplierSharedEGP: number;
+  supplierPremiumEGP: number;
+  distanceKm: number;
+  durationEn: string;
+  durationAr: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+}
+
+/** A ride a traveller asked for that the hub does not price today. */
+export type TransferRequestStatus = 'PENDING_REVIEW' | 'ACCEPTED' | 'DECLINED';
+
+export interface TransferRequestEntity {
+  id: string;
+  userId: string;
+  travelerName?: string;
+  travelerPhone?: string;
+  originLabel: string;
+  destinationLabel: string;
+  /** Known catalog ids when the traveller picked from the list; labels carry the rest. */
+  originId?: string;
+  destinationId?: string;
+  date?: string;
+  time?: string;
+  passengers: number;
+  luggage?: 'small' | 'medium' | 'large';
+  notes?: string;
+  status: TransferRequestStatus;
+  reviewNote?: string;
+  /** Set when the review accepts the request and prices it into the hub. */
+  pairId?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * One linked WhatsApp number, as an OpenWA session.
+ *
+ * Dahab sends from more than one number by design: the traveller expects
+ * confirmations from a different sender than a driver expects a ride alert
+ * from, and support answers from a third. Each row carries the OpenWA session id
+ * that owns the number plus the purpose that picks it, so routing is data (and
+ * changeable from the ops console) rather than code.
+ */
+export interface WhatsAppSessionEntity {
+  id: string;
+  /** OpenWA session id (the `{sessionId}` in its REST paths). */
+  openwaSessionId: string;
+  /** Human label for the ops console, e.g. "Traveler (pilot)". */
+  label: string;
+  labelAr?: string;
+  /** E.164 without the plus, as OpenWA's API expects chat ids (`2010…@c.us`). */
+  phone: string;
+  purpose: 'traveler' | 'driver' | 'support' | 'system';
+  /** The session this purpose falls back to when no other row matches. */
+  isDefault: boolean;
+  /** OpenWA's own session status, mirrored for the console. */
+  status: 'CONNECTING' | 'QR_READY' | 'CONNECTED' | 'DISCONNECTED' | 'FAILED';
+  /** QR payload to render while linking; cleared once connected. */
+  qrCode?: string;
+  /** Operator note - why this number exists, who owns the SIM, when to rotate. */
+  note?: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * One WhatsApp send attempt. The outbox pattern is deliberate: a send that
+ * fails (provider hiccup, session not connected) must not take the booking down
+ * with it, so the notification is queued and retried by the dispatcher.
+ */
+export type WhatsAppMessageStatus = 'QUEUED' | 'SENDING' | 'SENT' | 'FAILED' | 'SIMULATED';
+
+export interface WhatsAppMessageEntity {
+  id: string;
+  sessionId: string;
+  /** Recipient phone, national or international; normalised before sending. */
+  to: string;
+  purpose: 'traveler' | 'driver' | 'support' | 'system';
+  body: string;
+  /** Queued notification this row delivers, when it came from one. */
+  notificationId?: string;
+  status: WhatsAppMessageStatus;
+  /** Send attempts: a transient failure retries with backoff, then gives up. */
+  attempts: number;
+  nextAttemptAt?: string;
+  providerMessageId?: string;
+  /**
+   * True when OpenWA was not enabled, so the row is a record of intent, never a
+   * delivery. Ops surfaces render these as "not sent" - the same honesty
+   * contract smsGatewayService uses.
+   */
+  simulated: boolean;
+  /** Provider error for a real failure; undefined otherwise. */
+  providerError?: string;
+  /** Booking this message concerns, when it concerns one. */
+  bookingRef?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface AnalyticsEventEntity {
   id: string;
   /** Session user when signed in; absent for anonymous visits. */
@@ -1726,6 +1881,7 @@ export interface AreaProfileEntity {
 
 export interface PlaceEntity {
   id: string;
+  city_slug?: string;
   nameEn: string;
   nameAr: string;
   aliases: string[];
@@ -1745,6 +1901,7 @@ export interface PlaceEntity {
 
 export interface ActivityDetailEntity {
   id: string;
+  city_slug?: string;
   skuId?: string;
   titleEn: string;
   titleAr: string;
@@ -1797,6 +1954,7 @@ export interface DiningVenueDeliveryPolicy {
 
 export interface DiningVenueEntity {
   id: string;
+  city_slug?: string;
   /** URL segment for the shareable venue page: /restaurants/:venueSlug. Absent
    *  on venues with no menu seed yet, which then have no detail page. */
   slug?: string;
@@ -2895,4 +3053,43 @@ export interface CatalogMetaEntity {
   images?: string[];
   /** Type-specific values the backing entity has no column for (e.g. a restaurant summary). */
   extra?: Record<string, unknown>;
+}
+
+/**
+ * A city the platform can open a catalogue for.
+ *
+ * Dahab is the only city with a live catalogue today; the other MVP cities
+ * ship `catalogue: 'early'`, which screens use to set expectations honestly
+ * instead of showing empty grids.
+ *
+ * `featureCount` / `tourismCount` are the OpenStreetMap figures measured
+ * inside `bounds` (from egypt_all.geojson), so a client can tell "we have not
+ * indexed this city yet" from "we indexed it and found nothing".
+ */
+export interface CityEntity {
+  /** URL segment: /api/cities/:citySlug. Stable, lowercase, ASCII. */
+  slug: string;
+  nameAr: string;
+  nameEn: string;
+  /** Bounding box the city features were measured inside. */
+  bounds: {
+    latMin: number;
+    latMax: number;
+    lngMin: number;
+    lngMax: number;
+  };
+  /** One line that describes the place in Arabic, for the destination picker. */
+  vibe: string;
+  /** Brand colour for this city, matching src/design/destinations.ts. */
+  color: string;
+  heroImage: string;
+  /** Theme colour for the browser chrome, per theme. */
+  chrome: { abyss: string; salt: string };
+  population?: number;
+  wikidata?: string;
+  /** Total OSM features inside `bounds`. */
+  featureCount: number;
+  /** How many of those features are tourism/historic/amenity worth showing. */
+  tourismCount: number;
+  catalogue: 'live' | 'early';
 }

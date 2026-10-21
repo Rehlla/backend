@@ -1,4 +1,4 @@
-import type { TransferBusScheduleEntity, TransferDriverEntity, TransferZonePriceEntity } from '../db/schema';
+import type { TransferBusScheduleEntity, TransferDriverEntity, TransferZonePriceEntity, TransferDestinationEntity } from '../db/schema';
 import type { HubTierId } from '../../src/shared/types/transferHub';
 
 /**
@@ -43,6 +43,21 @@ export interface HubDestination {
   /** Area destinations (Nuweiba, Siwa) price from their own matrix row. */
   kind: 'zone' | 'area';
 }
+
+/**
+ * The seed rows for `db.transferDestinations`. The catalog is runtime-editable,
+ * so this only exists to give a fresh store the same destinations the code
+ * shipped with; an operations edit afterwards wins.
+ */
+export const HUB_DESTINATION_SEED: TransferDestinationEntity[] = [
+  { id: 'masbat', labelEn: 'Masbat & Lighthouse', labelAr: 'المشباط والفانوس', subEn: 'Heart of Dahab', subAr: 'قلب دهب', priceAddEGP: 0, kind: 'zone', active: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'assala', labelEn: 'Assala', labelAr: 'العصلة', subEn: 'Local souq & homes', subAr: 'السوق والبيوت', priceAddEGP: 20, kind: 'zone', active: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'mashraba', labelEn: 'Eel Garden / Mashraba', labelAr: 'حديقة الأنقليس / المشربة', subEn: 'Dive center strip', subAr: 'شارع مراكز الغطس', priceAddEGP: 10, kind: 'zone', active: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'lagoon', labelEn: 'Lagoon & South', labelAr: 'اللاجونا والجنوب', subEn: 'Kite beach, resorts', subAr: 'شاطئ الكايت والمنتجعات', priceAddEGP: 40, kind: 'zone', active: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'bluehole', labelEn: 'Blue Hole', labelAr: 'البلو هول', subEn: 'North, freedive spot', subAr: 'الشمال، بقعة الغطس الحر', priceAddEGP: 80, kind: 'zone', active: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'nuweiba', labelEn: 'Nuweiba', labelAr: 'نويبع', subEn: 'Port', subAr: 'الميناء', priceAddEGP: 0, kind: 'area', active: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' },
+  { id: 'siwa', labelEn: 'Siwa Oasis', labelAr: 'واحة سيوة', subEn: 'Western desert', subAr: 'الصحراء الغربية', priceAddEGP: 0, kind: 'area', active: true, createdAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-01-01T00:00:00.000Z' }
+];
 
 export const HUB_DESTINATIONS: HubDestination[] = [
   { id: 'masbat', labelEn: 'Masbat & Lighthouse', labelAr: 'المشباط والفانوس', subEn: 'Heart of Dahab', subAr: 'قلب دهب', priceAddEGP: 0, kind: 'zone' },

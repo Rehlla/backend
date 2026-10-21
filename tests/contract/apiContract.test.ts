@@ -38,6 +38,7 @@ const ROUTER_FILES = [
   'marketRoutes',
   'priceComparisonRoutes',
   'propertyStayRoutes',
+  'whatsappRoutes',
   'rentalRoutes',
   'transferHubRoutes',
   'authRoutes',
@@ -48,7 +49,21 @@ const ROUTER_FILES = [
   'staffRealtimeRoutes',
   'catalogRoutes',
   'supplierCatalogRoutes',
+  'cityRoutes',
+  'weatherRoutes',
 ].map((n) => path.join(ROOT, 'server', 'api', `${n}.ts`));
+
+/**
+ * cityRouter (server/api/cityRoutes.ts) does not declare the Dahab surface
+ * itself: its `/:citySlug` middleware hands the trimmed URL to the original
+ * Dahab routers, mirroring their server.ts mounts. Each router listed here is
+ * therefore also reachable at `<cityRouter mount>/:citySlug<suffix>`.
+ */
+const CITY_DELEGATES: Record<string, string> = {
+  adminDahabRouter: '/admin',
+  dahabRouter: '',
+  dahabPartyRouter: '',
+};
 
 const KNOWN_MISSING: string[] = [];
 
@@ -183,9 +198,16 @@ function scanBackendRoutes(): EndpointCall[] {
         if (d.index < m.index) routerName = d.name;
         else break;
       }
+      // A catch-all (`/:citySlug/*`) answers a stub for any path, so counting
+      // it would hide every real drift under that prefix.
+      if (m[2].split('/').includes('*')) continue;
+      const method = m[1].toUpperCase();
       const prefix = routerName ? mounts[routerName] : undefined;
-      if (!prefix) continue;
-      routes.push({ method: m[1].toUpperCase(), path: expressSkeleton(prefix + m[2]) });
+      if (prefix) routes.push({ method, path: expressSkeleton(prefix + m[2]) });
+      const delegateSuffix = routerName !== undefined ? CITY_DELEGATES[routerName] : undefined;
+      if (delegateSuffix !== undefined && mounts.cityRouter) {
+        routes.push({ method, path: expressSkeleton(`${mounts.cityRouter}/:citySlug${delegateSuffix}${m[2]}`) });
+      }
     }
   }
 

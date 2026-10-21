@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { db } from '../db/database';
 import { NotificationEntity } from '../db/schema';
+import { whatsappGatewayService } from './whatsappGatewayService';
 import { streamEvent } from './staffEventStream';
 
 export class NotificationService {
@@ -13,6 +14,10 @@ export class NotificationService {
     metadata?: Record<string, any>;
   }): NotificationEntity {
     const id = `NTF-${Date.now()}-${crypto.randomBytes(2).toString('hex')}`;
+    // WhatsApp is the only channel that can fail after this point (session
+    // dropped, provider refused), so it is queued and its delivery mirrors back
+    // instead of being marked SENT the moment the row is written.
+    const isWhatsApp = (params.channel || 'IN_APP') === 'WHATSAPP';
     const notification: NotificationEntity = {
       id,
       userId: params.userId,
@@ -20,7 +25,7 @@ export class NotificationService {
       title: params.title,
       message: params.message,
       channel: params.channel || 'IN_APP',
-      status: 'SENT',
+      status: isWhatsApp ? 'QUEUED' : 'SENT',
       metadata: params.metadata,
       createdAt: new Date().toISOString()
     };
@@ -48,6 +53,29 @@ export class NotificationService {
     }
 
     console.log(`[Notification][${notification.channel}] -> ${params.userId}: ${params.title}`);
+
+    // WhatsApp hands off to the outbox rather than the console log. A row is
+    // created even when OpenWA is disabled, so the intent is recorded and the
+    // ops console can show what would have been sent.
+    if (isWhatsApp) {
+      try {
+        const meta = params.metadata || {};
+        // Two conventions already exist in the codebase for "who is this for":
+        // `phone` (SMS-flavoured call sites) and `recipientPhone` (commerce).
+        // Accept either rather than failing the send for a key name.
+        const recipient = String(meta.phone || meta.recipientPhone || '');
+        const purpose = (meta.purpose as 'traveler' | 'driver' | 'support' | 'system') || 'system';
+        whatsappGatewayService.enqueue({
+          to: recipient,
+          purpose,
+          body: `${params.title}: ${params.message}`,
+          notificationId: notification.id,
+          bookingRef: params.metadata && typeof params.metadata.bookingRef === 'string' ? params.metadata.bookingRef : undefined
+        });
+      } catch (err) {
+        console.error('[Notification] WhatsApp enqueue failed', err);
+      }
+    }
     return notification;
   }
 

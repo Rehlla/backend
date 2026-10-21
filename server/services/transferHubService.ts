@@ -1,6 +1,15 @@
-import crypto from 'crypto';
+﻿import crypto from 'crypto';
 import { db } from '../db/database';
-import type { BookingEntity, ProductSkuEntity, TransferBusScheduleEntity, TransferTelemetryEntity, TransferZonePriceEntity } from '../db/schema';
+import type {
+  BookingEntity,
+  ProductSkuEntity,
+  TransferBusScheduleEntity,
+  TransferTelemetryEntity,
+  TransferZonePriceEntity,
+  TransferDestinationEntity,
+  TransferPairPriceEntity,
+  TransferRequestEntity,
+} from '../db/schema';
 import { transferRouteService } from './transferRouteService';
 import { paymentService } from './paymentService';
 import { assertSupplierBookable } from './commerceService';
@@ -11,7 +20,7 @@ import {
   HUB_ADDONS,
   HUB_ASSIGN_LEAD_MS,
   HUB_BUS_SEED,
-  HUB_DESTINATIONS,
+  HUB_DESTINATION_SEED,
   HUB_DRIVER_SEED,
   HUB_EARLY_DAYS,
   HUB_EARLY_RATE,
@@ -80,6 +89,12 @@ export class TransferHubService {
       db.transferDrivers.push(...HUB_DRIVER_SEED.map(row => ({ ...row, langs: [...row.langs], badgesEn: [...row.badgesEn], badgesAr: [...row.badgesAr] })));
       inserted = true;
     }
+    // The destination catalog is runtime-editable, so this only supplies the
+    // shipped set once; an operations edit afterwards is the source of truth.
+    if (db.transferDestinations.length === 0) {
+      db.transferDestinations.push(...HUB_DESTINATION_SEED.map(row => ({ ...row })));
+      inserted = true;
+    }
     if (inserted) db.saveToDisk();
   }
 
@@ -111,7 +126,7 @@ export class TransferHubService {
     }));
     return {
       origins: [...cities, ...zones],
-      destinations: HUB_DESTINATIONS.map(dest => ({ ...dest })),
+      destinations: this.activeDestinations(),
       addons: HUB_ADDONS.map(addon => ({ ...addon })),
       luggage: HUB_LUGGAGE_EGP,
       extraStopEGP: HUB_EXTRA_STOP_EGP,
@@ -164,7 +179,9 @@ export class TransferHubService {
       zones: db.transferZonePrices.map(row => ({ ...row })),
       buses: db.transferBusSchedules.map(row => ({ ...row })),
       drivers: db.transferDrivers.map(row => ({ ...row })),
-      destinations: HUB_DESTINATIONS.map(dest => ({ ...dest }))
+      destinations: db.transferDestinations.map(dest => ({ ...dest })),
+      pairs: db.transferPairs.map(pair => ({ ...pair })),
+      requests: db.transferRequests.map(request => ({ ...request }))
     };
   }
 
@@ -360,7 +377,9 @@ export class TransferHubService {
         type: 'BOOKING_CREATED',
         title: 'Ride price locked',
         message: `Ride ${bookingRef} is locked at ${snapshot.sellEGP} EGP. Pay the driver on arrival. Free cancellation until 24 hours before pickup.`,
-        channel: 'WHATSAPP'
+        channel: 'WHATSAPP',
+        // The transport needs a number and a purpose to pick a session with.
+        metadata: { recipientPhone: row.travelerPhone, purpose: 'traveler', bookingRef }
       });
 
       db.logAudit(params.travelerId, 'Traveler', 'HUB_RIDE_LOCKED', 'Booking', row.id, {
@@ -400,6 +419,75 @@ export class TransferHubService {
       });
       return booking;
     });
+  }
+
+  /**
+   * A driver replied to a ride alert ("5 min", "on my way", "وصلت").
+   *
+   * The console and the traveller's tracking read the same telemetry row, so a
+   * message from a phone is the cheapest live update there is — no driver app
+   * required. `minutes` is the parsed ETA, or undefined when the reply was a
+   * status phrase rather than a number; the raw text is always stored so an
+   * operator can read what was actually said.
+   */
+  public recordDriverEta(bookingId: string, minutes: number | undefined, raw: string): BookingEntity {
+    const booking = db.bookings.find(row => row.id === bookingId);
+    if (!booking) throw new TransferHubError('Booking not found.', 404, 'NOT_FOUND');
+    let telemetry = db.transferTelemetry.find(row => row.bookingId === booking.id);
+    if (!telemetry) {
+      telemetry = {
+        bookingId: booking.id,
+        referenceCode: booking.confirmationCode,
+        driverName: booking.assignedResource?.driverName || 'Unassigned',
+        driverPhone: booking.assignedResource?.driverPhone || '',
+        vehicleModel: '',
+        vehiclePlate: '',
+        pickupLocation: booking.pickupLocation || '',
+        dropoffLocation: booking.dropoffLocation || '',
+        scheduledTime: booking.scheduledTime,
+        flightStatus: 'SCHEDULED',
+        status: 'ASSIGNED',
+        lastGpsUpdate: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      db.transferTelemetry.push(telemetry);
+    }
+    telemetry.status = 'EN_ROUTE';
+    telemetry.lastGpsUpdate = new Date().toISOString();
+    telemetry.updatedAt = new Date().toISOString();
+    (telemetry as unknown as { etaMinutes?: number; etaNote?: string }).etaMinutes = minutes;
+    (telemetry as unknown as { etaNote?: string }).etaNote = raw.slice(0, 300);
+    // A driver saying they are on the way is the earliest moment the ride stops
+    // being "pending supplier confirmation" for everyone watching it.
+    if (booking.supplierState === 'PENDING_CONFIRMATION') {
+      booking.supplierState = 'CONFIRMED';
+    }
+    booking.updatedAt = new Date().toISOString();
+    db.logAudit('WhatsAppGateway', 'System', 'DRIVER_ETA_RECORDED', 'Booking', booking.id, {
+      minutes, note: raw.slice(0, 120)
+    });
+    db.saveToDisk();
+    return booking;
+  }
+
+  /**
+   * Hub rides a traveller owns (through their trips), or everything for
+   * operations. Ownership is the trip's owner, same rule cancel() checks.
+   */
+  public bookingsForUser(userId: string, all: boolean): BookingEntity[] {
+    this.ensureSeed();
+    const ownedTrips = new Set(db.trips.filter(trip => all || trip.userId === userId).map(trip => trip.id));
+    return db.bookings
+      .filter(row => row.serviceType === 'transfer' && ownedTrips.has(row.tripId))
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .map(row => ({ ...row }));
+  }
+
+  /** One hub ride, by internal id or booking reference. */
+  public bookingForUser(ref: string, userId: string, all: boolean): BookingEntity {
+    const found = this.bookingsForUser(userId, all).find(row => row.id === ref || row.bookingRef === ref);
+    if (!found) throw new TransferHubError('Booking not found.', 404, 'NOT_FOUND');
+    return found;
   }
 
   /**
@@ -506,6 +594,347 @@ export class TransferHubService {
     db.saveToDisk();
   }
 
+  // ---------------------------------------------------------------------------
+  // Dynamic route catalog
+  //
+  // The hub is a catalog, not a fixed list: operations publishes origins
+  // (cities), destinations and explicit price pairs at runtime. Quotes validate
+  // the pair against those tables, so a route the seed never heard of can be
+  // sold by adding a row — and a route nobody priced yet is a review request
+  // rather than a silently wrong number.
+  // ---------------------------------------------------------------------------
+
+  /** Active destinations, in catalog order. */
+  private activeDestinations(): HubDestination[] {
+    this.ensureSeed();
+    return db.transferDestinations.filter(dest => dest.active).map(dest => ({ ...dest }));
+  }
+
+  /** The active price pair for an origin→destination, if one exists. */
+  private pairFor(originId: string, destinationId: string): TransferPairPriceEntity | undefined {
+    this.ensureSeed();
+    return db.transferPairs.find(pair => pair.active && pair.originId === originId && pair.destinationId === destinationId);
+  }
+
+  /** Publish a new origin city with its own price matrix. */
+  public addZone(
+    actor: { userId: string; role: string },
+    input: {
+      id: string;
+      labelEn: string;
+      labelAr: string;
+      subEn?: string;
+      subAr?: string;
+      regionEn?: string;
+      privateEGP: number;
+      sharedEGP?: number;
+      busEGP?: number;
+      supplierPrivateEGP?: number;
+      distanceKm?: number;
+      durationEn?: string;
+      durationAr?: string;
+      haul?: 'short' | 'long';
+    }
+  ): TransferZonePriceEntity {
+    this.ensureSeed();
+    const id = String(input.id || '').trim().toLowerCase();
+    if (!/^[a-z0-9-]{2,32}$/.test(id)) {
+      throw new TransferHubError('Zone id must be 2-32 characters of letters, digits and dashes.', 400, 'BAD_ID');
+    }
+    if (db.transferZonePrices.some(row => row.id === id)) {
+      throw new TransferHubError('That zone already exists.', 409, 'ALREADY_EXISTS');
+    }
+    const privateEGP = Math.round(Number(input.privateEGP));
+    if (!Number.isFinite(privateEGP) || privateEGP <= 0) {
+      throw new TransferHubError('A zone needs a positive private price.', 400, 'BAD_PRICE');
+    }
+    const row: TransferZonePriceEntity = {
+      id,
+      labelEn: String(input.labelEn || '').slice(0, 80),
+      labelAr: String(input.labelAr || '').slice(0, 80),
+      subEn: String(input.subEn || '').slice(0, 80),
+      subAr: String(input.subAr || '').slice(0, 80),
+      regionEn: String(input.regionEn || '').slice(0, 80),
+      privateEGP,
+      sharedEGP: Math.round(Number(input.sharedEGP ?? privateEGP * HUB_TIER_FACTORS.shared.priceFactor)),
+      busEGP: Math.round(Number(input.busEGP ?? privateEGP * HUB_TIER_FACTORS.shared.priceFactor)),
+      supplierPrivateEGP: Math.round(Number(input.supplierPrivateEGP ?? privateEGP * 0.8)),
+      supplierBusEGP: Math.round(Number(input.busEGP ?? privateEGP * HUB_TIER_FACTORS.shared.priceFactor) * 0.7),
+      lastMileEGP: 0,
+      lastMileDriverDiscountEGP: 50,
+      distanceKm: Math.round(Number(input.distanceKm ?? 0)),
+      durationEn: String(input.durationEn || '').slice(0, 32),
+      durationAr: String(input.durationAr || '').slice(0, 32),
+      haul: input.haul === 'long' ? 'long' : 'short',
+      active: true
+    };
+    if (!row.labelEn || !row.labelAr) {
+      throw new TransferHubError('A zone needs an English and an Arabic label.', 400, 'BAD_LABELS');
+    }
+    db.transferZonePrices.push(row);
+    db.logAudit(actor.userId, actor.role, 'TRANSFER_ZONE_CREATED', 'Transfer', row.id, { id: row.id });
+    db.saveToDisk();
+    return row;
+  }
+
+  /** Publish a destination (a city, a resort town, a Dahab micro-zone). */
+  public addDestination(
+    actor: { userId: string; role: string },
+    input: {
+      id: string;
+      labelEn: string;
+      labelAr: string;
+      subEn?: string;
+      subAr?: string;
+      kind: 'zone' | 'area';
+      priceAddEGP?: number;
+    }
+  ): TransferDestinationEntity {
+    this.ensureSeed();
+    const id = String(input.id || '').trim().toLowerCase();
+    if (!/^[a-z0-9-]{2,32}$/.test(id)) {
+      throw new TransferHubError('Destination id must be 2-32 characters of letters, digits and dashes.', 400, 'BAD_ID');
+    }
+    if (db.transferDestinations.some(dest => dest.id === id)) {
+      throw new TransferHubError('That destination already exists.', 409, 'ALREADY_EXISTS');
+    }
+    const row: TransferDestinationEntity = {
+      id,
+      labelEn: String(input.labelEn || '').slice(0, 80),
+      labelAr: String(input.labelAr || '').slice(0, 80),
+      subEn: String(input.subEn || '').slice(0, 80),
+      subAr: String(input.subAr || '').slice(0, 80),
+      priceAddEGP: Math.max(0, Math.round(Number(input.priceAddEGP) || 0)),
+      kind: input.kind === 'area' ? 'area' : 'zone',
+      active: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    if (!row.labelEn || !row.labelAr) {
+      throw new TransferHubError('A destination needs an English and an Arabic label.', 400, 'BAD_LABELS');
+    }
+    db.transferDestinations.push(row);
+    db.logAudit(actor.userId, actor.role, 'TRANSFER_DESTINATION_CREATED', 'Transfer', row.id, { id: row.id, kind: row.kind });
+    db.saveToDisk();
+    return row;
+  }
+
+  public updateDestination(id: string, patch: Partial<TransferDestinationEntity>, actor: { userId: string; role: string }): TransferDestinationEntity {
+    this.ensureSeed();
+    const row = db.transferDestinations.find(dest => dest.id === id);
+    if (!row) throw new TransferHubError('Destination not found.', 404, 'NOT_FOUND');
+    if (patch.labelEn) row.labelEn = String(patch.labelEn).slice(0, 80);
+    if (patch.labelAr) row.labelAr = String(patch.labelAr).slice(0, 80);
+    if (patch.subEn !== undefined) row.subEn = String(patch.subEn).slice(0, 80);
+    if (patch.subAr !== undefined) row.subAr = String(patch.subAr).slice(0, 80);
+    if (typeof patch.priceAddEGP === 'number' && patch.priceAddEGP >= 0) row.priceAddEGP = Math.round(patch.priceAddEGP);
+    if (typeof patch.active === 'boolean') row.active = patch.active;
+    row.updatedAt = new Date().toISOString();
+    db.logAudit(actor.userId, actor.role, 'TRANSFER_DESTINATION_UPDATED', 'Transfer', row.id, {});
+    db.saveToDisk();
+    return row;
+  }
+
+  /**
+   * Publish (or replace) an explicit origin→destination price pair. This is how
+   * a route the seed matrix does not cover gets sold: the pair carries the
+   * figures operations set, and it overrides any derived price.
+   */
+  public addPair(
+    actor: { userId: string; role: string },
+    input: {
+      originId: string;
+      destinationId: string;
+      privateEGP: number;
+      sharedEGP?: number;
+      premiumEGP?: number;
+      supplierPrivateEGP?: number;
+      supplierSharedEGP?: number;
+      supplierPremiumEGP?: number;
+      distanceKm?: number;
+      durationEn?: string;
+      durationAr?: string;
+    }
+  ): TransferPairPriceEntity {
+    this.ensureSeed();
+    const originId = String(input.originId || '').trim();
+    const destinationId = String(input.destinationId || '').trim();
+    if (!db.transferZonePrices.some(row => row.id === originId)) {
+      throw new TransferHubError('Origin not found. Publish the city as a zone first.', 404, 'ORIGIN_NOT_FOUND');
+    }
+    if (!db.transferDestinations.some(dest => dest.id === destinationId)) {
+      throw new TransferHubError('Destination not found. Publish it as a destination first.', 404, 'DESTINATION_NOT_FOUND');
+    }
+    const privateEGP = Math.round(Number(input.privateEGP));
+    if (!Number.isFinite(privateEGP) || privateEGP <= 0) {
+      throw new TransferHubError('A pair needs a positive private price.', 400, 'BAD_PRICE');
+    }
+    const sharedEGP = Math.round(Number(input.sharedEGP ?? privateEGP * HUB_TIER_FACTORS.shared.priceFactor));
+    const premiumEGP = Math.round(Number(input.premiumEGP ?? privateEGP * HUB_TIER_FACTORS.premium.priceFactor));
+    const supplierPrivateEGP = Math.round(Number(input.supplierPrivateEGP ?? privateEGP * 0.8));
+    const now = new Date().toISOString();
+    const existing = db.transferPairs.find(pair => pair.originId === originId && pair.destinationId === destinationId);
+    const row: TransferPairPriceEntity = {
+      id: existing ? existing.id : `pair-${originId}-${destinationId}`,
+      originId,
+      destinationId,
+      privateEGP,
+      sharedEGP: sharedEGP > 0 ? sharedEGP : Math.round(privateEGP * HUB_TIER_FACTORS.shared.priceFactor),
+      premiumEGP: premiumEGP > 0 ? premiumEGP : Math.round(privateEGP * HUB_TIER_FACTORS.premium.priceFactor),
+      supplierPrivateEGP,
+      supplierSharedEGP: Math.round(Number(input.supplierSharedEGP ?? supplierPrivateEGP * HUB_TIER_FACTORS.shared.supplierFactor)),
+      supplierPremiumEGP: Math.round(Number(input.supplierPremiumEGP ?? supplierPrivateEGP * HUB_TIER_FACTORS.premium.supplierFactor)),
+      distanceKm: Math.round(Number(input.distanceKm ?? 0)),
+      durationEn: String(input.durationEn || '').slice(0, 32),
+      durationAr: String(input.durationAr || '').slice(0, 32),
+      active: true,
+      createdAt: existing ? existing.createdAt : now,
+      updatedAt: now,
+      createdBy: actor.userId
+    };
+    if (existing) {
+      db.transferPairs[db.transferPairs.indexOf(existing)] = row;
+    } else {
+      db.transferPairs.push(row);
+    }
+    db.logAudit(actor.userId, actor.role, 'TRANSFER_PAIR_UPSERTED', 'Transfer', row.id, { originId, destinationId, privateEGP });
+    db.saveToDisk();
+    return row;
+  }
+
+  public updatePair(id: string, patch: Partial<TransferPairPriceEntity>, actor: { userId: string; role: string }): TransferPairPriceEntity {
+    this.ensureSeed();
+    const row = db.transferPairs.find(pair => pair.id === id);
+    if (!row) throw new TransferHubError('Pair not found.', 404, 'NOT_FOUND');
+    const numeric: Array<keyof TransferPairPriceEntity> = [
+      'privateEGP', 'sharedEGP', 'premiumEGP',
+      'supplierPrivateEGP', 'supplierSharedEGP', 'supplierPremiumEGP', 'distanceKm'
+    ];
+    for (const key of numeric) {
+      const value = patch[key];
+      if (typeof value === 'number' && Number.isFinite(value) && value >= 0) {
+        (row as unknown as Record<string, number>)[key] = Math.round(value);
+      }
+    }
+    if (typeof patch.durationEn === 'string') row.durationEn = patch.durationEn.slice(0, 32);
+    if (typeof patch.durationAr === 'string') row.durationAr = patch.durationAr.slice(0, 32);
+    if (typeof patch.active === 'boolean') row.active = patch.active;
+    row.updatedAt = new Date().toISOString();
+    db.logAudit(actor.userId, actor.role, 'TRANSFER_PAIR_UPDATED', 'Transfer', row.id, {});
+    db.saveToDisk();
+    return row;
+  }
+
+  public listPairs(): TransferPairPriceEntity[] {
+    this.ensureSeed();
+    return db.transferPairs.map(pair => ({ ...pair }));
+  }
+
+  /**
+   * A traveller asks for a ride the hub does not price today. It lands in the
+   * operations queue instead of returning a number nobody can stand behind.
+   */
+  public createRequest(
+    actor: { userId: string; role: string; name?: string; phone?: string },
+    input: {
+      originLabel: string;
+      destinationLabel: string;
+      originId?: string;
+      destinationId?: string;
+      date?: string;
+      time?: string;
+      passengers?: number;
+      luggage?: 'small' | 'medium' | 'large';
+      notes?: string;
+    }
+  ): TransferRequestEntity {
+    this.ensureSeed();
+    const originLabel = String(input.originLabel || '').trim().slice(0, 120);
+    const destinationLabel = String(input.destinationLabel || '').trim().slice(0, 120);
+    if (!originLabel || !destinationLabel) {
+      throw new TransferHubError('Say where the ride starts and where it ends.', 400, 'BAD_REQUEST');
+    }
+    const row: TransferRequestEntity = {
+      id: `TRQ-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`,
+      userId: actor.userId,
+      travelerName: actor.name,
+      travelerPhone: actor.phone,
+      originLabel,
+      destinationLabel,
+      originId: input.originId ? String(input.originId).slice(0, 64) : undefined,
+      destinationId: input.destinationId ? String(input.destinationId).slice(0, 64) : undefined,
+      date: input.date ? String(input.date).slice(0, 10) : undefined,
+      time: input.time ? String(input.time).slice(0, 8) : undefined,
+      passengers: Math.max(1, Math.min(14, Math.round(Number(input.passengers) || 1))),
+      luggage: input.luggage,
+      notes: input.notes ? String(input.notes).slice(0, 500) : undefined,
+      status: 'PENDING_REVIEW',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    db.transferRequests.push(row);
+    db.logAudit(actor.userId, actor.role, 'TRANSFER_REQUEST_CREATED', 'Transfer', row.id, { originLabel, destinationLabel });
+    db.saveToDisk();
+    return row;
+  }
+
+  public listRequests(status?: string): TransferRequestEntity[] {
+    this.ensureSeed();
+    const rows = status ? db.transferRequests.filter(request => request.status === status) : db.transferRequests;
+    return rows.slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map(request => ({ ...request }));
+  }
+
+  public requestsForUser(userId: string): TransferRequestEntity[] {
+    this.ensureSeed();
+    return db.transferRequests.filter(request => request.userId === userId).map(request => ({ ...request }));
+  }
+
+  /**
+   * Operations decides whether a request can be served. Accepting it with a
+   * price publishes the pair, so the route quotes like any other from then on.
+   */
+  public reviewRequest(
+    id: string,
+    actor: { userId: string; role: string },
+    input: {
+      decision: 'ACCEPT' | 'DECLINE';
+      note?: string;
+      pair?: {
+        originId: string;
+        destinationId: string;
+        privateEGP: number;
+        sharedEGP?: number;
+        premiumEGP?: number;
+        supplierPrivateEGP?: number;
+        distanceKm?: number;
+        durationEn?: string;
+        durationAr?: string;
+      };
+    }
+  ): TransferRequestEntity {
+    this.ensureSeed();
+    const row = db.transferRequests.find(request => request.id === id);
+    if (!row) throw new TransferHubError('Request not found.', 404, 'NOT_FOUND');
+    if (row.status !== 'PENDING_REVIEW') {
+      throw new TransferHubError('This request has already been reviewed.', 409, 'ALREADY_REVIEWED');
+    }
+    const now = new Date().toISOString();
+    if (input.decision === 'ACCEPT') {
+      if (input.pair) {
+        const pair = this.addPair(actor, input.pair);
+        row.pairId = pair.id;
+      }
+      row.status = 'ACCEPTED';
+    } else {
+      row.status = 'DECLINED';
+    }
+    row.reviewNote = input.note ? String(input.note).slice(0, 500) : undefined;
+    row.updatedAt = now;
+    db.logAudit(actor.userId, actor.role, 'TRANSFER_REQUEST_REVIEWED', 'Transfer', row.id, { decision: row.status });
+    db.saveToDisk();
+    return row;
+  }
+
   /** Drops supplier cost before a supplier reads the booking. */
   public hideMargin<T extends { hubQuote?: TransferHubQuoteSnapshot }>(booking: T): T {
     if (!booking.hubQuote) return booking;
@@ -535,7 +964,7 @@ export class TransferHubService {
     const luggageEGP = HUB_LUGGAGE_EGP[input.luggage];
     const stops = input.tripType === 'multi' ? input.stops || [] : [];
     for (const stop of stops) {
-      if (!HUB_DESTINATIONS.some(dest => dest.id === stop)) {
+      if (!db.transferDestinations.some(dest => dest.active && dest.id === stop)) {
         throw new TransferHubError(`Unknown stop "${stop}".`, 400, 'BAD_STOP');
       }
     }
@@ -547,9 +976,26 @@ export class TransferHubService {
     }, 0);
 
     const priceOne = (tierId: HubTierId): { vehicleEGP: number; supplierBaseEGP: number } => {
-      if (origin.formulaId) {
+      // An explicit pair wins: it is how operations sells a route the seed
+      // matrix does not cover, with figures they set rather than derive.
+      const pair = this.pairFor(input.originId, input.destinationId);
+      if (pair) {
+        const vehicleEGP = tierId === 'shared' ? pair.sharedEGP : tierId === 'premium' ? pair.premiumEGP : pair.privateEGP;
+        const supplierBaseEGP =
+          tierId === 'shared' ? pair.supplierSharedEGP
+            : tierId === 'premium' ? pair.supplierPremiumEGP
+              : pair.supplierPrivateEGP;
+        return { vehicleEGP, supplierBaseEGP };
+      }
+      // A formula origin prices the ride it actually is: the airport/area leg
+      // for a city destination, or the in-city loop when the destination is
+      // another Dahab micro-zone. Anything else must come from the matrix (or a
+      // pair) — never from a formula that ignores the destination.
+      if (origin.formulaId && destination.kind === 'zone') {
         const quoted = transferRouteService.quote(origin.formulaId, tierId)[0];
-        const vehicleEGP = tierId === 'shared' ? quoted.priceEGP * passengers : quoted.priceEGP;
+        const base = tierId === 'shared' ? quoted.priceEGP * passengers : quoted.priceEGP;
+        const zoneAdd = destination.priceAddEGP || 0;
+        const vehicleEGP = base + zoneAdd;
         return { vehicleEGP, supplierBaseEGP: Math.round(vehicleEGP * 0.85) };
       }
       const row = this.priceRow(origin.zone, destination);
@@ -640,11 +1086,14 @@ export class TransferHubService {
       reservedUnits: input.mode === 'bus' ? 1 : (input.tierId === 'shared' && origin.formulaId ? passengers : 1)
     };
 
+    // A published pair describes the route itself, so its distance and
+    // duration are what the traveller reads; the origin row is the fallback.
+    const routed = this.pairFor(input.originId, input.destinationId);
     return {
       snapshot,
-      distanceKm: origin.distanceKm,
-      durationEn: origin.durationEn,
-      durationAr: origin.durationAr,
+      distanceKm: routed && routed.distanceKm > 0 ? routed.distanceKm : origin.distanceKm,
+      durationEn: routed && routed.durationEn ? routed.durationEn : origin.durationEn,
+      durationAr: routed && routed.durationAr ? routed.durationAr : origin.durationAr,
       busLastMileEGP,
       comparison: {
         privateEGP: privateOnly.vehicleEGP,
@@ -676,7 +1125,9 @@ export class TransferHubService {
     if (formulaId && (originId.startsWith('ZONE-') || originId === 'ssh' || originId === 'nuweiba' || formulaFromZone)) {
       const route = transferRouteService.getById(formulaId);
       if (!route) throw new TransferHubError('Origin not found.', 404, 'ORIGIN_NOT_FOUND');
-      const matrix = db.transferZonePrices.find(row => row.id === (originId === 'ZONE-MASBAT' ? '' : originId));
+      // A formula origin has no city row of its own; the matrix lookup misses
+      // on purpose and the route's own distance/duration is used instead.
+      const matrix = db.transferZonePrices.find(row => row.id === originId && row.active);
       return {
         labelEn: route.originEn,
         labelAr: route.originAr,
@@ -718,21 +1169,17 @@ export class TransferHubService {
     };
   }
 
+  /**
+   * Destinations come from the runtime catalog, never from the seed. A city id
+   * that exists only as an *origin* row (Sharm, Cairo, Hurghada, …) is not a
+   * destination: accepting it priced a 95 km airport run as a 2 km in-town hop,
+   * because the formula branch then ignored the destination entirely. If a
+   * route is not in the catalog, the traveller asks for a review instead.
+   */
   private resolveDestination(destinationId: string): HubDestination {
-    const known = HUB_DESTINATIONS.find(dest => dest.id === destinationId);
-    if (known) return known;
-    const zone = db.transferZonePrices.find(row => row.id === destinationId);
-    if (zone) {
-      return {
-        id: zone.id,
-        labelEn: zone.labelEn,
-        labelAr: zone.labelAr,
-        subEn: zone.subEn,
-        subAr: zone.subAr,
-        priceAddEGP: 0,
-        kind: 'area'
-      };
-    }
+    this.ensureSeed();
+    const known = db.transferDestinations.find(dest => dest.active && dest.id === destinationId);
+    if (known) return { ...known };
     const route = destinationId.startsWith('ZONE-') ? transferRouteService.getById(destinationId) : undefined;
     if (route) {
       return {

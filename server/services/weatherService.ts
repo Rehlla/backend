@@ -26,8 +26,8 @@ export const WEATHER_LOCATIONS = {
 } as const;
 export type WeatherLocation = keyof typeof WEATHER_LOCATIONS;
 
-const endpointFor = (where: WeatherLocation) => {
-  const { lat, lng } = WEATHER_LOCATIONS[where];
+const endpointFor = (coords: { lat: number; lng: number }) => {
+  const { lat, lng } = coords;
   return (
     'https://api.open-meteo.com/v1/forecast' +
     `?latitude=${lat}&longitude=${lng}` +
@@ -66,7 +66,7 @@ interface CacheEntry {
   value: DahabConditions;
 }
 
-const cache = new Map<WeatherLocation, CacheEntry>();
+const cache = new Map<string, CacheEntry>();
 
 /** 350° is N, not "NNW" — sixteen points, so the label matches the degrees. */
 export function compassPoint(degrees: number): string {
@@ -132,14 +132,32 @@ export class WeatherService {
    * Null rather than a fallback object on purpose: the caller must decide what
    * to tell the traveler, and the one thing it must not say is a number.
    */
+  /**
+   * Current conditions for one of the named constants, or null when the
+   * upstream could not be read.
+   *
+   * Null rather than a fallback object on purpose: the caller must decide what
+   * to tell the traveler, and the one thing it must not say is a number.
+   */
   public async getCurrentConditions(where: WeatherLocation = 'dahab'): Promise<DahabConditions | null> {
-    const hit = cache.get(where);
+    return this.getCurrentConditionsAt(WEATHER_LOCATIONS[where]);
+  }
+
+  /**
+   * Current conditions for arbitrary coordinates — the multi-city surface
+   * (report 11, C-4). The city registry supplies bounds centers for the
+   * cities beyond the named constants, and the cache is keyed by coordinates
+   * so named locations and derived centers share one entry per point.
+   */
+  public async getCurrentConditionsAt(coords: { lat: number; lng: number }): Promise<DahabConditions | null> {
+    const key = `${coords.lat.toFixed(4)},${coords.lng.toFixed(4)}`;
+    const hit = cache.get(key);
     if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.value;
 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
     try {
-      const response = await fetch(endpointFor(where), { signal: controller.signal });
+      const response = await fetch(endpointFor(coords), { signal: controller.signal });
       if (!response.ok) return null;
 
       const payload = (await response.json()) as OpenMeteoResponse;
@@ -175,7 +193,7 @@ export class WeatherService {
         sunset: payload.daily?.sunset?.[0] ?? null
       };
 
-      cache.set(where, { at: Date.now(), value });
+      cache.set(key, { at: Date.now(), value });
       return value;
     } catch {
       return null;
