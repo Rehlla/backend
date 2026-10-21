@@ -1,9 +1,16 @@
 # Coolify + Nixpacks. Same method as Mouaser (C:\laragon\www\mouaser):
 # the image is built from this file and the container starts with one command.
 # This app is Node, so there is no nginx / php-fpm / queue worker.
+#
+# Node 22 comes from NIXPACKS_NODE_VERSION only. Do not also list nodejs_22 in
+# nixPkgs: Nixpacks already installs its default Node 18, and the two packages
+# collide on share/doc/node/lldb_commands.py.
+
+[variables]
+NIXPACKS_NODE_VERSION = "22"
 
 [phases.setup]
-nixPkgs = ["...", "nodejs_22", "python3", "gcc", "gnumake", "pkg-config"]
+nixPkgs = ["...", "python3", "gcc", "gnumake", "pkg-config"]
 
 [phases.install]
 cmds = [

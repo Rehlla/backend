@@ -43,6 +43,7 @@ Health check path: `/api/health`.
 | `SEED_USER_PASSWORD`, `OPENAI_API_KEY`, `PAYMOB_*`, `TWILIO_*`, `LOCATIONIQ_API_KEY` | Runtime only |
 | `VITE_CARTO_MAPS_API_KEY`, `VITE_LOCATIONIQ_MAPS_TOKEN` | Build time. Runtime only leaves the maps without a key. |
 | `NODE_ENV` | Leave unset during build. The start script sets `production`. |
+| `NIXPACKS_NODE_VERSION` | Already `22` in `nixpacks.toml`. Do not set another Node version in Coolify. |
 
 `DAHAB_SEED_DIR=/app/seed` and `DAHAB_DATA_DIR=/app/data` are set by the start script if you omit them.
 
