@@ -26,7 +26,8 @@
     "db:research": "tsx server/db/research/importResearch.ts",
     "db:research:apply": "tsx server/db/research/importResearch.ts --apply",
     "db:add-nav-tabs": "tsx server/db/sqlite/addNavTabs.ts",
-    "openapi:gen": "tsx scripts/gen-openapi.ts"
+    "openapi:gen": "tsx scripts/gen-openapi.ts",
+    "sync:split": "tsx scripts/sync/splitSync.ts"
   },
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^9.1.0",

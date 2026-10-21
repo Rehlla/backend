@@ -13,13 +13,12 @@ run-*/
 .env.local
 .DS_Store
 
-# Runtime state — never commit. Contains user records, live session tokens,
-# traveler phone/email and supplier payout IBANs.
+# Runtime state — never commit. Contains user records, live session
+# tokens, traveler phone/email and supplier payout IBANs.
 data/locks/
 data/backups/
 data/cms-media/
 data/payment-receipts/
-data/instagram/dahab_instagram_sources.json
 data/*.sqlite
 data/*.sqlite-shm
 data/*.sqlite-wal
@@ -28,3 +27,9 @@ data/audit-archive-*.jsonl
 data/daygi_chats.json
 data/daygi_beta_telemetry.json
 data/daygi_tasks.json
+
+# E2E runtime artifacts — the Playwright server boots a throwaway
+# copy of the state dir here (seeds + sqlite), never the real data/.
+tests/e2e/.data/
+tests/e2e/snapshots/
+tests/browser-qa/screenshots/
