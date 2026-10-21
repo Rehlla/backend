@@ -56,6 +56,12 @@ const PUBLIC_RULES: Rule[] = [
   // Anonymous product analytics ingestion. The handler whitelists event names
   // and strips PII, so the exposure is bounded by design.
   { pattern: /^\/analytics\/events$/, methods: ['POST'] },
+
+  // WhatsApp inbound (OpenWA webhook). Cannot carry our session cookie, so the
+  // HMAC signature over the raw body IS the authentication: an unsigned or
+  // mis-signed POST is refused inside the handler with 401, and an unconfigured
+  // secret refuses everything. Same shape as the Paymob webhook below.
+  { pattern: /^\/webhooks\/openwa$/, methods: ['POST'] },
   { pattern: /^\/media\/sync$/, methods: ['GET'] },
   // CMS-uploaded images (hotel galleries, page heroes) shown on the public
   // site. Only admins write cms-media/; the handler in server.ts rejects path
@@ -67,6 +73,26 @@ const PUBLIC_RULES: Rule[] = [
   // /dahab/admin is excluded below and carries its own auth.
   { pattern: /^\/dahab\/(?!admin)/, methods: ['GET'] },
 
+  // Multi-city namespace: /cities/:citySlug/* mirrors /dahab/* — the public
+  // discovery surface for every city the platform opens. The admin subtree is
+  // excluded and carries its own auth, exactly like /dahab/admin.
+  { pattern: /^\/cities\/[^/]+\/(?!admin)/, methods: ['GET'] },
+
+  // The registry index and a single city record are bare one-segment GETs —
+  // the /:citySlug/* rule above needs a trailing segment, so the list and the
+  // detail read each get their own public rule. /cities/:slug/admin/* still
+  // falls through to the authenticated default.
+  { pattern: /^\/cities$/, methods: ['GET'] },
+  { pattern: /^\/cities\/[^/]+$/, methods: ['GET'] },
+
+  // Live conditions per seeded city (weatherRoutes.ts). Read-only observatory
+  // data from the public Open-Meteo feed — no session, no PII.
+  { pattern: /^\/weather\/[^/]+$/, methods: ['GET'] },
+
+  // Nile cruise itinerary (Luxor -> Aswan, with Abu Simbel as an optional
+  // stop). Public, read-only, no PII — same class as the discovery surface.
+  { pattern: /^\/nile-cruise\/routes$/, methods: ['GET'] },
+
   // Parties & nightlife (dahabPartyRoutes.ts): browsing, zones and detail are
   // covered by the /dahab GET rule above. The WhatsApp book-intent is a
   // public POST on purpose — WhatsApp IS the booking flow in Dahab's real
@@ -76,6 +102,8 @@ const PUBLIC_RULES: Rule[] = [
   // message server-side from the party row, and logs identity only when a
   // session exists.
   { pattern: /^\/dahab\/parties\/[^/]+\/book-intent$/, methods: ['POST'] },
+  // Same rule for the multi-city namespace (/cities/:citySlug/parties/...).
+  { pattern: /^\/cities\/[^/]+\/parties\/[^/]+\/book-intent$/, methods: ['POST'] },
 
   // Ambient conditions shown on the public homepage.
   { pattern: /^\/telemetry\/(weather|cameras|conditions)$/, methods: ['GET'] },
@@ -274,11 +302,16 @@ const ROLE_RULES: RoleRule[] = [
   // these. Refresh is read-mostly (product-market data) so Product is included.
   { pattern: /^\/dahab\/commerce\/refresh$/, roles: ['Product', 'Operations', 'Admin'] },
   { pattern: /^\/dahab\/commerce\/(review-queue\/[^/]+\/resolve|jobs\/|run-all-scheduled|alerts\/[^/]+\/(acknowledge|resolve)|snapshots\/|circuit-breakers\/)/, roles: ['Operations', 'Admin'] },
+  // Multi-city commerce mutations — same permission scope.
+  { pattern: /^\/cities\/[^/]+\/commerce\/refresh$/, roles: ['Product', 'Operations', 'Admin'] },
+  { pattern: /^\/cities\/[^/]+\/commerce\/(review-queue\/[^/]+\/resolve|jobs\/|run-all-scheduled|alerts\/[^/]+\/(acknowledge|resolve)|snapshots\/|circuit-breakers\/)/, roles: ['Operations', 'Admin'] },
 
   // Parties admin CRUD (dahabPartyRoutes.ts): catalogue curation and the
   // licence gate are Operations acts — Product curates CMS copy, not the
   // nightlife catalogue or who is allowed to sell a ticket.
   { pattern: /^\/dahab\/admin\/parties(\/|$)/, roles: ['Operations', 'Admin'] },
+  // Multi-city parties admin CRUD (/cities/:citySlug/admin/parties).
+  { pattern: /^\/cities\/[^/]+\/admin\/parties(\/|$)/, roles: ['Operations', 'Admin'] },
 
   // Answering a traveler's support message is an Operations act; sending one
   // and reading your own thread is not, and is left to the default (any
@@ -396,6 +429,7 @@ export const PERMISSION_RULES: PermissionRule[] = [
   { pattern: /^\/dahab\/commerce\/refresh$/, all: ['market.manage', 'ops.knowledge.manage'] },
   { pattern: /^\/dahab\/commerce\/(review-queue\/[^/]+\/resolve|jobs\/|run-all-scheduled|alerts\/[^/]+\/(acknowledge|resolve)|snapshots\/|circuit-breakers\/)/, all: ['ops.jobs.run'] },
   { pattern: /^\/dahab\/admin\/parties(\/|$)/, read: ['ops.knowledge.view'], write: ['ops.knowledge.manage'] },
+  { pattern: /^\/cities\/[^/]+\/admin\/parties(\/|$)/, read: ['ops.knowledge.view'], write: ['ops.knowledge.manage'] },
 
   { pattern: /^\/support\/messages\/[^/]+\/(reply|escalate|assign|resolve|close)$/, all: ['ops.support.reply'] },
   { pattern: /^\/support\/(escalation-queue|counts)$/, all: ['ops.support.view'] },

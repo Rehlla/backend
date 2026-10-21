@@ -1,5 +1,6 @@
 import { db } from '../db/database';
 import { TripEntity, TripItemEntity } from '../db/schema';
+import { groupPlanningService } from './groupPlanningService';
 
 export class TripService {
   public getTrip(tripId: string): { trip: TripEntity | null; items: TripItemEntity[] } {
@@ -42,6 +43,12 @@ export class TripService {
           updatedAt: now
         };
         db.trips.push(trip);
+        // The owner is the first member with role='owner' by design
+        // (groupPlanningService), but trip creation was the one path that
+        // never wrote that row — so the real creator could never pass
+        // isOwner, read their members list, or create splits. Seed it here,
+        // idempotently, in the same transaction as the trip row.
+        groupPlanningService.addMember(trip.id, tripData.userId, tripData.userId, 'owner');
       }
 
       db.logAudit(tripData.userId, 'User', 'TRIP_MUTATED', 'Trip', trip.id, {

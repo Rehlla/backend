@@ -6,6 +6,7 @@ import { SqlitePersistenceAdapter } from '../../server/db/sqlite/SqlitePersisten
 import { initializeCmsSchema } from '../../server/db/sqlite/cmsSchema';
 import { db } from '../../server/db/database';
 import { groupPlanningService } from '../../server/services/groupPlanningService';
+import { tripService } from '../../server/services/tripService';
 
 /**
  * Group planning + split pay (blueprint row #16).
@@ -308,5 +309,38 @@ describe('groupPlanningService', () => {
       expect(splits).toHaveLength(3);
       expect(splits[0].shareEGP).toBe(2000);
     });
+  });
+});
+
+describe('tripService × groupPlanning ownership binding', () => {
+  it('creating a trip through tripService seeds the owner membership row', () => {
+    // Regression: production trip creation never wrote the owner row, so the
+    // creator could read no members list and could never create splits
+    // (403 "Only the trip owner can create splits") despite owning the trip.
+    tripService.createOrUpdateTrip({ id: 'TRIP-SVC-1', userId: 'USR-OWNER', title: 'Owned Trip' } as any);
+    const members = groupPlanningService.membersForTrip('TRIP-SVC-1');
+    expect(members).toHaveLength(1);
+    expect(members[0].role).toBe('owner');
+    expect(members[0].status).toBe('accepted');
+    expect(groupPlanningService.isOwner('TRIP-SVC-1', 'USR-OWNER')).toBe(true);
+  });
+
+  it('seeding stays idempotent across trip updates', () => {
+    tripService.createOrUpdateTrip({ id: 'TRIP-SVC-2', userId: 'USR-OWNER' } as any);
+    tripService.createOrUpdateTrip({ id: 'TRIP-SVC-2', userId: 'USR-OWNER', title: 'Updated' } as any);
+    const members = groupPlanningService.membersForTrip('TRIP-SVC-2');
+    expect(members).toHaveLength(1);
+    expect(members[0].role).toBe('owner');
+  });
+
+  it('isOwner falls back to trip.userId for legacy trips without a member row', () => {
+    db.trips.push({
+      id: 'TRIP-LEGACY-1', userId: 'USR-OWNER', title: 'Legacy', status: 'PLANNED',
+      lengthDays: 5, travelersCount: 2, budget: 'Moderate', pace: 'Balanced', interests: [],
+      createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
+    } as any);
+    expect(db.tripMembers.some(m => m.tripId === 'TRIP-LEGACY-1')).toBe(false);
+    expect(groupPlanningService.isOwner('TRIP-LEGACY-1', 'USR-OWNER')).toBe(true);
+    expect(groupPlanningService.isOwner('TRIP-LEGACY-1', 'USR-OUTSIDER')).toBe(false);
   });
 });

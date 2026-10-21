@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+﻿import { Router, Response } from 'express';
 import { AuthenticatedRequest } from '../middleware/correlationMiddleware';
 import {
   optionalString,
@@ -166,7 +166,7 @@ hotelBookingRouter.post('/:ref/payment-proof', (req: AuthenticatedRequest, res: 
     res.json({ booking });
   } catch (err: any) {
     const status = err?.status ?? 400;
-    res.status(status).json({ error: status >= 500 ? 'Could not record the proof.' : err?.message || 'Invalid proof.' });
+    res.status(status).json({ error: status >= 500 ? 'Could not record the proof.' : err?.message || 'Invalid proof.', code: err?.code });
   }
 });
 
@@ -203,7 +203,7 @@ hotelBookingRouter.post('/:ref/cancel', (req: AuthenticatedRequest, res: Respons
     res.json(result);
   } catch (err: any) {
     const status = err?.status ?? 400;
-    res.status(status).json({ error: status >= 500 ? 'Could not cancel.' : err?.message || 'Invalid cancellation.' });
+    res.status(status).json({ error: status >= 500 ? 'Could not cancel.' : err?.message || 'Invalid cancellation.', code: err?.code });
   }
 });
 
@@ -220,7 +220,7 @@ hotelBookingRouter.post('/:ref/reschedule', (req: AuthenticatedRequest, res: Res
     res.json({ booking });
   } catch (err: any) {
     const status = err?.status ?? 400;
-    res.status(status).json({ error: status >= 500 ? 'Could not move the stay.' : err?.message || 'Invalid dates.' });
+    res.status(status).json({ error: status >= 500 ? 'Could not move the stay.' : err?.message || 'Invalid dates.', code: err?.code });
   }
 });
 
@@ -265,7 +265,7 @@ hotelBookingRouter.post('/:ref/payment-receipt', async (req: AuthenticatedReques
   } catch (err: any) {
     if (err instanceof MediaUploadError) return res.status(400).json({ error: err.message });
     const status = err?.status ?? 400;
-    res.status(status).json({ error: status >= 500 ? 'Could not save the receipt.' : err?.message || 'Invalid receipt.' });
+    res.status(status).json({ error: status >= 500 ? 'Could not save the receipt.' : err?.message || 'Invalid receipt.', code: err?.code });
   }
 });
 
@@ -286,7 +286,7 @@ hotelBookingRouter.get('/:ref/payment-receipt', (req: AuthenticatedRequest, res:
     res.sendFile(file);
   } catch (err: any) {
     const status = err?.status ?? 400;
-    res.status(status).json({ error: err?.message || 'Could not read the receipt.' });
+    res.status(status).json({ error: err?.message || 'Could not read the receipt.', code: err?.code });
   }
 });
 

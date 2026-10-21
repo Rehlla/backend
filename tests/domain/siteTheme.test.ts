@@ -60,8 +60,17 @@ describe('Site Theme tokens', () => {
 
     it('accepts only offered font stacks', () => {
       expect(assertThemeValue('type.body', FONT_STACKS.System)).toBe(FONT_STACKS.System);
+      expect(assertThemeValue('type.body', FONT_STACKS['SF Arabic'])).toBe(FONT_STACKS['SF Arabic']);
       expect(() => assertThemeValue('type.body', 'Comic Sans MS')).toThrow(/offered font/);
       expect(() => assertThemeValue('type.body', "Outfit', sans-serif; background: red")).toThrow(/offered font/);
+    });
+
+    it('offers no Google font family', () => {
+      // One typeface only: SF Arabic (self-hosted) plus the OS stack.
+      expect(Object.keys(FONT_STACKS)).toEqual(['SF Arabic', 'System']);
+      for (const stack of Object.values(FONT_STACKS)) {
+        expect(stack).not.toMatch(/IBM Plex|Fraunces|Alexandria|El Messiri|Inter|Readex|Cormorant|Montserrat|Outfit|Jakarta/);
+      }
     });
 
     it('accepts only known theme ids for the home theme', () => {
@@ -100,8 +109,28 @@ describe('Site Theme tokens', () => {
       siteTheme.upsert('type.body', FONT_STACKS.System);
       const v1 = siteTheme.bundle().version;
       expect(v1).not.toBe(v0);
-      siteTheme.upsert('type.body', FONT_STACKS['IBM Plex Sans']);
+      siteTheme.upsert('type.body', FONT_STACKS['SF Arabic']);
       expect(siteTheme.bundle().version).not.toBe(v1);
+    });
+
+    it('rewrites a stored retired Google font stack to SF Arabic', () => {
+      // A row written before the move to SF Arabic (e.g. 'El Messiri') must
+      // never hand a Google family to the page — and must heal itself.
+      const c = (db.getAdapter() as SqlitePersistenceAdapter).connection;
+      c.prepare(
+        "INSERT INTO cms_theme (key, value, updated_at) VALUES ('type.body', ?, '2026-09-10T15:00:02.959Z')"
+      ).run("'El Messiri', Georgia, serif");
+
+      expect(siteTheme.getAll()['type.body'].value).toBe(FONT_STACKS['SF Arabic']);
+      expect(siteTheme.bundle().tokens['type.body']).toBe(FONT_STACKS['SF Arabic']);
+      // The row itself is rewritten, so the next read is already clean.
+      const stored = c.prepare("SELECT value FROM cms_theme WHERE key = 'type.body'").get() as { value: string };
+      expect(stored.value).toBe(FONT_STACKS['SF Arabic']);
+    });
+
+    it('refuses a retired Google font stack on write', () => {
+      expect(() => siteTheme.upsert('type.display', "'Alexandria', 'IBM Plex Sans Arabic', sans-serif"))
+        .toThrow(/offered font/);
     });
 
     it('rolls back to a previous snapshot exactly', () => {

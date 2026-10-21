@@ -1,6 +1,7 @@
 import { Router, Response } from 'express';
 import { AuthenticatedRequest } from '../middleware/correlationMiddleware';
 import { db } from '../db/database';
+import { findByIdOrRef } from '../db/lookups';
 import { rentalService, RENTAL_ZONES } from '../services/rentalService';
 import {
   requiredString,
@@ -292,7 +293,7 @@ rentalBookingRouter.get('/', (req: AuthenticatedRequest, res: Response) => {
 
 rentalBookingRouter.get('/:id', (req: AuthenticatedRequest, res: Response) => {
   try {
-    const booking = db.rentalBookings.find(b => b.id === req.params.id || b.bookingRef === req.params.id);
+    const booking = findByIdOrRef(db.rentalBookings, req.params.id);
     if (!booking) return res.status(404).json({ error: 'Rental booking not found.' });
     if (!mayReadBooking(req.user!, booking.userId)) {
       // 404, not 403: confirming the id exists would itself leak a booking.
@@ -307,7 +308,7 @@ rentalBookingRouter.get('/:id', (req: AuthenticatedRequest, res: Response) => {
 rentalBookingRouter.post('/:id/checkout', (req: AuthenticatedRequest, res: Response) => {
   try {
     const actor = req.user!;
-    const booking = db.rentalBookings.find(b => b.id === req.params.id);
+    const booking = findByIdOrRef(db.rentalBookings, req.params.id);
     if (!booking) return res.status(404).json({ error: 'Rental booking not found.' });
     if (!mayReadBooking(actor, booking.userId)) {
       return res.status(404).json({ error: 'Rental booking not found.' });
@@ -332,7 +333,7 @@ rentalBookingRouter.post('/:id/checkout', (req: AuthenticatedRequest, res: Respo
 
 rentalBookingRouter.post('/:id/cancel', (req: AuthenticatedRequest, res: Response) => {
   try {
-    const booking = db.rentalBookings.find(b => b.id === req.params.id);
+    const booking = findByIdOrRef(db.rentalBookings, req.params.id);
     if (!booking) return res.status(404).json({ error: 'Rental booking not found.' });
     if (!mayReadBooking(req.user!, booking.userId)) {
       return res.status(404).json({ error: 'Rental booking not found.' });
@@ -360,7 +361,7 @@ function providerAction(
     // their own and a requested id they do not own is refused below.
     const supplierId = actingSupplierId(req, optionalString(req.body?.supplierId, 'supplierId', 128));
     if (!supplierId) return res.status(403).json({ error: 'Your account is not linked to a supplier.' });
-    const booking = db.rentalBookings.find(b => b.id === req.params.id);
+    const booking = findByIdOrRef(db.rentalBookings, req.params.id);
     if (!booking) return res.status(404).json({ error: 'Rental booking not found.' });
     if (booking.supplierId !== supplierId && !(req.user!.role === 'Operations' || req.user!.role === 'Admin')) {
       return res.status(403).json({ error: 'This booking belongs to a different supplier.' });

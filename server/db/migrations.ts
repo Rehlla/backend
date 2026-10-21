@@ -2,6 +2,7 @@ import { IN_DESTINATION_SKUS, IN_DESTINATION_SUPPLIERS } from './seeds/inDestina
 import { EXISTING_SKU_TIME_SLOTS, EXPERIENCE_SKUS, EXPERIENCE_SUPPLIERS, meetingPointArOf } from './seeds/experienceProducts';
 import crypto from 'crypto';
 import { db } from './database';
+import { CITIES_SEED } from './citiesSeed';
 import { SupplierEntity } from './schema';
 import { initialOpportunities } from '../../src/data/intelligenceData';
 import { importDahabLocalCommerce } from './seeds/importDahabLocalCommerce';
@@ -353,6 +354,17 @@ export function runMigrationsAndSeed() {
       const idx = db.productSkus.findIndex(s => s.id === sku.id);
       if (idx >= 0) db.productSkus[idx] = { ...db.productSkus[idx], ...sku };
       else db.productSkus.push(sku);
+    }
+
+    // 2d. The city registry (report 08 §4; gap C-3 of 11) — reconciled every
+    // boot from CITIES_SEED, the same discipline as 2b: the TypeScript seed
+    // stays the single authoring source and the table carries the promoted
+    // columns the catalogue tables will FK to next (plan 10 §6).
+    for (const city of CITIES_SEED) {
+      const row = { ...city, id: city.slug };
+      const idx = db.cities.findIndex(c => c.id === row.id);
+      if (idx >= 0) db.cities[idx] = { ...db.cities[idx], ...row };
+      else db.cities.push(row);
     }
 
     // 3. Seed Transfer SKUs (Reference Vertical) if the canonical transfer SKU

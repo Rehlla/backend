@@ -1,0 +1,27 @@
+{
+  "id": "luxor_aswan_cruise",
+  "slug": "luxor_aswan_cruise",
+  "name": "Nile Cruise Luxor — Aswan",
+  "nameAr": "نايل كروز الأقصر أسوان",
+  "nameEn": "Luxor to Aswan Nile Cruise",
+  "parentCityStart": "luxor",
+  "parentCityEnd": "aswan",
+  "durationDays": 3,
+  "durationLabel": "3-4 days (Dahabiya or classic cruise)",
+  "type": "cruise_route",
+  "catalogue": "early",
+  "heroImage": "/images/cities/sub/nile_cruise.webp",
+  "stops": [
+    { "city": "luxor", "slug": "luxor", "lat": 25.6872, "lng": 32.6396, "name": "Luxor Temple", "nameAr": "معبد الأقصر", "tags": { "tourism": "attraction", "historic": "temple" }, "isOptional": false },
+    { "city": "esna",  "slug": "esna",  "lat": 25.2933, "lng": 32.4753, "name": "Esna Temple", "nameAr": "معبد إسنا", "tags": { "tourism": "attraction", "historic": "temple" }, "isOptional": false },
+    { "city": "edfu",  "slug": "edfu",  "lat": 24.9772, "lng": 32.8744, "name": "Temple of Edfu", "nameAr": "معبد إدفو", "tags": { "tourism": "attraction", "historic": "temple" }, "isOptional": false },
+    { "city": "kom_ombo", "slug": "kom_ombo", "lat": 24.4761, "lng": 32.9273, "name": "Kom Ombo Temple", "nameAr": "معبد كوم أمبو", "tags": { "tourism": "attraction", "historic": "temple" }, "isOptional": false },
+    { "city": "aswan", "slug": "aswan", "lat": 24.0903, "lng": 32.8992, "name": "Aswan — Philae Temple", "nameAr": "أسوان — معبد فيلة", "tags": { "tourism": "attraction", "historic": "temple" }, "isOptional": false },
+    { "city": "abu_simbel", "slug": "abu_simbel", "parentCity": "aswan", "lat": 22.3372, "lng": 31.6256, "name": "Abu Simbel Temple Complex", "nameAr": "معبد أبو سمبل", "tags": { "tourism": "attraction", "historic": "temple", "natural": "cliff" }, "isOptional": true }
+  ],
+  "tagCountsSummary": {
+    "tourism": { "attraction": 5, "temple": 6 },
+    "historic": { "temple": 6 }
+  },
+  "catalogueNotes": "Early — Luxor and Aswan seeds rebuilt (Sprint 7). Esna and Edfu stops are editorial (editorial coverage of the cruise itinerary), not separate flat seeds, because the cruise is the primary feature and the stops are waypoints along the river."
+}

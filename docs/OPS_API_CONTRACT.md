@@ -136,6 +136,20 @@ Body `{ fcmToken, platform }`. Registers a push token for the current device ses
 - `GET /api/search?q=&types=booking,user,supplier,property`: returns `{ items: [{ type, id, title, subtitle, route }] }`. Results are permission-filtered.
 - `POST /api/admin/push/send` (existing, `ops.notifications.send`) accepts `Idempotency-Key`. Body `{ userId | permission, title, message, urgency? }`. With `permission`, the push goes to every active account that holds that permission (at most 500).
 
+### WhatsApp transport (OpenWA)
+
+Operations-only (`ops.sms.view` or `ops.notifications.view`). The transport is **off by default** (`OPENWA_ENABLED=false`): every send is then recorded as `SIMULATED` — a record of intent, never a delivery — and the ops console renders it as "not sent". The same honesty contract `smsGatewayService` uses.
+
+- `GET /api/operations/whatsapp/sessions` → `{ sessions: [{ id, openwaSessionId, label, phone, purpose, isDefault, status, qrCode?, note?, active }], enabled }`. `status` is `CONNECTING | QR_READY | CONNECTED | DISCONNECTED | FAILED`.
+- `POST /api/operations/whatsapp/sessions` → `201 { session }`. Body `{ label, phone, purpose: traveler|driver|support|system, isDefault?, note? }`. Requires the transport enabled: it creates the OpenWA session and starts it so the QR exists by the time the response is read.
+- `PATCH /api/operations/whatsapp/sessions/:id` → `{ session }`. Body `{ label?, phone?, purpose?, isDefault?, active?, note? }`. `phone` is refused (`409 LINKED`) once the session is connected — moving number means linking a new session. `isDefault: false` and `active: false` are refused while the row is the purpose's default.
+- `POST /api/operations/whatsapp/sessions/:id/refresh` → `{ session }`. Asks OpenWA for the live status and, while linking, the QR payload.
+- `GET /api/operations/whatsapp/messages?status=&purpose=&limit=` → `{ messages }` — the outbox, newest first.
+- `POST /api/operations/whatsapp/test` → `{ message }`. Body `{ phone, purpose, body }`: one operator-supplied message through the real transport. This is how a number is proven before real traffic is routed to it.
+- `POST /api/operations/whatsapp/dispatch` → `{ dispatched }`. Drains what is due; a no-op while the transport is off.
+
+Inbound is a webhook, not a read API: `POST /api/webhooks/openwa` is public by necessity (the provider carries no session cookie) and authenticates the request with an HMAC-SHA256 signature over the **raw** body (`X-Webhook-HMAC`), shared via `OPENWA_WEBHOOK_SECRET`. Unsigned → 401, mis-signed → 401, unconfigured secret → 401 (nothing is accepted). A verified event is routed by domain: a driver's reply becomes a live ride update (`recordDriverEta`), a confirmation from a party's WhatsApp number counts a booking intent, and anything else appends to that traveller's support thread rather than being dropped. See `integrations/openwa/README.md` for the operator flow and the ban-risk notes.
+
 ## Realtime
 
 `GET /api/stream?topics=ops,support,exceptions,approvals,notifications` is Server-Sent Events.

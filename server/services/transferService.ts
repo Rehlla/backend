@@ -426,7 +426,8 @@ export class TransferService {
         type: 'BOOKING_CREATED',
         title: 'Sharm ↔ Dahab Transfer Confirmed!',
         message: `Your transfer ${bookingRef} is confirmed. A driver will be assigned shortly. Meet at ${params.pickupLocation}.`,
-        channel: 'WHATSAPP'
+        channel: 'WHATSAPP',
+          metadata: { recipientPhone: params.travelerPhone, purpose: 'traveler' },
       });
 
       db.logAudit(params.travelerName, 'Traveler', 'BOOKING_COMPLETED', 'Booking', booking.id, {

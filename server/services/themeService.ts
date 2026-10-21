@@ -71,15 +71,59 @@ export const THEME_TOKENS: Record<string, ThemeTokenSpec> = {
 export const THEME_TOKEN_KEYS = Object.keys(THEME_TOKENS);
 
 /** Font stacks the app already loads — no external fetching, CSP-safe.
- *  Granite & Lagoon (src/styles/tokens.css): Fraunces + Alexandria display,
- *  IBM Plex Sans + Plex Sans Arabic for UI. */
+ *  One typeface only: SF Arabic (Apple), self-hosted from public/fonts and
+ *  bundled in both Flutter apps. It covers the Arabic and Latin ranges the
+ *  app renders, so every role (display, body, Arabic) resolves to it.
+ *  `System` stays available for teams who want the OS face. */
 export const FONT_STACKS: Record<string, string> = {
-  'IBM Plex Sans': "'IBM Plex Sans', 'IBM Plex Sans Arabic', system-ui, sans-serif",
-  Fraunces: "'Fraunces', 'Alexandria', Georgia, serif",
-  Alexandria: "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
-  'IBM Plex Sans Arabic': "'IBM Plex Sans Arabic', system-ui, sans-serif",
+  'SF Arabic': "'SF Arabic', system-ui, sans-serif",
   System: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
 };
+
+/** Font stacks that were offered before the move to SF Arabic. They are gone
+ *  from the picker; a row that still holds one is rewritten to the default
+ *  stack on read (see `normalizeFontStack`) so no Google font family can
+ *  reach the page again. */
+const RETIRED_FONT_STACKS = new Set([
+  "'IBM Plex Sans', 'IBM Plex Sans Arabic', system-ui, sans-serif",
+  "'Fraunces', 'Alexandria', Georgia, serif",
+  "'Alexandria', 'IBM Plex Sans Arabic', sans-serif",
+  "'IBM Plex Sans Arabic', system-ui, sans-serif",
+  "'El Messiri', Georgia, serif",
+  "'El Messiri', 'IBM Plex Sans Arabic', sans-serif",
+  "'Cormorant Garamond', serif",
+  "'Cormorant', 'Montserrat', sans-serif",
+  "'Inter', system-ui, sans-serif",
+  "'Readex Pro', system-ui, sans-serif",
+  "'Plus Jakarta Sans', system-ui, sans-serif",
+  "'Outfit', system-ui, sans-serif",
+]);
+
+/** The stack a retired font value falls back to. */
+export const DEFAULT_FONT_STACK = FONT_STACKS['SF Arabic'];
+
+/** Rewrite a retired Google font stack to the SF Arabic default. Anything
+ *  already on the allow-list is returned untouched. */
+export function normalizeFontStack(value: string): string {
+  const v = value.trim();
+  if (Object.values(FONT_STACKS).includes(v)) return v;
+  if (RETIRED_FONT_STACKS.has(v)) return DEFAULT_FONT_STACK;
+  return v;
+}
+
+/** Rewrite a stored retired font stack in place, so the row stops handing a
+ *  Google font family to the page. Returns the value the page should see. */
+function healRetiredFontStack(
+  c: SqliteDb,
+  key: string,
+  value: string
+): string {
+  if (THEME_TOKENS[key]?.type !== 'font') return value;
+  const normalized = normalizeFontStack(value);
+  if (normalized === value) return value;
+  c.prepare('UPDATE cms_theme SET value = ? WHERE key = ?').run(normalized, key);
+  return normalized;
+}
 
 /** Mirrors ThemeId in src/context/ThemeContext.tsx — keep in sync. */
 export const THEME_IDS = [
@@ -153,7 +197,10 @@ export const siteTheme = {
     }[];
     for (const r of rows) {
       if (!isThemeTokenKey(r.key)) continue;
-      out[r.key] = { value: r.value || '', updatedAt: r.updated_at || '' };
+      // A row that still holds a retired Google font stack is rewritten to the
+      // SF Arabic default — the page must never receive a Google family again.
+      const value = healRetiredFontStack(c, r.key, r.value || '');
+      out[r.key] = { value, updatedAt: r.updated_at || '' };
     }
     return out;
   },

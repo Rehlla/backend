@@ -335,13 +335,17 @@ export function cancelBooking(params: {
       tripItem.updatedAt = now;
     }
 
-    // Notify supplier
+    // Notify supplier. The WhatsApp channel needs a number and a purpose to pick
+    // a session with, so both are carried here rather than guessed at send time.
+    const supplier = db.suppliers.find(row => row.id === booking.supplierId);
+    const supplierPhone = supplier?.phone || supplier?.whatsapp || supplier?.phoneNumbers?.[0] || supplier?.whatsappNumbers?.[0] || '';
     notificationService.sendNotification({
       userId: booking.supplierId,
       type: 'SYSTEM',
       title: 'Booking Cancelled',
       message: `Booking ${booking.bookingRef} has been cancelled. Reason: ${params.reason}`,
-      channel: 'WHATSAPP'
+      channel: 'WHATSAPP',
+      metadata: { phone: supplierPhone || '', purpose: 'driver', bookingRef: booking.bookingRef }
     });
 
     db.logAudit(params.userId, params.userRole, 'BOOKING_CANCELLED', 'Booking', booking.id, {
@@ -504,12 +508,15 @@ export function rescheduleBooking(params: {
       tripItem.updatedAt = now;
     }
 
+    const rescheduledSupplier = db.suppliers.find(row => row.id === booking.supplierId);
+    const rescheduledPhone = rescheduledSupplier?.phone || rescheduledSupplier?.whatsapp || rescheduledSupplier?.phoneNumbers?.[0] || rescheduledSupplier?.whatsappNumbers?.[0] || '';
     notificationService.sendNotification({
       userId: booking.supplierId,
       type: 'SYSTEM',
       title: 'Booking Rescheduled',
       message: `Booking ${booking.bookingRef} moved from ${oldDate} ${oldTime} to ${params.newDate} ${params.newTime}.`,
-      channel: 'WHATSAPP'
+      channel: 'WHATSAPP',
+      metadata: { phone: rescheduledPhone || '', purpose: 'driver', bookingRef: booking.bookingRef }
     });
 
     db.logAudit(params.userId, params.userRole, 'BOOKING_RESCHEDULED', 'Booking', booking.id, {

@@ -110,6 +110,14 @@ describe('route <-> URL translation', () => {
     expect(isKnownClientPath('/parties/full-moon')).toBe(true);
   });
 
+  it('round-trips a city-scoped hotel listing and folds /cities/:slug/hotels into it', () => {
+    expect(urlFromRoute('/hotels', { city: 'sharm' })).toBe('/hotels?city=sharm');
+    expect(routeFromUrl('/hotels', 'city=sharm')).toEqual({ route: '/hotels', params: { city: 'sharm' } });
+    expect(routeFromUrl('/cities/dahab/hotels')).toEqual({ route: '/hotels', params: { city: 'dahab' } });
+    expect(routeFromUrl('/cities/luxor/stays')).toEqual({ route: '/hotels', params: { city: 'luxor' } });
+    expect(routeFromUrl('/cities/aswan/sub/abu_simbel')).toEqual({ route: '/cities', params: { citySlug: 'aswan', subSlug: 'abu_simbel' } });
+  });
+
   it('omits absent parameters instead of reporting empty ones', () => {
     expect(routeFromUrl('/bookings', 'booking=').params).toEqual({});
     expect(routeFromUrl('/explore').params).toEqual({});

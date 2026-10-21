@@ -92,6 +92,23 @@ const fk = (table: string, onDelete: 'CASCADE' | 'SET NULL' | 'RESTRICT') =>
  * its parent.
  */
 export const TABLE_SPECS: TableSpec[] = [
+  // ------------------------------------------------------------------ registry
+  // City registry (report 08 §4; gap C-3 of 11). Nothing points at it as an
+  // FK yet — it is the parent the catalogue tables gain `city` columns against
+  // in the next multi-city step (plan 10 §6). Only the query paths are
+  // promoted; the full record hydrates from `data` (single CitySeed source).
+  {
+    table: 'cities',
+    collection: 'cities',
+    key: 'id',
+    label: 'Cities',
+    columns: [
+      t('name_en', 'nameEn', { notNull: true }),
+      t('name_ar', 'nameAr', { notNull: true }),
+      t('kind', 'kind', { index: true }),
+      t('catalogue', 'catalogue', { index: true })
+    ]
+  },
   // ------------------------------------------------------------------ identity
   {
     table: 'users',
@@ -1486,6 +1503,102 @@ export const TABLE_SPECS: TableSpec[] = [
       t('status', 'status', { notNull: true, index: true }),
       t('updated_at', 'updatedAt')
     ]
+  },
+  // ------------------------------------------- Future-ride hub dynamic catalog
+  // The hub is runtime-editable, so its destination catalog, its explicit
+  // origin→destination price pairs and its review queue are state like any
+  // other. No FOREIGN KEY on purpose: a pair names an origin/destination by id
+  // and must survive a catalog edit that retires either side (operations edits
+  // are corrections, not cascades). Appended at the tail - the order above is
+  // load-bearing for FK children, and these have none.
+  {
+    table: 'transfer_destinations',
+    collection: 'transferDestinations',
+    key: 'id',
+    label: 'Transfer hub destination catalog',
+    columns: [
+      t('label_en', 'labelEn', { notNull: true }),
+      t('label_ar', 'labelAr', { notNull: true }),
+      t('kind', 'kind', { notNull: true, index: true }),
+      bool('active', 'active', { index: true }),
+      i('price_add_egp', 'priceAddEGP'),
+      t('created_at', 'createdAt', { index: true }),
+      t('updated_at', 'updatedAt')
+    ]
+  },
+  {
+    table: 'transfer_pairs',
+    collection: 'transferPairs',
+    key: 'id',
+    label: 'Transfer hub explicit price pairs',
+    columns: [
+      t('origin_id', 'originId', { notNull: true, index: true }),
+      t('destination_id', 'destinationId', { notNull: true, index: true }),
+      r('private_egp', 'privateEGP'),
+      r('shared_egp', 'sharedEGP'),
+      r('premium_egp', 'premiumEGP'),
+      r('supplier_private_egp', 'supplierPrivateEGP'),
+      bool('active', 'active', { index: true }),
+      t('created_at', 'createdAt', { index: true }),
+      t('created_by', 'createdBy', { index: true })
+    ],
+    compositeIndexes: [['origin_id', 'destination_id']]
+  },
+  {
+    table: 'transfer_requests',
+    collection: 'transferRequests',
+    key: 'id',
+    label: 'Transfer hub review requests',
+    columns: [
+      t('user_id', 'userId', { notNull: true, index: true }),
+      t('status', 'status', { notNull: true, index: true }),
+      t('origin_id', 'originId', { index: true }),
+      t('destination_id', 'destinationId', { index: true }),
+      i('passengers', 'passengers'),
+      t('pair_id', 'pairId', { index: true }),
+      t('created_at', 'createdAt', { index: true }),
+      t('updated_at', 'updatedAt')
+    ],
+    compositeIndexes: [['user_id', 'created_at'], ['status', 'created_at']]
+  },
+  // ------------------------------- WhatsApp transport (OpenWA) + delivery outbox
+  // Sessions are the linked numbers (one row per OpenWA session, routed by
+  // purpose); messages are the outbox. No FK from a message to its session:
+  // a number retired while messages are queued must keep its history as an
+  // audit trail rather than lose it to a cascade.
+  {
+    table: 'whatsapp_sessions',
+    collection: 'whatsappSessions',
+    key: 'id',
+    label: 'Linked WhatsApp numbers',
+    columns: [
+      t('openwa_session_id', 'openwaSessionId', { notNull: true, unique: true }),
+      t('phone', 'phone', { index: true }),
+      t('purpose', 'purpose', { notNull: true, index: true }),
+      bool('is_default', 'isDefault'),
+      t('status', 'status', { notNull: true, index: true }),
+      bool('active', 'active', { index: true }),
+      t('created_at', 'createdAt', { index: true })
+    ]
+  },
+  {
+    table: 'whatsapp_messages',
+    collection: 'whatsappMessages',
+    key: 'id',
+    label: 'WhatsApp delivery outbox',
+    columns: [
+      t('session_id', 'sessionId', { notNull: true, index: true }),
+      t('to_phone', 'to', { index: true }),
+      t('purpose', 'purpose', { notNull: true, index: true }),
+      t('status', 'status', { notNull: true, index: true }),
+      bool('simulated', 'simulated'),
+      i('attempts', 'attempts'),
+      t('next_attempt_at', 'nextAttemptAt', { index: true }),
+      t('notification_id', 'notificationId', { index: true }),
+      t('booking_ref', 'bookingRef', { index: true }),
+      t('created_at', 'createdAt', { index: true })
+    ],
+    compositeIndexes: [['status', 'next_attempt_at']]
   }
 ];
 

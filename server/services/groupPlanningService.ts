@@ -32,9 +32,12 @@ export function addMember(tripId: string, userId: string, invitedBy: string, rol
   // Self-join (adding yourself as owner at creation) is always allowed.
   const isSelfJoin = userId === invitedBy;
   if (!isSelfJoin) {
-    // Only the owner or Ops/Admin can invite others.
-    const inviter = db.tripMembers.find(m => m.tripId === tripId && m.userId === invitedBy);
-    if (!inviter || inviter.role !== 'owner') {
+    // Only the owner or Ops/Admin can invite others. The owner may appear
+    // either as the seeded tripMembers row (role='owner') or, for trips
+    // created before that seeding existed, as the trip's userId column.
+    const inviter = db.tripMembers.find(m => m.tripId === tripId && m.userId === invitedBy && m.role === 'owner')
+      || (trip.userId === invitedBy);
+    if (!inviter) {
       const actor = db.users.find(u => u.id === invitedBy);
       if (!actor || (actor.role !== 'Operations' && actor.role !== 'Admin')) {
         throw new Error('Only the trip owner can invite members.');
@@ -106,7 +109,12 @@ export function isMember(tripId: string, userId: string): boolean {
 }
 
 export function isOwner(tripId: string, userId: string): boolean {
-  return db.tripMembers.some(m => m.tripId === tripId && m.userId === userId && m.role === 'owner');
+  const member = db.tripMembers.find(m => m.tripId === tripId && m.userId === userId);
+  if (member) return member.role === 'owner';
+  // Trips created before the owner-seeding fix have no tripMembers row at
+  // all; the trip's userId column remains the source of truth for them.
+  const trip = db.trips.find(t => t.id === tripId);
+  return !!trip && trip.userId === userId;
 }
 
 // ─── Voting ────────────────────────────────────────────────────────────

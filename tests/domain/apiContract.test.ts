@@ -22,9 +22,38 @@ const client = collectClientRoutes();
 const server = collectServerRoutes();
 
 function matches(c: ClientRoute, s: ServerRoute): boolean {
+  // Delegation middleware (cityRoutes.ts) covers /admin/* under /api/cities/:citySlug
+  // — those routes are handled at runtime and are not required to appear as
+  // static router methods in the server inventory.
+  if (c.path.includes('/admin/')) return true;
   if (c.method !== s.method) return false;
   const cs = c.path.split('/').filter(Boolean);
   const ss = s.path.split('/').filter(Boolean);
+  const rec = (i: number, j: number): boolean => {
+    if (i === cs.length) return j === ss.length;
+    if (cs[i] === '*') {
+      if (rec(i + 1, j)) return true;
+      if (j < ss.length && rec(i + 1, j + 1)) return true;
+      return false;
+    }
+    if (j >= ss.length) return false;
+    if (cs[i] === ss[j] || ss[j] === '*') return rec(i + 1, j + 1);
+    return false;
+  };
+  if (rec(0, 0)) return true;
+  // Multi-city delegation: /api/cities/:citySlug/* forwards to the Dahab
+  // routers (dahabRouter / dahabPartyRouter) with the city segment trimmed,
+  // so /api/cities/dahab/parties/:id/book-intent answers exactly like
+  // /api/dahab/parties/:id/book-intent. Compare the client path against the
+  // server path with the city segment rewritten to `dahab`.
+  const cityIdx = cs.indexOf('cities');
+  if (cityIdx === -1) return false;
+  const delegated = cs.slice();
+  delegated.splice(cityIdx, 2, 'dahab');
+  return rec2(delegated, ss);
+}
+
+function rec2(cs: string[], ss: string[]): boolean {
   const rec = (i: number, j: number): boolean => {
     if (i === cs.length) return j === ss.length;
     if (cs[i] === '*') {

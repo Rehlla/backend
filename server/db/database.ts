@@ -23,6 +23,11 @@ import {
   TransferZonePriceEntity,
   TransferBusScheduleEntity,
   TransferDriverEntity,
+  TransferDestinationEntity,
+  TransferPairPriceEntity,
+  TransferRequestEntity,
+  WhatsAppSessionEntity,
+  WhatsAppMessageEntity,
   NotificationEntity,
   AmbientNudgeEntity,
   PushSubscriptionEntity,
@@ -95,7 +100,8 @@ import {
   PushDeviceEntity,
   IntegrationConfigEntity,
   TripPackageEntity,
-  CatalogMetaEntity
+  CatalogMetaEntity,
+  CityRegistryEntity
 } from './schema';
 import { ProductOpportunity } from '../../src/types/intelligence';
 import { IPersistenceAdapter } from './adapters/IPersistenceAdapter';
@@ -127,6 +133,18 @@ export interface DatabaseState {
   transferBusSchedules?: TransferBusScheduleEntity[];
   /** Verified driver roster for the 12-hour assignment. */
   transferDrivers?: TransferDriverEntity[];
+  /** Destination catalog. Seeded once from the hub catalog; operations edits persist. */
+  transferDestinations?: TransferDestinationEntity[];
+  /** Explicit origin→destination price pairs (the dynamic route catalog). */
+  transferPairs?: TransferPairPriceEntity[];
+  /** Rides a traveller asked for that the hub does not price yet. */
+  transferRequests?: TransferRequestEntity[];
+  /** Linked WhatsApp numbers (one OpenWA session each). */
+  whatsappSessions?: WhatsAppSessionEntity[];
+  /** Outbox of WhatsApp sends: queued, retried, then marked sent or failed. */
+  whatsappMessages?: WhatsAppMessageEntity[];
+  /** City registry (reconciled every boot from CITIES_SEED — report 08 §4). */
+  cities?: CityRegistryEntity[];
   notifications: NotificationEntity[];
   ambientNudges: AmbientNudgeEntity[];
   /** Web Push subscriptions, one row per browser endpoint (see schema.ts). */
@@ -286,6 +304,7 @@ export class Database {
   // Getters for Tables
   // -------------------------------------------------------------------------
   public get users() { return this.state.users; }
+  public get cities() { return this.state.cities || (this.state.cities = []); }
   public get sessions() { return this.state.sessions; }
   public get trips() { return this.state.trips; }
   public get tripItems() { return this.state.tripItems; }
@@ -311,10 +330,15 @@ export class Database {
   public get payments() { return this.state.payments; }
   public get bookings() { return this.state.bookings; }
   public get ledgerEntries() { return this.state.ledgerEntries; }
-  public get transferTelemetry() { return this.state.transferTelemetry; }
+  public get transferTelemetry() { return this.state.transferTelemetry || (this.state.transferTelemetry = []); }
   public get transferZonePrices() { return this.state.transferZonePrices || (this.state.transferZonePrices = []); }
   public get transferBusSchedules() { return this.state.transferBusSchedules || (this.state.transferBusSchedules = []); }
   public get transferDrivers() { return this.state.transferDrivers || (this.state.transferDrivers = []); }
+  public get transferDestinations() { return this.state.transferDestinations || (this.state.transferDestinations = []); }
+  public get transferPairs() { return this.state.transferPairs || (this.state.transferPairs = []); }
+  public get transferRequests() { return this.state.transferRequests || (this.state.transferRequests = []); }
+  public get whatsappSessions() { return this.state.whatsappSessions || (this.state.whatsappSessions = []); }
+  public get whatsappMessages() { return this.state.whatsappMessages || (this.state.whatsappMessages = []); }
   public get notifications() { return this.state.notifications; }
   public get ambientNudges() {
     if (!this.state.ambientNudges) this.state.ambientNudges = [];
