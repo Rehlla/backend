@@ -17,8 +17,7 @@ cmds = [
   # Coolify often injects NODE_ENV=production at build time. That makes npm skip
   # vite/esbuild/tsx, and npm 10.9.0 then crashes with "reading 'edgesOut'".
   # A fresh cache also avoids Coolify's persisted /root/.npm mount.
-  "NODE_ENV=development npm install --prefix /tmp/npm-cli npm@10.9.2 --cache /tmp/npm-cache-cli --no-audit --no-fund",
-  "NODE_ENV=development /tmp/npm-cli/bin/npm install --include=dev --cache /tmp/npm-cache --no-audit --no-fund"
+  "export NODE_ENV=development npm_config_production=false && npm install --prefix /tmp/npm-cli npm@10.9.2 --cache /tmp/npm-cache-cli --no-audit --no-fund && NPM_CLI=$(find /tmp/npm-cli -name npm-cli.js | head -n 1) && test -n \"$NPM_CLI\" && node \"$NPM_CLI\" install --include=dev --cache /tmp/npm-cache --no-audit --no-fund"
 ]
 
 [phases.build]
