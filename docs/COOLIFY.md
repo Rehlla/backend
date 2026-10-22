@@ -4,12 +4,27 @@ Same Coolify method as Mouaser (`C:\laragon\www\mouaser`): Nixpacks reads `nixpa
 
 Mouaser is Laravel, so it starts nginx, php-fpm, a queue worker, and the scheduler. This project is the Dahab Node server. It starts `node dist/server.cjs` on `PORT` (default 3000). The existing `Dockerfile` is the Cloud Run image. On Coolify, use Nixpacks, as Mouaser does.
 
+## Pipeline Coolify runs
+
+No separate GitHub Actions file. Coolify runs these steps from `nixpacks.toml` and `scripts/start-production.sh`.
+
+| Step | Command | When it fails |
+|------|---------|----------------|
+| Install dependencies | `npm install` (dev dependencies included) | Image is not published |
+| Typecheck | `npm run lint` (`tsc --noEmit`) | Image is not published |
+| Build | `npm run build` | Image is not published |
+| Copy seeds | seed JSON → `/app/seed` | Image is not published |
+| Migrate and start | `node dist/server.cjs` | Container exits. Schema and seeds run in the process before it listens. |
+| Health | `GET /api/health` must return 200 within 3 minutes | Container exits and Coolify marks the deploy failed |
+
+`npm run db:migrate` is not part of this pipeline. That script imports an old `dahab_db.json` once. Production migrate is the server boot on the SQLite file in `/app/data`.
+
 ## What Coolify runs
 
 | Piece | Role |
 |-------|------|
-| Nixpacks | Builds from `nixpacks.toml` (Node 22, `npm install`, `npm run build`) |
-| `scripts/start-production.sh` | Points seeds at `/app/seed`, state at `/app/data`, then starts the server |
+| Nixpacks | Node 22, install, typecheck, build |
+| `scripts/start-production.sh` | Seeds, migrate-on-boot, health check, then keeps the server in the foreground |
 | Coolify proxy | TLS and `X-Forwarded-*` in front of the container |
 
 The server already sets `trust proxy`, so the rate limiter sees the real client IP behind Coolify.
@@ -31,9 +46,9 @@ scripts/start-production.sh
 5. Storages → add a persistent volume mounted at **`/app/data`**.
 6. Instances: **1**. SQLite allows one writer. A second replica will corrupt the database.
 7. Environment variables from `.env.coolify.example`.
-8. Deploy. Boot runs migrations and seed imports. There is no `php artisan migrate`.
+8. Deploy. The pipeline typechecks, builds, migrates on boot, then checks `/api/health`.
 
-Health check path: `/api/health`.
+Health check path in Coolify: `/api/health`. The start script checks the same URL before it treats the deploy as up.
 
 ## Environment variables
 
@@ -42,7 +57,7 @@ Health check path: `/api/health`.
 | `APP_URL` | Runtime |
 | `SEED_USER_PASSWORD`, `OPENAI_API_KEY`, `PAYMOB_*`, `TWILIO_*`, `LOCATIONIQ_API_KEY` | Runtime only |
 | `VITE_CARTO_MAPS_API_KEY`, `VITE_LOCATIONIQ_MAPS_TOKEN` | Build time. Runtime only leaves the maps without a key. |
-| `NODE_ENV` | Leave unset during build. The start script sets `production`. |
+| `NODE_ENV` | Runtime only. Available at build time makes `npm install` skip devDependencies and crash. |
 | `NIXPACKS_NODE_VERSION` | Already `22` in `nixpacks.toml`. Do not set another Node version in Coolify. |
 
 `DAHAB_SEED_DIR=/app/seed` and `DAHAB_DATA_DIR=/app/data` are set by the start script if you omit them.

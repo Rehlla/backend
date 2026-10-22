@@ -14,13 +14,17 @@ nixPkgs = ["...", "python3", "gcc", "gnumake", "pkg-config"]
 
 [phases.install]
 cmds = [
-  # No package-lock.json in this repo, so npm ci is not used.
-  # Do not set NODE_ENV=production here: vite, esbuild, and tsx are devDependencies.
-  "npm install"
+  # Coolify often injects NODE_ENV=production at build time. That makes npm skip
+  # vite/esbuild/tsx, and npm 10.9.0 then crashes with "reading 'edgesOut'".
+  # A fresh cache also avoids Coolify's persisted /root/.npm mount.
+  "NODE_ENV=development npm install --prefix /tmp/npm-cli npm@10.9.2 --cache /tmp/npm-cache-cli --no-audit --no-fund",
+  "NODE_ENV=development /tmp/npm-cli/bin/npm install --include=dev --cache /tmp/npm-cache --no-audit --no-fund"
 ]
 
 [phases.build]
 cmds = [
+  # Fails the Coolify deploy before the image is published when TypeScript is broken.
+  "NODE_ENV=development npm run lint",
   "npm run build",
   "chmod +x scripts/start-production.sh",
   "mkdir -p /app/seed /app/data/locks /app/data/backups",
