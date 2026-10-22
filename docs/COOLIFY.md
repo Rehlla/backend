@@ -11,8 +11,7 @@ No separate GitHub Actions file. Coolify runs these steps from `nixpacks.toml` a
 | Step | Command | When it fails |
 |------|---------|----------------|
 | Install dependencies | `npm install` (dev dependencies included) | Image is not published |
-| Typecheck | `npm run lint` (`tsc --noEmit`) | Image is not published |
-| Build | `npm run build` | Image is not published |
+| Build | `npm run build` (client bundle and `dist/server.cjs`) | Image is not published |
 | Copy seeds | seed JSON → `/app/seed` | Image is not published |
 | Migrate and start | `node dist/server.cjs` | Container exits. Schema and seeds run in the process before it listens. |
 | Health | `GET /api/health` must return 200 within 3 minutes | Container exits and Coolify marks the deploy failed |

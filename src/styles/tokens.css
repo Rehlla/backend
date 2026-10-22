@@ -1,0 +1,557 @@
+﻿/* ==========================================================================
+   GRANITE & LAGOON — the one token source for the traveler product.
+
+   Direction (docs/premium-plan/DAHAB_PREMIUM_PLAN.html §06): Dahab is where
+   Sinai granite meets the lagoon. Colour comes from real materials and from
+   photography; the chrome stays quiet. One action colour (lagoon) and one
+   highlight (sunset coral) per view.
+
+   This file replaces the six-theme engine that used to live in index.css and
+   the inline swatches ThemeContext wrote onto <html>. There are now three
+   themes, selected by `data-theme-id` on <html> (ThemeContext owns the
+   attribute; index.html sets it before first paint):
+
+     abyss              dark  — the default while screens migrate
+     salt               light
+     high-contrast-pro  accessibility (kept: it is a real user need)
+
+   Two layers:
+     --dg-*   the design-system tokens new components consume.
+     legacy   the variable contract (~150 consumers app-wide: --bg-canvas,
+              --surface-card, --accent-primary, --btn-book-*, …) mapped onto
+              the same palette so un-migrated screens follow the brand
+              instead of fighting it. Delete a legacy variable only once
+              `grep` shows no consumers.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Theme-independent scales
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand materials (raw; components use the semantic tokens below) */
+  --dg-abyss-950: #071017;
+  --dg-abyss-900: #0B151C;
+  --dg-abyss-850: #0F1C25;
+  --dg-abyss-800: #13222C;
+  --dg-abyss-700: #1B2E3A;
+  --dg-salt-50: #FBFAF7;
+  --dg-salt-100: #F5F4F0;
+  --dg-salt-200: #ECEAE4;
+  --dg-salt-300: #DEDAD1;
+  --dg-granite-700: #4E403A;
+  --dg-granite-500: #6B5A52;
+  --dg-granite-300: #BBA99E;
+  --dg-lagoon-800: #0A5E5C;
+  --dg-lagoon-700: #0E7C7A;
+  --dg-lagoon-400: #3CC2BC;
+  --dg-lagoon-200: #A6E3DF;
+  --dg-coral-700: #B4523A;
+  --dg-coral-500: #D2694C;
+  --dg-coral-300: #F08A6C;
+  --dg-sand-300: #D9C3A5;
+
+  /* Type families (loaded in index.html; OFL, self-hostable) */
+  --dg-font-ui: 'SF Arabic', system-ui, sans-serif;
+  --dg-font-ui-ar: 'SF Arabic', system-ui, sans-serif;
+  --dg-font-display: 'SF Arabic', system-ui, sans-serif;
+  --dg-font-display-ar: 'SF Arabic', system-ui, sans-serif;
+  --dg-font-mono: 'SF Arabic', ui-monospace, monospace;
+
+  /* Type scale — nothing in the UI renders below 13px (--dg-text-xs). */
+  --dg-text-xs: 0.8125rem;   /* 13 labels, captions */
+  --dg-text-sm: 0.875rem;    /* 14 secondary copy */
+  --dg-text-md: 1rem;        /* 16 body */
+  --dg-text-lg: 1.125rem;    /* 18 lead, card titles */
+  --dg-text-xl: 1.375rem;    /* 22 section titles (mobile) */
+  --dg-text-2xl: 1.75rem;    /* 28 page titles (mobile) */
+  --dg-text-3xl: 2.25rem;    /* 36 */
+  --dg-text-4xl: 3rem;       /* 48 */
+  --dg-text-5xl: 4rem;       /* 64 hero (desktop) */
+
+  /* Spacing — 4pt grid */
+  --dg-space-1: 4px;
+  --dg-space-2: 8px;
+  --dg-space-3: 12px;
+  --dg-space-4: 16px;
+  --dg-space-5: 24px;
+  --dg-space-6: 32px;
+  --dg-space-7: 48px;
+  --dg-space-8: 72px;
+  --dg-gutter: clamp(16px, 4vw, 32px);
+  --dg-content-max: 1240px;
+
+  /* Radii — full is for chips and avatars only */
+  --dg-radius-sm: 6px;
+  --dg-radius-md: 12px;
+  --dg-radius-lg: 20px;
+  --dg-radius-xl: 28px;
+  --dg-radius-full: 999px;
+
+  /* Motion (§07). Springs live in src/design/motion.ts. */
+  --dg-dur-instant: 120ms;
+  --dg-dur-quick: 200ms;
+  --dg-dur-base: 320ms;
+  --dg-dur-slow: 520ms;
+  --dg-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dg-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dg-ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
+
+  /* Touch & chrome geometry */
+  --dg-touch: 44px;                 /* minimum hit target */
+  --dg-topbar-h: 60px;
+  --dg-tabbar-h: 64px;
+  --dg-safe-top: env(safe-area-inset-top, 0px);
+  --dg-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --dg-safe-left: env(safe-area-inset-left, 0px);
+  --dg-safe-right: env(safe-area-inset-right, 0px);
+
+  /* Layering — one ladder for the whole app */
+  --dg-z-base: 1;
+  --dg-z-sticky: 30;
+  --dg-z-chrome: 40;
+  --dg-z-sheet: 60;
+  --dg-z-toast: 80;
+  /* Ink for text sitting ON the teal/coral accent fills. #0B151C is 8.46:1 on
+     --accent-primary (#3CC2BC) and 7.52:1 on --accent-secondary (#F08A6C),
+     where white only reached 2.17:1 / 2.45:1. Themes that need a different
+     accent override this per-theme alongside --dg-action-ink. */
+  --dg-on-accent: #0B151C;
+}
+
+/* --------------------------------------------------------------------------
+   ABYSS (dark) — also the pre-hydration default on bare :root
+   -------------------------------------------------------------------------- */
+:root,
+:root[data-theme-id="abyss"] {
+  color-scheme: dark;
+
+  --dg-bg: var(--dg-abyss-900);
+  --dg-bg-sunken: var(--dg-abyss-950);
+  --dg-surface: var(--dg-abyss-850);
+  --dg-surface-raised: var(--dg-abyss-800);
+  --dg-surface-sunken: #0A131A;
+  --dg-ink: #ECE9E2;
+  --dg-ink-2: #BAC3C7;
+  --dg-ink-3: #8C9AA2;
+  --dg-line: rgba(236, 233, 226, 0.10);
+  --dg-line-strong: rgba(236, 233, 226, 0.20);
+  --dg-action: var(--dg-lagoon-400);
+  --dg-action-hover: #5BD0CA;
+  --dg-action-ink: #032220;
+  --dg-action-wash: rgba(60, 194, 188, 0.14);
+  --dg-highlight: var(--dg-coral-300);
+  --dg-highlight-ink: #2A0F07;
+  --dg-highlight-wash: rgba(240, 138, 108, 0.14);
+  --dg-positive: #7FD1A8;
+  --dg-positive-wash: rgba(127, 209, 168, 0.12);
+  --dg-warning: #F2C46B;
+  --dg-warning-wash: rgba(242, 196, 107, 0.12);
+  --dg-critical: #F4917E;
+  --dg-critical-wash: rgba(244, 145, 126, 0.13);
+  --dg-scrim: rgba(4, 10, 14, 0.62);
+  --dg-chrome-bg: rgba(11, 21, 28, 0.84);
+  --dg-focus: var(--dg-lagoon-400);
+  --dg-shadow-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 10px 30px -18px rgba(0, 0, 0, 0.7);
+  --dg-shadow-sheet: 0 -18px 50px -20px rgba(0, 0, 0, 0.75);
+  --dg-shadow-modal: 0 30px 80px -24px rgba(0, 0, 0, 0.8);
+
+  /* Legacy contract → Granite & Lagoon */
+  --bg-canvas: var(--dg-bg);
+  --surface-card: var(--dg-surface);
+  --surface-container: var(--dg-surface-raised);
+  --text-primary: var(--dg-ink);
+  --text-secondary: var(--dg-ink-2);
+  --text-muted: var(--dg-ink-3);
+  --text-inverse: var(--dg-abyss-900);
+  --accent-primary: var(--dg-action);
+  --accent-secondary: var(--dg-highlight);
+  --accent-primary-ink: var(--dg-action-ink);
+  --accent-secondary-ink: var(--dg-highlight-ink);
+  --focus-ring: var(--dg-focus);
+  --border-subtle: rgba(236, 233, 226, 0.12);
+  --header-bg: var(--dg-chrome-bg);
+  --header-border: var(--dg-line);
+  --header-pill-bg: rgba(19, 34, 44, 0.86);
+  --header-pill-border: var(--dg-line);
+  --header-pill-active: var(--dg-action-wash);
+  --header-pill-active-text: var(--dg-action);
+  --btn-book-bg: var(--dg-action);
+  --btn-book-hover: var(--dg-action-hover);
+  --btn-book-text: var(--dg-action-ink);
+  --btn-util-bg: rgba(236, 233, 226, 0.07);
+  --btn-util-hover: rgba(236, 233, 226, 0.13);
+  --btn-util-text: var(--dg-ink);
+  --badge-primary-bg: var(--dg-action-wash);
+  --badge-primary-text: var(--dg-action);
+  --shadow-ambient: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --surface-canvas: var(--dg-bg);
+  --surface-elevated: var(--dg-surface-raised);
+  --surface-warm: #1C2A33;
+  --surface-dark: var(--dg-abyss-950);
+  --brand-primary: var(--dg-action);
+  --brand-secondary: var(--dg-lagoon-200);
+  --brand-accent: var(--dg-highlight);
+  --brand-coral: var(--dg-coral-300);
+  --brand-sand: var(--dg-sand-300);
+  --aurora-primary: var(--dg-action);
+  --aurora-secondary: var(--dg-lagoon-200);
+  --aurora-accent: var(--dg-highlight);
+  --aurora-glow: rgba(60, 194, 188, 0.18);
+  --aurora-warm: rgba(240, 138, 108, 0.14);
+  --aurora-success: var(--dg-positive);
+  --aurora-warning: var(--dg-warning);
+  --aurora-error: var(--dg-critical);
+}
+
+/* --------------------------------------------------------------------------
+   SALT (light)
+   -------------------------------------------------------------------------- */
+:root[data-theme-id="salt"] {
+  color-scheme: light;
+
+  --dg-bg: var(--dg-salt-100);
+  --dg-bg-sunken: var(--dg-salt-200);
+  --dg-surface: #FFFFFF;
+  --dg-surface-raised: #FFFFFF;
+  --dg-surface-sunken: var(--dg-salt-200);
+  --dg-ink: var(--dg-abyss-900);
+  --dg-ink-2: #4B4744;
+  --dg-ink-3: #6F6863;
+  --dg-line: rgba(13, 26, 34, 0.10);
+  --dg-line-strong: rgba(13, 26, 34, 0.20);
+  --dg-action: var(--dg-lagoon-700);
+  --dg-action-hover: var(--dg-lagoon-800);
+  --dg-action-ink: #FFFFFF;
+  --dg-action-wash: rgba(14, 124, 122, 0.09);
+  --dg-highlight: var(--dg-coral-700);
+  --dg-highlight-ink: #FFFFFF;
+  --dg-highlight-wash: rgba(210, 105, 76, 0.10);
+  --dg-positive: #1F6B47;
+  --dg-positive-wash: #E6F2EC;
+  --dg-warning: #8A5A0B;
+  --dg-warning-wash: #FBF1DC;
+  --dg-critical: #A23A22;
+  --dg-critical-wash: #FBEBE5;
+  --dg-scrim: rgba(7, 16, 23, 0.45);
+  --dg-chrome-bg: rgba(245, 244, 240, 0.86);
+  --dg-focus: var(--dg-lagoon-700);
+  --dg-shadow-card: 0 1px 2px rgba(13, 26, 34, 0.04), 0 10px 28px -18px rgba(13, 26, 34, 0.28);
+  --dg-shadow-sheet: 0 -16px 44px -22px rgba(13, 26, 34, 0.35);
+  --dg-shadow-modal: 0 28px 70px -26px rgba(13, 26, 34, 0.42);
+
+  --bg-canvas: var(--dg-bg);
+  --surface-card: var(--dg-surface);
+  --surface-container: var(--dg-salt-200);
+  --text-primary: var(--dg-ink);
+  --text-secondary: var(--dg-ink-2);
+  --text-muted: var(--dg-ink-3);
+  --text-inverse: #FFFFFF;
+  --accent-primary: var(--dg-action);
+  --accent-secondary: var(--dg-highlight);
+  --accent-primary-ink: var(--dg-action-ink);
+  --accent-secondary-ink: var(--dg-highlight-ink);
+  --focus-ring: var(--dg-focus);
+  --border-subtle: rgba(13, 26, 34, 0.12);
+  --header-bg: var(--dg-chrome-bg);
+  --header-border: var(--dg-line);
+  --header-pill-bg: rgba(236, 234, 228, 0.95);
+  --header-pill-border: var(--dg-line);
+  --header-pill-active: var(--dg-action);
+  --header-pill-active-text: #FFFFFF;
+  --btn-book-bg: var(--dg-action);
+  --btn-book-hover: var(--dg-action-hover);
+  --btn-book-text: #FFFFFF;
+  --btn-util-bg: rgba(13, 26, 34, 0.06);
+  --btn-util-hover: rgba(13, 26, 34, 0.11);
+  --btn-util-text: var(--dg-ink);
+  --badge-primary-bg: var(--dg-action-wash);
+  --badge-primary-text: var(--dg-action);
+  --shadow-ambient: 0 12px 36px rgba(13, 26, 34, 0.09);
+  --surface-canvas: var(--dg-bg);
+  --surface-elevated: #FFFFFF;
+  --surface-warm: #EFE8DE;
+  --surface-dark: #FFFFFF;
+  --brand-primary: var(--dg-action);
+  --brand-secondary: var(--dg-lagoon-800);
+  --brand-accent: var(--dg-highlight);
+  --brand-coral: var(--dg-coral-700);
+  --brand-sand: #8F7242;
+  --aurora-primary: var(--dg-action);
+  --aurora-secondary: var(--dg-lagoon-800);
+  --aurora-accent: var(--dg-highlight);
+  --aurora-glow: rgba(14, 124, 122, 0.14);
+  --aurora-warm: rgba(210, 105, 76, 0.10);
+  --aurora-success: var(--dg-positive);
+  --aurora-warning: var(--dg-warning);
+  --aurora-error: var(--dg-critical);
+}
+
+/* --------------------------------------------------------------------------
+   HIGH CONTRAST (accessibility) — zero transparency, 21:1 ink
+   -------------------------------------------------------------------------- */
+:root[data-theme-id="high-contrast-pro"] {
+  color-scheme: dark;
+
+  --dg-bg: #000000;
+  --dg-bg-sunken: #000000;
+  --dg-surface: #0A0A0A;
+  --dg-surface-raised: #171717;
+  --dg-surface-sunken: #000000;
+  --dg-ink: #FFFFFF;
+  --dg-ink-2: #F5F5F5;
+  --dg-ink-3: #E5E5E5;
+  --dg-line: #FFFFFF;
+  --dg-line-strong: #FFFFFF;
+  --dg-action: #FFE600;
+  --dg-action-hover: #FFD000;
+  --dg-action-ink: #000000;
+  --dg-action-wash: #1F1C00;
+  --dg-highlight: #00F0FF;
+  --dg-highlight-ink: #000000;
+  --dg-highlight-wash: #002326;
+  --dg-positive: #7CFFB2;
+  --dg-positive-wash: #00210F;
+  --dg-warning: #FFE600;
+  --dg-warning-wash: #1F1C00;
+  --dg-critical: #FF8A7A;
+  --dg-critical-wash: #2A0500;
+  --dg-scrim: rgba(0, 0, 0, 0.85);
+  --dg-chrome-bg: #000000;
+  --dg-focus: #FFE600;
+  --dg-shadow-card: 0 0 0 1px #FFFFFF;
+  --dg-shadow-sheet: 0 0 0 2px #FFFFFF;
+  --dg-shadow-modal: 0 0 0 2px #FFFFFF;
+
+  --bg-canvas: #000000;
+  --surface-card: #0A0A0A;
+  --surface-container: #171717;
+  --text-primary: #FFFFFF;
+  --text-secondary: #F5F5F5;
+  --text-muted: #E5E5E5;
+  --text-inverse: #000000;
+  --accent-primary: #FFE600;
+  --accent-secondary: #00F0FF;
+  --accent-primary-ink: #08110F;
+  --accent-secondary-ink: #08110F;
+  --focus-ring: #FFE600;
+  --border-subtle: rgba(255, 255, 255, 0.50);
+  --header-bg: #000000;
+  --header-border: #FFE600;
+  --header-pill-bg: #171717;
+  --header-pill-border: #FFE600;
+  --header-pill-active: #FFE600;
+  --header-pill-active-text: #000000;
+  --btn-book-bg: #FFE600;
+  --btn-book-hover: #FFD000;
+  --btn-book-text: #000000;
+  --btn-util-bg: rgba(255, 255, 255, 0.20);
+  --btn-util-hover: rgba(255, 255, 255, 0.35);
+  --btn-util-text: #FFFFFF;
+  --badge-primary-bg: #000000;
+  --badge-primary-text: #FFE600;
+  --shadow-ambient: 0 0 0 2px #FFFFFF;
+  --surface-canvas: #000000;
+  --surface-elevated: #171717;
+  --surface-warm: #262626;
+  --surface-dark: #000000;
+  --brand-primary: #FFE600;
+  --brand-secondary: #00F0FF;
+  --brand-accent: #FFE600;
+  --brand-coral: #FF3366;
+  --brand-sand: #FFFFFF;
+  --aurora-primary: #FFE600;
+  --aurora-secondary: #00F0FF;
+  --aurora-accent: #FFE600;
+  --aurora-glow: transparent;
+  --aurora-warm: transparent;
+  --aurora-success: #7CFFB2;
+  --aurora-warning: #FFE600;
+  --aurora-error: #FF8A7A;
+}
+
+/* --------------------------------------------------------------------------
+   Base document — mobile-first, safe-area aware, bilingual
+   -------------------------------------------------------------------------- */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  background-color: var(--dg-bg);
+}
+
+body {
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+}
+
+/* Sliding steps and sheets never widen the page on a phone. `clip` (not
+   `hidden`) keeps position: sticky working. */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* Arabic: taller leading, never tracked, never uppercased (index.css owns the
+   tracking/uppercase guards). Display headings and running text both take SF Arabic;
+   takes Plex Sans Arabic so long copy stays calm. */
+[dir="rtl"] {
+  --dg-font-ui: var(--dg-font-ui-ar);
+  --dg-font-display: var(--dg-font-display-ar);
+}
+
+::selection {
+  background: var(--dg-action-wash);
+  color: var(--dg-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--dg-focus);
+  outline-offset: 2px;
+}
+
+/* Media and long words never push the page sideways on a phone. */
+img,
+video,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dg-dur-instant: 0ms;
+    --dg-dur-quick: 120ms;
+    --dg-dur-base: 150ms;
+    --dg-dur-slow: 150ms;
+  }
+}
+
+/* Skeleton sweep (components/ui/feedback.tsx). Static under reduced motion. */
+@keyframes dg-shimmer {
+  to { transform: translateX(100%); }
+}
+
+/* ==========================================================================
+   DESTINATIONS — one brand, a mood per place (brand board §03,
+   docs/premium-plan/brand/rehla-brand.html).
+
+   `data-destination` on <html> (DestinationContext; index.html sets it before
+   paint) re-tints the brand colours and re-paces motion. Dahab is the base
+   palette above, so it needs no block. Type, layout and the logo never change,
+   so people always know where they are. High contrast ignores destinations:
+   legibility wins over mood.
+   ========================================================================== */
+
+/* Tempo — theme-independent */
+:root[data-destination="nuweiba"] {
+  --dg-dur-quick: 260ms;
+  --dg-dur-base: 480ms;
+  --dg-dur-slow: 800ms;
+  --dg-ease-spring: cubic-bezier(0.45, 0, 0.2, 1);
+}
+:root[data-destination="siwa"] {
+  --dg-dur-quick: 320ms;
+  --dg-dur-base: 600ms;
+  --dg-dur-slow: 1100ms;
+  --dg-ease-out: cubic-bezier(0.37, 0, 0.2, 1);
+  --dg-ease-spring: cubic-bezier(0.37, 0, 0.2, 1);
+}
+
+/* NUWEIBA · Driftwood & Shallows — still, simple, unplugged */
+:root[data-destination="nuweiba"][data-theme-id="abyss"] {
+  --dg-bg: #0F1A1E;
+  --dg-bg-sunken: #0B1518;
+  --dg-surface: #14242A;
+  --dg-surface-raised: #182B32;
+  --dg-surface-sunken: #0C171B;
+  --dg-ink: #E8EAE6;
+  --dg-ink-2: #B3BDBE;
+  --dg-ink-3: #8A9799;
+  --dg-action: #86C6D2;
+  --dg-action-hover: #9DD3DD;
+  --dg-action-ink: #062026;
+  --dg-action-wash: rgba(134, 198, 210, 0.14);
+  --dg-highlight: #E0AE83;
+  --dg-highlight-ink: #2A1608;
+  --dg-highlight-wash: rgba(224, 174, 131, 0.14);
+  --dg-chrome-bg: rgba(15, 26, 30, 0.84);
+  --dg-focus: #86C6D2;
+}
+:root[data-destination="nuweiba"][data-theme-id="salt"] {
+  --dg-bg: #F2F1EB;
+  --dg-bg-sunken: #E9E7DE;
+  --dg-surface: #FFFFFF;
+  --dg-surface-raised: #FFFFFF;
+  --dg-surface-sunken: #E9E7DE;
+  --dg-ink: #1D2A2E;
+  --dg-ink-2: #4F5A5C;
+  --dg-ink-3: #6E7779;
+  --dg-action: #2D7787;
+  --dg-action-hover: #24626F;
+  --dg-action-ink: #FFFFFF;
+  --dg-action-wash: rgba(45, 119, 135, 0.10);
+  --dg-highlight: #9A6638;
+  --dg-highlight-ink: #FFFFFF;
+  --dg-highlight-wash: rgba(169, 116, 71, 0.11);
+  --dg-chrome-bg: rgba(242, 241, 235, 0.86);
+  --dg-focus: #2D7787;
+}
+
+/* SIWA · Salt & Palm — warm, grounding, healing */
+:root[data-destination="siwa"][data-theme-id="abyss"] {
+  --dg-bg: #16130F;
+  --dg-bg-sunken: #110E0B;
+  --dg-surface: #1F1B16;
+  --dg-surface-raised: #26211B;
+  --dg-surface-sunken: #120F0C;
+  --dg-ink: #F1EBDF;
+  --dg-ink-2: #C6BAA8;
+  --dg-ink-3: #9A8E7E;
+  --dg-action: #A8C99A;
+  --dg-action-hover: #BBD6AF;
+  --dg-action-ink: #14230F;
+  --dg-action-wash: rgba(168, 201, 154, 0.14);
+  --dg-highlight: #E7A07D;
+  --dg-highlight-ink: #2A1208;
+  --dg-highlight-wash: rgba(231, 160, 125, 0.14);
+  --dg-chrome-bg: rgba(22, 19, 15, 0.86);
+  --dg-focus: #A8C99A;
+}
+:root[data-destination="siwa"][data-theme-id="salt"] {
+  --dg-bg: #F6F2EA;
+  --dg-bg-sunken: #EDE6D9;
+  --dg-surface: #FFFDF8;
+  --dg-surface-raised: #FFFDF8;
+  --dg-surface-sunken: #EDE6D9;
+  --dg-ink: #2A2520;
+  --dg-ink-2: #5A5047;
+  --dg-ink-3: #7A6E62;
+  --dg-action: #4A7445;
+  --dg-action-hover: #3C5F38;
+  --dg-action-ink: #FFFFFF;
+  --dg-action-wash: rgba(74, 116, 69, 0.10);
+  --dg-highlight: #A9573A;
+  --dg-highlight-ink: #FFFFFF;
+  --dg-highlight-wash: rgba(169, 87, 58, 0.10);
+  --dg-chrome-bg: rgba(246, 242, 234, 0.88);
+  --dg-focus: #4A7445;
+}
+
+/* Destination switches cross-fade the whole document (DestinationContext uses
+   the View Transitions API where available). The old page dissolves at the
+   destination's own tempo. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  /* Long enough to feel the change, short enough never to look blank:
+     Siwa's own tempo (1100ms) is for small elements, not the whole page. */
+  animation-duration: 520ms;
+  animation-timing-function: var(--dg-ease-out);
+}
+
+/* Toasts rise in at the destination's tempo (App.tsx). */
+@keyframes dg-toast-in {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.dg-toast { animation: dg-toast-in var(--dg-dur-base) var(--dg-ease-spring) both; }
+@media (prefers-reduced-motion: reduce) { .dg-toast { animation: none; } }

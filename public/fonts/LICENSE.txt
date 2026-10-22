@@ -1,0 +1,56 @@
+SF Arabic — source files for Rehla/fonts/SFArabic-Regular.woff2 / .ttf
+========================================================================
+
+Downloaded from: https://globalfonts.pro/font/sf-arabic
+  woff2: /global_files/63e15a768459b2041aed0cad/files/SFArabic-Regular.woff2
+  ttf:   /global_files/63e15a768459b2041aed0cad/files/SFArabic-Regular.ttf
+Downloaded: 2026-10-21
+Vendor: Apple Inc. · Trademark: Apple Inc. · Version 18.0d7e1
+
+The downloadable page labels this typeface "Paid font". The font's own
+license table records the following Apple terms:
+
+  This SF Arabic Font (the "Apple Font") is licensed to you by Apple Inc.
+  ("Apple") in consideration of your agreement to the following terms and the
+  terms of the License Agreement for the Apple SF Arabic Font that was
+  presented upon the downloading of the Apple Font. If you do not agree with
+  these terms and the terms of the License Agreement for the Apple SF Arabic
+  Font, do not use the Apple Font.
+
+  You may use the Apple Font solely for creating mock-ups of user interfaces
+  to be used in software products running on Apple's iOS, iPadOS, macOS, tvOS
+  or watchOS operating systems, as applicable. The foregoing right includes the
+  right to show the Apple Font in screen shots, images, mock-ups or other
+  depictions, digital and/or print, of such software products running solely on
+  iOS, iPadOS, macOS, tvOS or watchOS.
+
+  The grants set forth in this License do not permit you to, and you agree not
+  to, install, use or run the Apple Font for the purpose of creating mock-ups of
+  user interfaces to be used in software products running on any non-Apple
+  operating system or to enable others to do so. You may not embed the Apple
+  Font in any software programs or other products. Except as expressly provided
+  for herein, you may not use the Apple Font to, create, develop, display or
+  otherwise distribute any documentation, artwork, website content or any other
+  work product.
+
+  You may use the Apple Font: (i) only for the purposes described in this
+  License and the License Agreement for the Apple SF Arabic Font; and (ii) only
+  if you are a Registered Apple Developer, or as otherwise expressly permitted
+  by Apple in writing.
+
+  License URL: http://www.apple.com/
+
+WHAT THIS MEANS FOR THIS PROJECT
+-------------------------------
+This is a LOCAL PROTOTYPE copy. The terms above restrict embedding the font in
+shipped software and website content, so before this leaves a local prototype:
+
+  - keep using SF Arabic only for the mock-up of the Rehla prototype, or
+  - swap the @font-face in Rehla/index.html to a font you may embed, e.g.
+    * Alexandria / IBM Plex Sans Arabic (both on Google Fonts, embeddable) —
+      the main web app already uses these, or
+    * Geeza Pro / SF Arabic installed on the developer's own Apple device,
+      without the files in the repo.
+
+Anyone deciding to ship should read the full Apple SF Arabic license agreement
+first. No Apple license file was redistributed with the font files themselves.

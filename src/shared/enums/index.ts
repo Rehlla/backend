@@ -1,0 +1,81 @@
+export enum UserRoleEnum {
+  TRAVELER = 'Traveler',
+  SUPPLIER = 'Supplier',
+  OPERATIONS = 'Operations',
+  PRODUCT = 'Product',
+  ADMIN = 'Admin'
+}
+
+export enum TripStatusEnum {
+  DRAFT = 'DRAFT',
+  PLANNED = 'PLANNED',
+  CONFIRMED = 'CONFIRMED',
+  IN_DESTINATION = 'IN_DESTINATION',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED'
+}
+
+export enum PaymentStateEnum {
+  INITIATED = 'INITIATED',
+  PENDING = 'PENDING',
+  AUTHORIZED = 'AUTHORIZED',
+  CAPTURED = 'CAPTURED',
+  FAILED = 'FAILED',
+  CANCELLED = 'CANCELLED',
+  REFUNDED = 'REFUNDED',
+  PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED',
+  DISPUTED = 'DISPUTED'
+}
+
+export enum LedgerEntryTypeEnum {
+  HOLD_ESCROW = 'HOLD_ESCROW',
+  PAYMENT_CAPTURED = 'PAYMENT_CAPTURED',
+  SUPPLIER_PAYOUT = 'SUPPLIER_PAYOUT',
+  PLATFORM_COMMISSION = 'PLATFORM_COMMISSION',
+  REFUND_ISSUED = 'REFUND_ISSUED',
+  RECOVERY_CREDIT = 'RECOVERY_CREDIT',
+  ADJUSTMENT = 'ADJUSTMENT'
+}
+
+export enum DayGiTaskStateEnum {
+  DRAFT = 'DRAFT',
+  PLANNED = 'PLANNED',
+  WAITING_FOR_USER = 'WAITING_FOR_USER',
+  WAITING_FOR_PROVIDER = 'WAITING_FOR_PROVIDER',
+  EXECUTING = 'EXECUTING',
+  VERIFYING = 'VERIFYING',
+  COMPLETED = 'COMPLETED',
+  FAILED = 'FAILED',
+  PARTIALLY_COMPLETED = 'PARTIALLY_COMPLETED',
+  CANCELLED = 'CANCELLED'
+}
+
+export enum DayGiActionRiskEnum {
+  READ_ONLY = 'READ_ONLY',
+  LOW_RISK = 'LOW_RISK',
+  COMMERCE = 'COMMERCE',
+  FINANCIAL = 'FINANCIAL',
+  SAFETY_CRITICAL = 'SAFETY_CRITICAL'
+}
+
+export enum JourneyStageEnum {
+  DISCOVER = 'discover',
+  PLAN = 'plan',
+  PREVIEW = 'preview',
+  BOOK = 'book',
+  PREPARE = 'prepare',
+  ARRIVE = 'arrive',
+  EXPERIENCE = 'experience',
+  SPONTANEOUS = 'spontaneous',
+  FOOD = 'food',
+  RECOVERY = 'recovery',
+  HELP = 'help',
+  DEPARTURE = 'departure',
+  POST_TRIP = 'post_trip'
+}
+
+export enum CurrencyEnum {
+  EGP = 'EGP',
+  USD = 'USD',
+  EUR = 'EUR'
+}

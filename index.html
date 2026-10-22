@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" class="dark" data-theme="dark" data-theme-id="abyss">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover: the app draws edge to edge on notched phones and in
+         the native shell; chrome pads itself with env(safe-area-inset-*). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="REHLA" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>REHLA — Dahab, Nuweiba & Siwa, planned around you</title>
+    <meta name="description" content="REHLA plans and books your trip to Dahab, Nuweiba and Siwa: real local experiences, stays and rides, with an AI concierge that knows each place." />
+    <meta name="theme-color" content="#0B151C" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / social. Canonical + og:url are stamped per-route by the
+         server (metaInjection) and by the pre-hydration script below using
+         the real origin; the static fallback keeps relative hrefs valid. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="REHLA" />
+    <meta property="og:title" content="REHLA — Dahab, Nuweiba & Siwa, planned around you" />
+    <meta property="og:description" content="Dahab, Nuweiba and Siwa, planned around you: local experiences, stays and rides, built with the people who live there." />
+    <meta property="og:image" content="/images/hero/coral-reef-split.jpg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_EG" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="REHLA — Dahab, Nuweiba & Siwa, planned around you" />
+    <meta name="twitter:description" content="Dahab, Nuweiba and Siwa, planned around you." />
+    <meta name="twitter:image" content="/images/hero/coral-reef-split.jpg" />
+
+    <link rel="canonical" href="/" />
+    <link rel="alternate" hreflang="en" href="/" />
+    <link rel="alternate" hreflang="ar" href="/?lang=ar" />
+    <link rel="alternate" hreflang="x-default" href="/" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- One typeface, self-hosted: SF Arabic (Apple) covers the Arabic and Latin
+         ranges the app renders, so nothing is fetched from a font CDN at runtime
+         and both languages share one face. Files ship in public/fonts/.
+         NOTE: Apple's SF Arabic EULA restricts embedding in shipped software —
+         see public/fonts/LICENSE.txt before this leaves a local prototype. -->
+    <style>
+      @font-face {
+        font-family: "SF Arabic";
+        src: url("/fonts/SFArabic-Regular.woff2") format("woff2"),
+             url("/fonts/SFArabic-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+
+    <script>
+      /*
+       * Pre-hydration language/theme application.
+       *
+       * LanguageContext.applyLanguageAttributes only runs after React mounts,
+       * so an Arabic visitor's first paint was `lang="en" dir="ltr"` — wrong
+       * font stack (Latin), wrong direction, visible layout shift when the
+       * rtl attribute landed. This repeats the *reading* of the persisted
+       * choice (the same storage key), not the decision: LanguageContext
+       * remains the single source of truth and overwrites these attributes
+       * on mount.
+       */
+      (function () {
+        try {
+          var lang = localStorage.getItem('dahab_os_lang');
+          if (lang !== 'ar' && lang !== 'en') {
+            lang = (navigator.language || '').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en';
+          }
+          var root = document.documentElement;
+          root.lang = lang;
+          root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+          root.classList.remove('rtl', 'ltr');
+          root.classList.add(lang === 'ar' ? 'rtl' : 'ltr');
+          // Theme before first paint (ThemeContext stays the source of truth
+          // and re-applies on mount). Legacy six-theme ids fold into the two
+          // Granite & Lagoon themes.
+          var tid = localStorage.getItem('dahab_travel_os_theme_id');
+          var light = { 'salt': 1, 'editorial-sand': 1, 'lagoon-breeze': 1 };
+          var theme = tid === 'high-contrast-pro' ? 'high-contrast-pro' : (tid && light[tid] ? 'salt' : 'abyss');
+          root.setAttribute('data-theme-id', theme);
+          // Destination before first paint (DestinationContext owns it after
+          // mount): ?d= for shared links, ?city= for /hotels, then the saved
+          // choice, then Dahab.
+          var dests = { dahab: 1, nuweiba: 1, siwa: 1 };
+          var q = new URLSearchParams(location.search);
+          var d = q.get('d') || q.get('city') || localStorage.getItem('rehla_destination');
+          root.setAttribute('data-destination', d && dests[d] ? d : 'dahab');
+          root.setAttribute('data-theme', theme === 'salt' ? 'light' : 'dark');
+          root.classList.toggle('dark', theme !== 'salt');
+          root.classList.toggle('light', theme === 'salt');
+          var canonical = document.querySelector('link[rel="canonical"]');
+          var origin = location.origin;
+          if (canonical && origin.indexOf('http') === 0) {
+            canonical.setAttribute('href', origin + '/');
+          }
+        } catch (e) {
+          /* storage can throw in private windows; defaults above already hold */
+        }
+      })();
+    </script>
+  </head>
+  <body class="antialiased">
+    <!-- Design direction: Granite & Lagoon — docs/premium-plan/DAHAB_PREMIUM_PLAN.html §06. -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

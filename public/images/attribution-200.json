@@ -1,0 +1,1811 @@
+[
+  {
+    "id": "exp-snorkeling-reef",
+    "file": "experiences/exp-snorkeling-reef.webp",
+    "source": "Pexels",
+    "author": "Stephan Ernst",
+    "authorUrl": "https://www.pexels.com/@stephan-ernst-2151845602",
+    "pexelsUrl": "https://www.pexels.com/photo/vibrant-coral-reef-in-marsa-alam-egypt-31895961/",
+    "query": "snorkeling coral reef red sea egypt"
+  },
+  {
+    "id": "exp-kite-surfing",
+    "file": "experiences/exp-kite-surfing.webp",
+    "source": "Pexels",
+    "author": "Sameh  Solow",
+    "authorUrl": "https://www.pexels.com/@sameh-solow-1279480285",
+    "pexelsUrl": "https://www.pexels.com/photo/kitesurfing-on-sea-coast-at-sunset-24286488/",
+    "query": "kitesurfing dahab lagoon sinai"
+  },
+  {
+    "id": "exp-diving-blue-hole",
+    "file": "experiences/exp-diving-blue-hole.webp",
+    "source": "Pexels",
+    "author": "Youssef Samuil",
+    "authorUrl": "https://www.pexels.com/@yousefsammm",
+    "pexelsUrl": "https://www.pexels.com/photo/yachts-on-the-blue-sea-11119460/",
+    "query": "blue hole diving egypt sinai"
+  },
+  {
+    "id": "exp-desert-quad",
+    "file": "experiences/exp-desert-quad.webp",
+    "source": "Pexels",
+    "author": "Malik Cil",
+    "authorUrl": "https://www.pexels.com/@epirojenes",
+    "pexelsUrl": "https://www.pexels.com/photo/man-riding-quad-on-dirt-road-16959272/",
+    "query": "quad bike desert sinai egypt"
+  },
+  {
+    "id": "exp-bouldering-ridge",
+    "file": "experiences/exp-bouldering-ridge.webp",
+    "source": "Pexels",
+    "author": "Vintage  Laka",
+    "authorUrl": "https://www.pexels.com/@vintage-laka-663423438",
+    "pexelsUrl": "https://www.pexels.com/photo/red-rocky-mountains-19019026/",
+    "query": "rock climbing bouldering sinai desert"
+  },
+  {
+    "id": "exp-boat-trip",
+    "file": "experiences/exp-boat-trip.webp",
+    "source": "Pexels",
+    "author": "Mhmd Drweesh",
+    "authorUrl": "https://www.pexels.com/@mhmd-drweesh-2163841756",
+    "pexelsUrl": "https://www.pexels.com/photo/fisherman-navigating-the-nile-in-cairo-at-dusk-39460971/",
+    "query": "traditional boat red sea egypt"
+  },
+  {
+    "id": "exp-sup-paddle",
+    "file": "experiences/exp-sup-paddle.webp",
+    "source": "Pexels",
+    "author": "zeynep uluç",
+    "authorUrl": "https://www.pexels.com/@zeynep",
+    "pexelsUrl": "https://www.pexels.com/photo/paddleboarding-on-a-calm-sea-under-blue-sky-38928869/",
+    "query": "stand up paddleboard calm sea"
+  },
+  {
+    "id": "exp-sunset-cruise",
+    "file": "experiences/exp-sunset-cruise.webp",
+    "source": "Pexels",
+    "author": "Re pour",
+    "authorUrl": "https://www.pexels.com/@re-pour-1112434420",
+    "pexelsUrl": "https://www.pexels.com/photo/silhouette-of-motorboat-on-sea-at-dusk-21622413/",
+    "query": "sunset sail boat red sea"
+  },
+  {
+    "id": "exp-canyon-trek",
+    "file": "experiences/exp-canyon-trek.webp",
+    "source": "Pexels",
+    "author": "Khaled Hegazy",
+    "authorUrl": "https://www.pexels.com/@khaled-hegazy-302581620",
+    "pexelsUrl": "https://www.pexels.com/photo/hiker-exploring-rugged-sinai-mountains-35749881/",
+    "query": "sinai canyon hiking egypt"
+  },
+  {
+    "id": "exp-stargazing",
+    "file": "experiences/exp-stargazing.webp",
+    "source": "Pexels",
+    "author": "Eslam Mohammed Abdelmaksoud",
+    "authorUrl": "https://www.pexels.com/@eslames1",
+    "pexelsUrl": "https://www.pexels.com/photo/mountain-27407392/",
+    "query": "stargazing desert night sky egypt"
+  },
+  {
+    "id": "exp-camel-ride",
+    "file": "experiences/exp-camel-ride.webp",
+    "source": "Pexels",
+    "author": "Vika Glitter",
+    "authorUrl": "https://www.pexels.com/@vika-glitter-392079",
+    "pexelsUrl": "https://www.pexels.com/photo/woman-and-camel-on-beachside-in-vibrant-attire-31523067/",
+    "query": "camel ride beach egypt"
+  },
+  {
+    "id": "exp-bedouin-village",
+    "file": "experiences/exp-bedouin-village.webp",
+    "source": "Pexels",
+    "author": "Agung Pandit Wiguna",
+    "authorUrl": "https://www.pexels.com/@panditwiguna",
+    "pexelsUrl": "https://www.pexels.com/photo/traditional-desert-tent-in-rugged-mountain-landscape-34939812/",
+    "query": "bedouin village sinai egypt"
+  },
+  {
+    "id": "exp-freediving",
+    "file": "experiences/exp-freediving.webp",
+    "source": "Pexels",
+    "author": "Ecrinn Burgazli",
+    "authorUrl": "https://www.pexels.com/@ecrinn-burgazli-2150854524",
+    "pexelsUrl": "https://www.pexels.com/photo/underwater-freediving-in-bodrum-s-clear-blue-sea-32949983/",
+    "query": "freediving blue water egypt"
+  },
+  {
+    "id": "exp-kayaking",
+    "file": "experiences/exp-kayaking.webp",
+    "source": "Pexels",
+    "author": "Rewan Ahmed",
+    "authorUrl": "https://www.pexels.com/@rouwa",
+    "pexelsUrl": "https://www.pexels.com/photo/serene-kayaking-adventure-on-the-red-sea-35965894/",
+    "query": "kayaking red sea coast egypt"
+  },
+  {
+    "id": "exp-windsurfing",
+    "file": "experiences/exp-windsurfing.webp",
+    "source": "Pexels",
+    "author": "Anthony's images",
+    "authorUrl": "https://www.pexels.com/@anthony-s-images-407277901",
+    "pexelsUrl": "https://www.pexels.com/photo/exhilarating-windsurfing-adventure-on-open-sea-30965428/",
+    "query": "windsurfing red sea egypt"
+  },
+  {
+    "id": "exp-photo-tour",
+    "file": "experiences/exp-photo-tour.webp",
+    "source": "Pexels",
+    "author": "İrem Türkkan",
+    "authorUrl": "https://www.pexels.com/@i-rem-turkkan-120531447",
+    "pexelsUrl": "https://www.pexels.com/photo/hills-at-desert-24602251/",
+    "query": "photographer landscape egypt sinai"
+  },
+  {
+    "id": "exp-wellness-spa",
+    "file": "experiences/exp-wellness-spa.webp",
+    "source": "Pexels",
+    "author": "Сокіл Sokil",
+    "authorUrl": "https://www.pexels.com/@sokil-2159771144",
+    "pexelsUrl": "https://www.pexels.com/photo/luxurious-mediterranean-resort-with-palm-trees-38850165/",
+    "query": "spa wellness resort egypt"
+  },
+  {
+    "id": "exp-yoga-deck",
+    "file": "experiences/exp-yoga-deck.webp",
+    "source": "Pexels",
+    "author": "Asad Photo Maldives",
+    "authorUrl": "https://www.pexels.com/@asadphoto",
+    "pexelsUrl": "https://www.pexels.com/photo/outdoor-yoga-on-oceanfront-deck-29614929/",
+    "query": "yoga deck ocean view morning"
+  },
+  {
+    "id": "exp-turtle-swim",
+    "file": "experiences/exp-turtle-swim.webp",
+    "source": "Pexels",
+    "author": "ArtHouse Studio",
+    "authorUrl": "https://www.pexels.com/@arthousestudio",
+    "pexelsUrl": "https://www.pexels.com/photo/turtle-swimming-at-the-bottom-of-the-ocean-4591716/",
+    "query": "sea turtle swimming ocean"
+  },
+  {
+    "id": "exp-rainbow-reef",
+    "file": "experiences/exp-rainbow-reef.webp",
+    "source": "Pexels",
+    "author": "Ruben Galante",
+    "authorUrl": "https://www.pexels.com/@ruben-galante-3187936",
+    "pexelsUrl": "https://www.pexels.com/photo/orange-and-black-fishes-near-coral-reef-underwater-4809065/",
+    "query": "colorful reef fish red sea"
+  },
+  {
+    "id": "exp-mount-sinai",
+    "file": "experiences/exp-mount-sinai.webp",
+    "source": "Pexels",
+    "author": "Сокіл Sokil",
+    "authorUrl": "https://www.pexels.com/@sokil-2159771144",
+    "pexelsUrl": "https://www.pexels.com/photo/stunning-rocky-mountain-landscape-under-blue-sky-37220258/",
+    "query": "mount sinai sunrise egypt"
+  },
+  {
+    "id": "exp-night-diving",
+    "file": "experiences/exp-night-diving.webp",
+    "source": "Pexels",
+    "author": "Maël  BALLAND",
+    "authorUrl": "https://www.pexels.com/@toulouse",
+    "pexelsUrl": "https://www.pexels.com/photo/man-underwater-3098970/",
+    "query": "night diving underwater light"
+  },
+  {
+    "id": "exp-underwater-cave",
+    "file": "experiences/exp-underwater-cave.webp",
+    "source": "Pexels",
+    "author": "Francisco Davids",
+    "authorUrl": "https://www.pexels.com/@francisco-davids-150089269",
+    "pexelsUrl": "https://www.pexels.com/photo/underwater-photography-of-a-person-in-black-scuba-suit-swimming-through-the-caves-10519073/",
+    "query": "underwater cave diving egypt"
+  },
+  {
+    "id": "exp-glass-boat",
+    "file": "experiences/exp-glass-boat.webp",
+    "source": "Pexels",
+    "author": "Nabil Naidu",
+    "authorUrl": "https://www.pexels.com/@nabilnaidu",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-pristine-jolly-buoy-island-beach-37949155/",
+    "query": "glass bottom boat coral reef"
+  },
+  {
+    "id": "exp-coral-nursery",
+    "file": "experiences/exp-coral-nursery.webp",
+    "source": "Pexels",
+    "author": "Francesco Ungaro",
+    "authorUrl": "https://www.pexels.com/@francesco-ungaro",
+    "pexelsUrl": "https://www.pexels.com/photo/green-coral-reef-in-blue-sea-4620507/",
+    "query": "coral restoration underwater"
+  },
+  {
+    "id": "food-koshari",
+    "file": "food/food-koshari.webp",
+    "source": "Pexels",
+    "author": "Şevval Çadır",
+    "authorUrl": "https://www.pexels.com/@sevval-cadir-1252545108",
+    "pexelsUrl": "https://www.pexels.com/photo/preparing-bowls-of-breakfast-oatmeal-with-nuts-32963319/",
+    "query": "koshari egyptian food bowl"
+  },
+  {
+    "id": "food-ful-medames",
+    "file": "food/food-ful-medames.webp",
+    "source": "Pexels",
+    "author": "Anton 🦋 Nekhaychik_PHTGRPH",
+    "authorUrl": "https://www.pexels.com/@anton-nekhaychik_phtgrph-2151754498",
+    "pexelsUrl": "https://www.pexels.com/photo/full-moon-in-a-clear-night-sky-34608841/",
+    "query": "ful medames egyptian breakfast"
+  },
+  {
+    "id": "food-seafood-platter",
+    "file": "food/food-seafood-platter.webp",
+    "source": "Pexels",
+    "author": "Change C.C",
+    "authorUrl": "https://www.pexels.com/@change-c-c-974768353",
+    "pexelsUrl": "https://www.pexels.com/photo/shrimps-in-the-ice-20810993/",
+    "query": "fresh seafood platter red sea"
+  },
+  {
+    "id": "food-street-vendor",
+    "file": "food/food-street-vendor.webp",
+    "source": "Pexels",
+    "author": "Hossam Ashoor",
+    "authorUrl": "https://www.pexels.com/@hossamashoor",
+    "pexelsUrl": "https://www.pexels.com/photo/men-by-street-food-stall-at-night-25642497/",
+    "query": "street food vendor egypt night"
+  },
+  {
+    "id": "food-tea-house",
+    "file": "food/food-tea-house.webp",
+    "source": "Pexels",
+    "author": "Wesley Opanga",
+    "authorUrl": "https://www.pexels.com/@wesley-opanga-62201681",
+    "pexelsUrl": "https://www.pexels.com/photo/men-having-traditional-tea-8100592/",
+    "query": "traditional tea house middle east"
+  },
+  {
+    "id": "food-shisha-lounge",
+    "file": "food/food-shisha-lounge.webp",
+    "source": "Pexels",
+    "author": "Bulat Khamitov",
+    "authorUrl": "https://www.pexels.com/@bulat",
+    "pexelsUrl": "https://www.pexels.com/photo/hookah-on-table-beside-puff-chairs-4563735/",
+    "query": "shisha hookah lounge bohemian"
+  },
+  {
+    "id": "food-beach-cafe",
+    "file": "food/food-beach-cafe.webp",
+    "source": "Pexels",
+    "author": "Doğan Alpaslan  Demir",
+    "authorUrl": "https://www.pexels.com/@izafi",
+    "pexelsUrl": "https://www.pexels.com/photo/table-on-sea-shore-17951727/",
+    "query": "beach cafe table ocean view"
+  },
+  {
+    "id": "food-rooftop-dining",
+    "file": "food/food-rooftop-dining.webp",
+    "source": "Pexels",
+    "author": "SERHAT  TUĞ",
+    "authorUrl": "https://www.pexels.com/@serhattugg",
+    "pexelsUrl": "https://www.pexels.com/photo/illuminated-galata-bridge-at-night-in-istanbul-turkey-16302516/",
+    "query": "rooftop restaurant sea view night"
+  },
+  {
+    "id": "food-breakfast-spread",
+    "file": "food/food-breakfast-spread.webp",
+    "source": "Pexels",
+    "author": "Lidya Kohen",
+    "authorUrl": "https://www.pexels.com/@lidya-kohen-250321",
+    "pexelsUrl": "https://www.pexels.com/photo/traditional-middle-eastern-breakfast-spread-36897343/",
+    "query": "middle eastern breakfast spread"
+  },
+  {
+    "id": "food-juice-bar",
+    "file": "food/food-juice-bar.webp",
+    "source": "Pexels",
+    "author": "Vladimir Srajber",
+    "authorUrl": "https://www.pexels.com/@vladimirsrajber",
+    "pexelsUrl": "https://www.pexels.com/photo/fresh-fruit-and-vegetables-are-displayed-on-a-table-27518954/",
+    "query": "fresh juice bar tropical fruits"
+  },
+  {
+    "id": "food-egyptian-pastry",
+    "file": "food/food-egyptian-pastry.webp",
+    "source": "Pexels",
+    "author": "Julia Çarı",
+    "authorUrl": "https://www.pexels.com/@juliachar",
+    "pexelsUrl": "https://www.pexels.com/photo/authentic-turkish-desserts-on-display-in-gaziantep-37347581/",
+    "query": "baklava egyptian pastry sweets"
+  },
+  {
+    "id": "food-mixed-grill",
+    "file": "food/food-mixed-grill.webp",
+    "source": "Pexels",
+    "author": "Denys Gromov",
+    "authorUrl": "https://www.pexels.com/@jdgromov",
+    "pexelsUrl": "https://www.pexels.com/photo/close-up-shot-of-a-dish-on-a-plate-4899822/",
+    "query": "mixed grill kebab middle eastern"
+  },
+  {
+    "id": "food-local-market",
+    "file": "food/food-local-market.webp",
+    "source": "Pexels",
+    "author": "irwan zahuri",
+    "authorUrl": "https://www.pexels.com/@irwan-zahuri-259816440",
+    "pexelsUrl": "https://www.pexels.com/photo/market-stall-with-fresh-produce-15062841/",
+    "query": "local market spices egypt"
+  },
+  {
+    "id": "food-coffee-cup",
+    "file": "food/food-coffee-cup.webp",
+    "source": "Pexels",
+    "author": "Büşranur Aydın",
+    "authorUrl": "https://www.pexels.com/@busranur-aydin-3800407",
+    "pexelsUrl": "https://www.pexels.com/photo/vintage-ceramic-coffee-cup-on-lace-tablecloth-28483554/",
+    "query": "turkish coffee cup bohemian"
+  },
+  {
+    "id": "food-family-table",
+    "file": "food/food-family-table.webp",
+    "source": "Pexels",
+    "author": "Askar Abayev",
+    "authorUrl": "https://www.pexels.com/@askar-abayev",
+    "pexelsUrl": "https://www.pexels.com/photo/a-group-of-people-having-dinner-at-the-backyard-5638815/",
+    "query": "family dinner table warm light"
+  },
+  {
+    "id": "food-fine-dining",
+    "file": "food/food-fine-dining.webp",
+    "source": "Pexels",
+    "author": "Matheus Bertelli",
+    "authorUrl": "https://www.pexels.com/@bertellifotografia",
+    "pexelsUrl": "https://www.pexels.com/photo/table-in-restaurant-17057034/",
+    "query": "fine dining restaurant elegant"
+  },
+  {
+    "id": "food-sunset-cocktail",
+    "file": "food/food-sunset-cocktail.webp",
+    "source": "Pexels",
+    "author": "Engin Akyurt",
+    "authorUrl": "https://www.pexels.com/@enginakyurt",
+    "pexelsUrl": "https://www.pexels.com/photo/blue-and-pink-beverage-2531183/",
+    "query": "sunset cocktail glass sea view"
+  },
+  {
+    "id": "food-falafel-plate",
+    "file": "food/food-falafel-plate.webp",
+    "source": "Pexels",
+    "author": "Jack Sparrow",
+    "authorUrl": "https://www.pexels.com/@jack-sparrow",
+    "pexelsUrl": "https://www.pexels.com/photo/falafel-and-hummus-on-plate-4046770/",
+    "query": "falafel plate hummus middle east"
+  },
+  {
+    "id": "food-dessert-baklava",
+    "file": "food/food-dessert-baklava.webp",
+    "source": "Pexels",
+    "author": "Julia Çarı",
+    "authorUrl": "https://www.pexels.com/@juliachar",
+    "pexelsUrl": "https://www.pexels.com/photo/delicious-gaziantep-baklava-with-pistachios-32479111/",
+    "query": "baklava dessert plate pistachio"
+  },
+  {
+    "id": "food-seafood-grill-2",
+    "file": "food/food-seafood-grill-2.webp",
+    "source": "Pexels",
+    "author": "Kindel Media",
+    "authorUrl": "https://www.pexels.com/@kindelmedia",
+    "pexelsUrl": "https://www.pexels.com/photo/grilling-of-tilapia-fish-8352785/",
+    "query": "grilled fish whole charcoal"
+  },
+  {
+    "id": "hotel-resort-pool",
+    "file": "hotels/hotel-resort-pool.webp",
+    "source": "Pexels",
+    "author": "SlimMars 13",
+    "authorUrl": "https://www.pexels.com/@slimmars-13-197677686",
+    "pexelsUrl": "https://www.pexels.com/photo/turquoise-sea-behind-the-edge-of-a-swimming-pool-13839264/",
+    "query": "resort infinity pool red sea"
+  },
+  {
+    "id": "hotel-boutique",
+    "file": "hotels/hotel-boutique.webp",
+    "source": "Pexels",
+    "author": "Sameh  Solow",
+    "authorUrl": "https://www.pexels.com/@sameh-solow-1279480285",
+    "pexelsUrl": "https://www.pexels.com/photo/kitesurfing-on-sea-coast-at-sunset-24286488/",
+    "query": "boutique hotel dahab sinai"
+  },
+  {
+    "id": "hotel-desert-camp",
+    "file": "hotels/hotel-desert-camp.webp",
+    "source": "Pexels",
+    "author": "AXP Photography",
+    "authorUrl": "https://www.pexels.com/@axp-photography-500641970",
+    "pexelsUrl": "https://www.pexels.com/photo/houses-of-memories-aicha-luxury-camp-18717342/",
+    "query": "desert camp sinai glamping"
+  },
+  {
+    "id": "hotel-hostel-dorm",
+    "file": "hotels/hotel-hostel-dorm.webp",
+    "source": "Pexels",
+    "author": "Ketut Subiyanto",
+    "authorUrl": "https://www.pexels.com/@ketut-subiyanto",
+    "pexelsUrl": "https://www.pexels.com/photo/women-high-fiving-in-a-dorm-room-with-bunk-beds-4907183/",
+    "query": "hostel dorm room modern"
+  },
+  {
+    "id": "hotel-villa-private",
+    "file": "hotels/hotel-villa-private.webp",
+    "source": "Pexels",
+    "author": "Ahmet ÇÖTÜR",
+    "authorUrl": "https://www.pexels.com/@ahmetcotur",
+    "pexelsUrl": "https://www.pexels.com/photo/luxury-mediterranean-villa-with-pool-and-sea-view-29702291/",
+    "query": "private villa sea view terrace"
+  },
+  {
+    "id": "hotel-eco-lodge",
+    "file": "hotels/hotel-eco-lodge.webp",
+    "source": "Pexels",
+    "author": "Joaquin Reyes Ramos",
+    "authorUrl": "https://www.pexels.com/@joaquinrr",
+    "pexelsUrl": "https://www.pexels.com/photo/tropical-bamboo-hut-surrounded-by-lush-greenery-37180114/",
+    "query": "eco lodge bamboo beach"
+  },
+  {
+    "id": "hotel-room-standard",
+    "file": "hotels/hotel-room-standard.webp",
+    "source": "Pexels",
+    "author": "Ken Mwaura",
+    "authorUrl": "https://www.pexels.com/@mwauraken",
+    "pexelsUrl": "https://www.pexels.com/photo/hotel-staff-making-bed-in-modern-room-29006838/",
+    "query": "standard hotel room clean modern"
+  },
+  {
+    "id": "hotel-room-sea-2",
+    "file": "hotels/hotel-room-sea-2.webp",
+    "source": "Pexels",
+    "author": "el jusuf",
+    "authorUrl": "https://www.pexels.com/@pamanjoe",
+    "pexelsUrl": "https://www.pexels.com/photo/glass-window-in-the-room-14459933/",
+    "query": "hotel room ocean view window"
+  },
+  {
+    "id": "hotel-pool-beach",
+    "file": "hotels/hotel-pool-beach.webp",
+    "source": "Pexels",
+    "author": "Jeffry Surianto",
+    "authorUrl": "https://www.pexels.com/@andromeda99",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-buildings-on-the-shore-in-dahab-egypt-17814812/",
+    "query": "pool beach resort dahab"
+  },
+  {
+    "id": "hotel-lobby",
+    "file": "hotels/hotel-lobby.webp",
+    "source": "Pexels",
+    "author": "Abhishek  Navlakha",
+    "authorUrl": "https://www.pexels.com/@navlakha",
+    "pexelsUrl": "https://www.pexels.com/photo/chic-miami-beach-hotel-reception-interior-34607320/",
+    "query": "hotel lobby bohemian design"
+  },
+  {
+    "id": "hotel-terrace-morning",
+    "file": "hotels/hotel-terrace-morning.webp",
+    "source": "Pexels",
+    "author": "Sami TÜRK",
+    "authorUrl": "https://www.pexels.com/@trksami",
+    "pexelsUrl": "https://www.pexels.com/photo/view-of-the-sea-from-a-cafe-16586801/",
+    "query": "hotel terrace morning coffee sea"
+  },
+  {
+    "id": "hotel-garden-path",
+    "file": "hotels/hotel-garden-path.webp",
+    "source": "Pexels",
+    "author": "Quang Nguyen Vinh",
+    "authorUrl": "https://www.pexels.com/@quang-nguyen-vinh-222549",
+    "pexelsUrl": "https://www.pexels.com/photo/seats-and-umbrellas-in-resort-14036441/",
+    "query": "hotel garden path palm trees"
+  },
+  {
+    "id": "hotel-rooftop-pool",
+    "file": "hotels/hotel-rooftop-pool.webp",
+    "source": "Pexels",
+    "author": "Markus Winkler",
+    "authorUrl": "https://www.pexels.com/@markus-winkler-1430818",
+    "pexelsUrl": "https://www.pexels.com/photo/city-of-bangkok-under-white-sky-11262197/",
+    "query": "rooftop pool city view"
+  },
+  {
+    "id": "hotel-beachfront",
+    "file": "hotels/hotel-beachfront.webp",
+    "source": "Pexels",
+    "author": "Valera Rychman",
+    "authorUrl": "https://www.pexels.com/@valera-rychman-1082044823",
+    "pexelsUrl": "https://www.pexels.com/photo/sea-star-beau-rivage-hotel-in-egypt-24913567/",
+    "query": "beachfront hotel egypt"
+  },
+  {
+    "id": "hotel-family-room",
+    "file": "hotels/hotel-family-room.webp",
+    "source": "Pexels",
+    "author": "Derwin  Edwards",
+    "authorUrl": "https://www.pexels.com/@derwin-edwards-163348797",
+    "pexelsUrl": "https://www.pexels.com/photo/young-girl-looking-at-a-black-cat-on-a-sofa-chair-10854975/",
+    "query": "family room hotel kids"
+  },
+  {
+    "id": "hotel-camp-tent",
+    "file": "hotels/hotel-camp-tent.webp",
+    "source": "Pexels",
+    "author": "Agung Pandit Wiguna",
+    "authorUrl": "https://www.pexels.com/@panditwiguna",
+    "pexelsUrl": "https://www.pexels.com/photo/traditional-desert-tent-in-rugged-mountain-landscape-34939812/",
+    "query": "bedouin tent camp sinai night"
+  },
+  {
+    "id": "hotel-spa-bath",
+    "file": "hotels/hotel-spa-bath.webp",
+    "source": "Pexels",
+    "author": "Hongyue  Stone-Jon Lee",
+    "authorUrl": "https://www.pexels.com/@hongyue-stone-jon-lee-504232700",
+    "pexelsUrl": "https://www.pexels.com/photo/bathroom-interior-16113326/",
+    "query": "hotel spa bathtub luxury"
+  },
+  {
+    "id": "hotel-sunset-view",
+    "file": "hotels/hotel-sunset-view.webp",
+    "source": "Pexels",
+    "author": "Elmir Jafarov",
+    "authorUrl": "https://www.pexels.com/@elmir-jafarov-375483362",
+    "pexelsUrl": "https://www.pexels.com/photo/facade-of-an-apartment-building-illuminated-by-golden-sunset-light-19803911/",
+    "query": "hotel sunset view balcony"
+  },
+  {
+    "id": "hotel-hammock",
+    "file": "hotels/hotel-hammock.webp",
+    "source": "Pexels",
+    "author": "Quang Nguyen Vinh",
+    "authorUrl": "https://www.pexels.com/@quang-nguyen-vinh-222549",
+    "pexelsUrl": "https://www.pexels.com/photo/hammock-near-green-palm-trees-14011570/",
+    "query": "hammock beach resort relaxed"
+  },
+  {
+    "id": "hotel-waterfront",
+    "file": "hotels/hotel-waterfront.webp",
+    "source": "Pexels",
+    "author": "Liliane Buntinx",
+    "authorUrl": "https://www.pexels.com/@liliane-buntinx-2150781158",
+    "pexelsUrl": "https://www.pexels.com/photo/scenic-view-of-mosque-and-mountains-in-dahab-31331038/",
+    "query": "waterfront hotel dahab promenade"
+  },
+  {
+    "id": "explore-beach-cove",
+    "file": "explore/explore-beach-cove.webp",
+    "source": "Pexels",
+    "author": "Сокіл Sokil",
+    "authorUrl": "https://www.pexels.com/@sokil-2159771144",
+    "pexelsUrl": "https://www.pexels.com/photo/idyllic-beach-scene-with-palm-umbrella-and-sea-view-36879915/",
+    "query": "hidden cove beach sinai"
+  },
+  {
+    "id": "explore-historic-fort",
+    "file": "explore/explore-historic-fort.webp",
+    "source": "Pexels",
+    "author": "Agung Pandit Wiguna",
+    "authorUrl": "https://www.pexels.com/@panditwiguna",
+    "pexelsUrl": "https://www.pexels.com/photo/traditional-desert-tent-in-rugged-mountain-landscape-34939812/",
+    "query": "historic fort sinai egypt"
+  },
+  {
+    "id": "explore-oasis-palm",
+    "file": "explore/explore-oasis-palm.webp",
+    "source": "Pexels",
+    "author": "Dmytro Glazunov",
+    "authorUrl": "https://www.pexels.com/@glazun0v",
+    "pexelsUrl": "https://www.pexels.com/photo/tall-palm-trees-near-a-white-building-5540933/",
+    "query": "oasis palm trees desert egypt"
+  },
+  {
+    "id": "explore-panorama-2",
+    "file": "explore/explore-panorama-2.webp",
+    "source": "Pexels",
+    "author": "Jeffry Surianto",
+    "authorUrl": "https://www.pexels.com/@andromeda99",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-buildings-on-the-shore-in-dahab-egypt-17814812/",
+    "query": "dahab panorama aerial view"
+  },
+  {
+    "id": "expreef-fish-school",
+    "file": "explore/expreef-fish-school.webp",
+    "source": "Pexels",
+    "author": "Francesco Ungaro",
+    "authorUrl": "https://www.pexels.com/@francesco-ungaro",
+    "pexelsUrl": "https://www.pexels.com/photo/undersea-view-of-a-coral-reef-and-a-school-of-red-fish-17668226/",
+    "query": "school of fish coral reef red sea"
+  },
+  {
+    "id": "explore-coastal-trail",
+    "file": "explore/explore-coastal-trail.webp",
+    "source": "Pexels",
+    "author": "Petra  G",
+    "authorUrl": "https://www.pexels.com/@petra-g-3036820",
+    "pexelsUrl": "https://www.pexels.com/photo/wooden-railing-on-a-narrow-pathway-beside-the-sea-12758992/",
+    "query": "coastal trail walkway sea"
+  },
+  {
+    "id": "explore-canyon-view",
+    "file": "explore/explore-canyon-view.webp",
+    "source": "Pexels",
+    "author": "Vintage  Laka",
+    "authorUrl": "https://www.pexels.com/@vintage-laka-663423438",
+    "pexelsUrl": "https://www.pexels.com/photo/red-rocky-mountains-19019026/",
+    "query": "canyon view sinai egypt"
+  },
+  {
+    "id": "explore-lighthouse-2",
+    "file": "explore/explore-lighthouse-2.webp",
+    "source": "Pexels",
+    "author": "Msaidi Art",
+    "authorUrl": "https://www.pexels.com/@msaidi",
+    "pexelsUrl": "https://www.pexels.com/photo/stunning-view-of-cabo-bojador-lighthouse-at-dusk-38785637/",
+    "query": "lighthouse reef dahab"
+  },
+  {
+    "id": "explore-marina-boats",
+    "file": "explore/explore-marina-boats.webp",
+    "source": "Pexels",
+    "author": "Matthis Volquardsen",
+    "authorUrl": "https://www.pexels.com/@einfoto",
+    "pexelsUrl": "https://www.pexels.com/photo/luxury-yacht-at-sea-14137299/",
+    "query": "marina boats red sea egypt"
+  },
+  {
+    "id": "explore-island-distance",
+    "file": "explore/explore-island-distance.webp",
+    "source": "Pexels",
+    "author": "Sara Samir",
+    "authorUrl": "https://www.pexels.com/@sarasamirk",
+    "pexelsUrl": "https://www.pexels.com/photo/wooden-jetty-on-seashore-11573473/",
+    "query": "island distance sea view egypt"
+  },
+  {
+    "id": "explore-rock-arch",
+    "file": "explore/explore-rock-arch.webp",
+    "source": "Pexels",
+    "author": "Ken Cheung",
+    "authorUrl": "https://www.pexels.com/@ken-cheung-3355734",
+    "pexelsUrl": "https://www.pexels.com/photo/scenic-view-of-a-canyon-during-sunset-6983543/",
+    "query": "natural rock arch desert"
+  },
+  {
+    "id": "explore-sunrise-golden",
+    "file": "explore/explore-sunrise-golden.webp",
+    "source": "Pexels",
+    "author": "Dragan Cenic",
+    "authorUrl": "https://www.pexels.com/@dragancenic",
+    "pexelsUrl": "https://www.pexels.com/photo/stunning-sunrise-on-egyptian-beach-with-boat-30547808/",
+    "query": "sunrise golden hour sea egypt"
+  },
+  {
+    "id": "explore-cliff-drop",
+    "file": "explore/explore-cliff-drop.webp",
+    "source": "Pexels",
+    "author": "Sameh  Solow",
+    "authorUrl": "https://www.pexels.com/@sameh-solow-1279480285",
+    "pexelsUrl": "https://www.pexels.com/photo/barren-hills-along-gulf-of-aqaba-24286496/",
+    "query": "cliff drop sea sinai"
+  },
+  {
+    "id": "expreef-turtle-coral",
+    "file": "explore/expreef-turtle-coral.webp",
+    "source": "Pexels",
+    "author": "John Cahil Rom",
+    "authorUrl": "https://www.pexels.com/@cahilrom",
+    "pexelsUrl": "https://www.pexels.com/photo/brown-and-grey-turtle-in-underwater-photography-2314945/",
+    "query": "turtle coral reef underwater"
+  },
+  {
+    "id": "explore-local-souk",
+    "file": "explore/explore-local-souk.webp",
+    "source": "Pexels",
+    "author": "Rahib Oussama",
+    "authorUrl": "https://www.pexels.com/@rahib-oussama-2147578878",
+    "pexelsUrl": "https://www.pexels.com/photo/traditional-moroccan-market-scene-in-marrakesh-29678308/",
+    "query": "local souk market dahab"
+  },
+  {
+    "id": "attr-blue-hole-aerial",
+    "file": "attractions/attr-blue-hole-aerial.webp",
+    "source": "Pexels",
+    "author": "Jeffry Surianto",
+    "authorUrl": "https://www.pexels.com/@andromeda99",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-buildings-on-the-shore-in-dahab-egypt-17814812/",
+    "query": "blue hole aerial view dahab"
+  },
+  {
+    "id": "attr-ras-abu-galum",
+    "file": "attractions/attr-ras-abu-galum.webp",
+    "source": "Pexels",
+    "author": "Svetozar Milashevich",
+    "authorUrl": "https://www.pexels.com/@svetozar-milashevich-99573",
+    "pexelsUrl": "https://www.pexels.com/photo/yellow-watercrafts-against-the-background-of-mountains-and-the-sea-in-ras-mohammed-national-park-egypt-7974661/",
+    "query": "ras abu galum reserve sinai"
+  },
+  {
+    "id": "attr-three-pools",
+    "file": "attractions/attr-three-pools.webp",
+    "source": "Pexels",
+    "author": "William Chen",
+    "authorUrl": "https://www.pexels.com/@mavicair2tw",
+    "pexelsUrl": "https://www.pexels.com/photo/close-up-of-rock-formation-on-the-coast-of-sea-19753349/",
+    "query": "natural pools rock sea egypt"
+  },
+  {
+    "id": "attr-canyon-narrow",
+    "file": "attractions/attr-canyon-narrow.webp",
+    "source": "Pexels",
+    "author": "Francesco Ungaro",
+    "authorUrl": "https://www.pexels.com/@francesco-ungaro",
+    "pexelsUrl": "https://www.pexels.com/photo/the-view-from-the-top-of-a-canyon-in-wadi-27968682/",
+    "query": "narrow canyon sinai hiking"
+  },
+  {
+    "id": "attr-coral-garden-2",
+    "file": "attractions/attr-coral-garden-2.webp",
+    "source": "Pexels",
+    "author": "Francesco Ungaro",
+    "authorUrl": "https://www.pexels.com/@francesco-ungaro",
+    "pexelsUrl": "https://www.pexels.com/photo/undersea-view-of-a-coral-reef-and-a-school-of-red-fish-17668226/",
+    "query": "coral garden underwater red sea"
+  },
+  {
+    "id": "attr-eel-garden",
+    "file": "attractions/attr-eel-garden.webp",
+    "source": "Pexels",
+    "author": "Andreas Ebner",
+    "authorUrl": "https://www.pexels.com/@andreasebnerfotografie",
+    "pexelsUrl": "https://www.pexels.com/photo/close-up-of-a-spotted-garden-eel-14355608/",
+    "query": "garden eels sand underwater"
+  },
+  {
+    "id": "attr-house-reef",
+    "file": "attractions/attr-house-reef.webp",
+    "source": "Pexels",
+    "author": "Abdulaziz hasan",
+    "authorUrl": "https://www.pexels.com/@abdulaziz-hasan-2154785125",
+    "pexelsUrl": "https://www.pexels.com/photo/snorkeler-exploring-vibrant-coral-reef-waters-38208422/",
+    "query": "house reef shallow snorkeling"
+  },
+  {
+    "id": "attr-desert-mountain",
+    "file": "attractions/attr-desert-mountain.webp",
+    "source": "Pexels",
+    "author": "Ahmed zaki",
+    "authorUrl": "https://www.pexels.com/@zaki25",
+    "pexelsUrl": "https://www.pexels.com/photo/sunset-over-rocky-mountains-in-sharm-el-sheikh-28322806/",
+    "query": "desert mountain sinai landscape"
+  },
+  {
+    "id": "attr-sinai-highway",
+    "file": "attractions/attr-sinai-highway.webp",
+    "source": "Pexels",
+    "author": "Mustafa Sevi",
+    "authorUrl": "https://www.pexels.com/@mustafa-sevi-646200370",
+    "pexelsUrl": "https://www.pexels.com/photo/road-on-barren-desert-17869458/",
+    "query": "sinai highway desert road"
+  },
+  {
+    "id": "attr-st-catherine",
+    "file": "attractions/attr-st-catherine.webp",
+    "source": "Pexels",
+    "author": "Сокіл Sokil",
+    "authorUrl": "https://www.pexels.com/@sokil-2159771144",
+    "pexelsUrl": "https://www.pexels.com/photo/ancient-monastery-wall-in-rugged-desert-landscape-37305719/",
+    "query": "saint catherine monastery sinai"
+  },
+  {
+    "id": "attr-mangrove",
+    "file": "attractions/attr-mangrove.webp",
+    "source": "Pexels",
+    "author": "Faith Bissen",
+    "authorUrl": "https://www.pexels.com/@faith-bissen-924586961",
+    "pexelsUrl": "https://www.pexels.com/photo/scenic-mangrove-tunnel-in-roatan-honduras-39027002/",
+    "query": "mangrove trees coastal egypt"
+  },
+  {
+    "id": "attr-colored-canyon",
+    "file": "attractions/attr-colored-canyon.webp",
+    "source": "Pexels",
+    "author": "Vintage  Laka",
+    "authorUrl": "https://www.pexels.com/@vintage-laka-663423438",
+    "pexelsUrl": "https://www.pexels.com/photo/red-rocky-mountains-19019026/",
+    "query": "colored canyon sinai narrow"
+  },
+  {
+    "id": "attr-underwater-shipwreck",
+    "file": "attractions/attr-underwater-shipwreck.webp",
+    "source": "Pexels",
+    "author": "Ayden Zaki",
+    "authorUrl": "https://www.pexels.com/@aydenzaki",
+    "pexelsUrl": "https://www.pexels.com/photo/photo-of-scuba-diver-swimming-underwater-6858231/",
+    "query": "shipwreck underwater diving egypt"
+  },
+  {
+    "id": "attr-reef-wall",
+    "file": "attractions/attr-reef-wall.webp",
+    "source": "Pexels",
+    "author": "Francesco Ungaro",
+    "authorUrl": "https://www.pexels.com/@francesco-ungaro",
+    "pexelsUrl": "https://www.pexels.com/photo/view-of-corals-13561342/",
+    "query": "reef wall drop off diving"
+  },
+  {
+    "id": "book-diving-gear",
+    "file": "booking/book-diving-gear.webp",
+    "source": "Pexels",
+    "author": "Kindel Media",
+    "authorUrl": "https://www.pexels.com/@kindelmedia",
+    "pexelsUrl": "https://www.pexels.com/photo/a-man-in-wetsuit-wearing-gloves-8826347/",
+    "query": "diving gear equipment preparation"
+  },
+  {
+    "id": "attr-beach-pebbles",
+    "file": "attractions/attr-beach-pebbles.webp",
+    "source": "Pexels",
+    "author": "Rewan Ahmed",
+    "authorUrl": "https://www.pexels.com/@rouwa",
+    "pexelsUrl": "https://www.pexels.com/photo/golden-beach-shoreline-in-nuweiba-egypt-36032962/",
+    "query": "pebble beach sinai coast"
+  },
+  {
+    "id": "book-hotel-exterior",
+    "file": "booking/book-hotel-exterior.webp",
+    "source": "Pexels",
+    "author": "Jeffry Surianto",
+    "authorUrl": "https://www.pexels.com/@andromeda99",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-buildings-on-the-shore-in-dahab-egypt-17814812/",
+    "query": "hotel exterior dahab coast"
+  },
+  {
+    "id": "book-transfer-van",
+    "file": "booking/book-transfer-van.webp",
+    "source": "Pexels",
+    "author": "Yazid N",
+    "authorUrl": "https://www.pexels.com/@mzynasx",
+    "pexelsUrl": "https://www.pexels.com/photo/white-minivan-parked-at-modern-airport-terminal-39075475/",
+    "query": "transfer van airport egypt"
+  },
+  {
+    "id": "book-safari-jeep",
+    "file": "booking/book-safari-jeep.webp",
+    "source": "Pexels",
+    "author": "Vintage  Laka",
+    "authorUrl": "https://www.pexels.com/@vintage-laka-663423438",
+    "pexelsUrl": "https://www.pexels.com/photo/white-jeep-on-a-desert-18725446/",
+    "query": "safari jeep desert sinai"
+  },
+  {
+    "id": "book-resort-aerial",
+    "file": "booking/book-resort-aerial.webp",
+    "source": "Pexels",
+    "author": "Jeffry Surianto",
+    "authorUrl": "https://www.pexels.com/@andromeda99",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-buildings-on-the-shore-in-dahab-egypt-17814812/",
+    "query": "resort aerial view red sea"
+  },
+  {
+    "id": "book-diving-class",
+    "file": "booking/book-diving-class.webp",
+    "source": "Pexels",
+    "author": "Michele Correa",
+    "authorUrl": "https://www.pexels.com/@michele-correa-936510463",
+    "pexelsUrl": "https://www.pexels.com/photo/people-freediving-in-swimming-pool-20045760/",
+    "query": "diving class instruction pool"
+  },
+  {
+    "id": "book-sunset-quad",
+    "file": "booking/book-sunset-quad.webp",
+    "source": "Pexels",
+    "author": "Septimiu Lupea",
+    "authorUrl": "https://www.pexels.com/@septimiu-lupea-271955805",
+    "pexelsUrl": "https://www.pexels.com/photo/desert-adventure-with-atvs-at-sunset-35427232/",
+    "query": "quad bike sunset desert"
+  },
+  {
+    "id": "book-hotel-pool-2",
+    "file": "booking/book-hotel-pool-2.webp",
+    "source": "Pexels",
+    "author": "Pavel Danilyuk",
+    "authorUrl": "https://www.pexels.com/@pavel-danilyuk",
+    "pexelsUrl": "https://www.pexels.com/photo/swimming-pool-near-concrete-building-during-nighttime-9119782/",
+    "query": "hotel pool evening lights"
+  },
+  {
+    "id": "book-sinai-mountains",
+    "file": "booking/book-sinai-mountains.webp",
+    "source": "Pexels",
+    "author": "Torie Roman",
+    "authorUrl": "https://www.pexels.com/@torie-roman-70202610",
+    "pexelsUrl": "https://www.pexels.com/photo/view-from-mount-sinai-11560860/",
+    "query": "sinai mountains panoramic"
+  },
+  {
+    "id": "book-boat-deck",
+    "file": "booking/book-boat-deck.webp",
+    "source": "Pexels",
+    "author": "emre varışlı",
+    "authorUrl": "https://www.pexels.com/@emre-varisli-506660537",
+    "pexelsUrl": "https://www.pexels.com/photo/empty-seats-on-vessel-16145003/",
+    "query": "boat deck sea view relax"
+  },
+  {
+    "id": "book-beach-umbrella",
+    "file": "booking/book-beach-umbrella.webp",
+    "source": "Pexels",
+    "author": "Agung Pandit Wiguna",
+    "authorUrl": "https://www.pexels.com/@panditwiguna",
+    "pexelsUrl": "https://www.pexels.com/photo/summery-fringe-umbrellas-overlooking-the-ocean-39460907/",
+    "query": "beach umbrella sun sea"
+  },
+  {
+    "id": "book-desert-camp-2",
+    "file": "booking/book-desert-camp-2.webp",
+    "source": "Pexels",
+    "author": "Funda D.",
+    "authorUrl": "https://www.pexels.com/@fundademirtas",
+    "pexelsUrl": "https://www.pexels.com/photo/man-in-front-of-a-camp-fire-11689853/",
+    "query": "desert camp bonfire night"
+  },
+  {
+    "id": "book-canyon-hike",
+    "file": "booking/book-canyon-hike.webp",
+    "source": "Pexels",
+    "author": "Youhana Nassif",
+    "authorUrl": "https://www.pexels.com/@youhananassif",
+    "pexelsUrl": "https://www.pexels.com/photo/hikers-ascending-rocky-path-in-south-sinai-38498626/",
+    "query": "canyon hiking group sinai"
+  },
+  {
+    "id": "book-snorkel-set",
+    "file": "booking/book-snorkel-set.webp",
+    "source": "Pexels",
+    "author": "Maël  BALLAND",
+    "authorUrl": "https://www.pexels.com/@toulouse",
+    "pexelsUrl": "https://www.pexels.com/photo/clothes-hanged-on-blue-wooden-door-14339760/",
+    "query": "snorkel mask set equipment"
+  },
+  {
+    "id": "rest-seafood-display",
+    "file": "restaurants/rest-seafood-display.webp",
+    "source": "Pexels",
+    "author": "Mathias Reding",
+    "authorUrl": "https://www.pexels.com/@matreding",
+    "pexelsUrl": "https://www.pexels.com/photo/seafood-in-ice-on-stall-11299587/",
+    "query": "seafood display restaurant fresh"
+  },
+  {
+    "id": "book-checkin-desk",
+    "file": "booking/book-checkin-desk.webp",
+    "source": "Pexels",
+    "author": "Mikhail Nilov",
+    "authorUrl": "https://www.pexels.com/@mikhail-nilov",
+    "pexelsUrl": "https://www.pexels.com/photo/man-walking-up-to-the-reception-desk-7820360/",
+    "query": "hotel checkin reception desk"
+  },
+  {
+    "id": "rest-rooftop-night",
+    "file": "restaurants/rest-rooftop-night.webp",
+    "source": "Pexels",
+    "author": "Denys Gromov",
+    "authorUrl": "https://www.pexels.com/@jdgromov",
+    "pexelsUrl": "https://www.pexels.com/photo/restaurant-on-terrace-with-view-of-dubai-skyscrapers-4765862/",
+    "query": "rooftop restaurant night city"
+  },
+  {
+    "id": "rest-egyptian-interior",
+    "file": "restaurants/rest-egyptian-interior.webp",
+    "source": "Pexels",
+    "author": "Khaled Hegazy",
+    "authorUrl": "https://www.pexels.com/@khaled-hegazy-302581620",
+    "pexelsUrl": "https://www.pexels.com/photo/decorated-vintage-interior-17935961/",
+    "query": "egyptian restaurant interior"
+  },
+  {
+    "id": "rest-middle-eastern",
+    "file": "restaurants/rest-middle-eastern.webp",
+    "source": "Pexels",
+    "author": "Crab Lens",
+    "authorUrl": "https://www.pexels.com/@crab-lens-179881567",
+    "pexelsUrl": "https://www.pexels.com/photo/a-grayscale-of-an-interior-of-a-cafe-13403429/",
+    "query": "middle eastern restaurant decor"
+  },
+  {
+    "id": "rest-pastry-display",
+    "file": "restaurants/rest-pastry-display.webp",
+    "source": "Pexels",
+    "author": "James Collington",
+    "authorUrl": "https://www.pexels.com/@james-collington-2147687246",
+    "pexelsUrl": "https://www.pexels.com/photo/assorted-pastries-in-bakery-display-case-31132630/",
+    "query": "pastry display case bakery"
+  },
+  {
+    "id": "rest-beach-shack",
+    "file": "restaurants/rest-beach-shack.webp",
+    "source": "Pexels",
+    "author": "Luis Quintero",
+    "authorUrl": "https://www.pexels.com/@jibarofoto",
+    "pexelsUrl": "https://www.pexels.com/photo/brown-wooden-cottage-near-beach-1496516/",
+    "query": "beach shack restaurant wooden"
+  },
+  {
+    "id": "rest-street-food-2",
+    "file": "restaurants/rest-street-food-2.webp",
+    "source": "Pexels",
+    "author": "Muhammed Fatih Beki",
+    "authorUrl": "https://www.pexels.com/@mfbeki",
+    "pexelsUrl": "https://www.pexels.com/photo/horse-drawn-carriage-in-alexandria-street-scene-36429671/",
+    "query": "egyptian street food cart"
+  },
+  {
+    "id": "rest-morning-cafe",
+    "file": "restaurants/rest-morning-cafe.webp",
+    "source": "Pexels",
+    "author": "Suzy Hazelwood",
+    "authorUrl": "https://www.pexels.com/@suzyhazelwood",
+    "pexelsUrl": "https://www.pexels.com/photo/grayscale-photo-of-table-and-chairs-10389450/",
+    "query": "morning cafe sunlight table"
+  },
+  {
+    "id": "rest-traditional-coffee",
+    "file": "restaurants/rest-traditional-coffee.webp",
+    "source": "Pexels",
+    "author": "Dzenina Lukac",
+    "authorUrl": "https://www.pexels.com/@dzeninalukac",
+    "pexelsUrl": "https://www.pexels.com/photo/brass-coffee-laddle-1469903/",
+    "query": "traditional coffee service brass"
+  },
+  {
+    "id": "rest-seafood-grill-3",
+    "file": "restaurants/rest-seafood-grill-3.webp",
+    "source": "Pexels",
+    "author": "Quang Nguyen Vinh",
+    "authorUrl": "https://www.pexels.com/@quang-nguyen-vinh-222549",
+    "pexelsUrl": "https://www.pexels.com/photo/woman-grilling-fish-on-a-market-6872125/",
+    "query": "seafood grill charcoal flame"
+  },
+  {
+    "id": "rest-romantic-table",
+    "file": "restaurants/rest-romantic-table.webp",
+    "source": "Pexels",
+    "author": "https://kaboompics.com/",
+    "authorUrl": "https://www.pexels.com/@karola-g",
+    "pexelsUrl": "https://www.pexels.com/photo/a-couple-sitting-at-the-table-8902860/",
+    "query": "romantic dinner table candles"
+  },
+  {
+    "id": "rest-family-dinner",
+    "file": "restaurants/rest-family-dinner.webp",
+    "source": "Pexels",
+    "author": "Askar Abayev",
+    "authorUrl": "https://www.pexels.com/@askar-abayev",
+    "pexelsUrl": "https://www.pexels.com/photo/multigenerational-family-in-warm-clothes-enjoying-celebration-dinner-together-outdoors-5638704/",
+    "query": "family dinner gathering warm"
+  },
+  {
+    "id": "rest-sunset-terrace",
+    "file": "restaurants/rest-sunset-terrace.webp",
+    "source": "Pexels",
+    "author": "Ahmet ÇÖTÜR",
+    "authorUrl": "https://www.pexels.com/@ahmetcotur",
+    "pexelsUrl": "https://www.pexels.com/photo/garden-furniture-in-the-terrace-of-holiday-home-overlooking-the-sea-19075381/",
+    "query": "sunset terrace dining sea"
+  },
+  {
+    "id": "rest-tea-glass",
+    "file": "restaurants/rest-tea-glass.webp",
+    "source": "Pexels",
+    "author": "Zana Lookman",
+    "authorUrl": "https://www.pexels.com/@zana-lookman-1289777903",
+    "pexelsUrl": "https://www.pexels.com/photo/teapot-and-cups-on-a-tray-24864420/",
+    "query": "tea glass traditional brass tray"
+  },
+  {
+    "id": "itin-day1-morning",
+    "file": "itinerary/itin-day1-morning.webp",
+    "source": "Pexels",
+    "author": "Ally Eid",
+    "authorUrl": "https://www.pexels.com/@allyeid",
+    "pexelsUrl": "https://www.pexels.com/photo/man-silhouette-at-dusk-7731239/",
+    "query": "morning dahab beach quiet"
+  },
+  {
+    "id": "rest-brunch-spread",
+    "file": "restaurants/rest-brunch-spread.webp",
+    "source": "Pexels",
+    "author": "İslam Abruev",
+    "authorUrl": "https://www.pexels.com/@i-slam-abruev-2157269750",
+    "pexelsUrl": "https://www.pexels.com/photo/luxurious-breakfast-spread-on-rustic-table-38391479/",
+    "query": "brunch spread table variety"
+  },
+  {
+    "id": "itin-day2-dive",
+    "file": "itinerary/itin-day2-dive.webp",
+    "source": "Pexels",
+    "author": "Maël  BALLAND",
+    "authorUrl": "https://www.pexels.com/@toulouse",
+    "pexelsUrl": "https://www.pexels.com/photo/scuba-divers-swimming-underwater-3098980/",
+    "query": "diving day blue hole group"
+  },
+  {
+    "id": "itin-day3-desert",
+    "file": "itinerary/itin-day3-desert.webp",
+    "source": "Pexels",
+    "author": "Malik Cil",
+    "authorUrl": "https://www.pexels.com/@epirojenes",
+    "pexelsUrl": "https://www.pexels.com/photo/bedouins-on-camels-on-desert-16959271/",
+    "query": "desert safari day sinai"
+  },
+  {
+    "id": "itin-day4-beach",
+    "file": "itinerary/itin-day4-beach.webp",
+    "source": "Pexels",
+    "author": "Agung Pandit Wiguna",
+    "authorUrl": "https://www.pexels.com/@panditwiguna",
+    "pexelsUrl": "https://www.pexels.com/photo/umbrellas-and-sunbeds-on-beach-in-rain-10683235/",
+    "query": "beach relax day quiet"
+  },
+  {
+    "id": "itin-day5-cultural",
+    "file": "itinerary/itin-day5-cultural.webp",
+    "source": "Pexels",
+    "author": "Сокіл Sokil",
+    "authorUrl": "https://www.pexels.com/@sokil-2159771144",
+    "pexelsUrl": "https://www.pexels.com/photo/ancient-monastery-wall-in-rugged-desert-landscape-37305719/",
+    "query": "cultural visit monastery sinai"
+  },
+  {
+    "id": "itin-day6-hike",
+    "file": "itinerary/itin-day6-hike.webp",
+    "source": "Pexels",
+    "author": "Khaled Hegazy",
+    "authorUrl": "https://www.pexels.com/@khaled-hegazy-302581620",
+    "pexelsUrl": "https://www.pexels.com/photo/hiker-exploring-rugged-sinai-mountains-35749881/",
+    "query": "hiking trail sinai mountain"
+  },
+  {
+    "id": "itin-day7-sunset",
+    "file": "itinerary/itin-day7-sunset.webp",
+    "source": "Pexels",
+    "author": "Sameh  Solow",
+    "authorUrl": "https://www.pexels.com/@sameh-solow-1279480285",
+    "pexelsUrl": "https://www.pexels.com/photo/kitesurfing-on-sea-coast-at-sunset-24286488/",
+    "query": "sunset farewell dahab"
+  },
+  {
+    "id": "itin-morning-yoga",
+    "file": "itinerary/itin-morning-yoga.webp",
+    "source": "Pexels",
+    "author": "Ayşegül  Aytören",
+    "authorUrl": "https://www.pexels.com/@aysegul-aytoren-46790226",
+    "pexelsUrl": "https://www.pexels.com/photo/person-stretching-on-the-coast-at-dawn-16111007/",
+    "query": "morning yoga beach sunrise"
+  },
+  {
+    "id": "itin-afternoon-snorkel",
+    "file": "itinerary/itin-afternoon-snorkel.webp",
+    "source": "Pexels",
+    "author": "Abdulaziz hasan",
+    "authorUrl": "https://www.pexels.com/@abdulaziz-hasan-2154785125",
+    "pexelsUrl": "https://www.pexels.com/photo/snorkeler-exploring-vibrant-coral-reef-waters-38208422/",
+    "query": "afternoon snorkeling reef"
+  },
+  {
+    "id": "itin-evening-tea",
+    "file": "itinerary/itin-evening-tea.webp",
+    "source": "Pexels",
+    "author": "abdullah çadırcı",
+    "authorUrl": "https://www.pexels.com/@abdullahcadirci",
+    "pexelsUrl": "https://www.pexels.com/photo/man-in-traditional-dress-heating-water-in-a-metal-kettle-in-a-tent-7735896/",
+    "query": "evening tea bedouin tent"
+  },
+  {
+    "id": "transfer-airport",
+    "file": "transfers/transfer-airport.webp",
+    "source": "Pexels",
+    "author": "Sameh  Solow",
+    "authorUrl": "https://www.pexels.com/@sameh-solow-1279480285",
+    "pexelsUrl": "https://www.pexels.com/photo/kitesurfing-on-sea-coast-at-sunset-24286488/",
+    "query": "airport terminal egypt dahab"
+  },
+  {
+    "id": "transfer-highway",
+    "file": "transfers/transfer-highway.webp",
+    "source": "Pexels",
+    "author": "Mustafa Sevi",
+    "authorUrl": "https://www.pexels.com/@mustafa-sevi-646200370",
+    "pexelsUrl": "https://www.pexels.com/photo/road-on-barren-desert-17869458/",
+    "query": "highway desert road sinai"
+  },
+  {
+    "id": "transfer-scenic",
+    "file": "transfers/transfer-scenic.webp",
+    "source": "Pexels",
+    "author": "Pole Oluline",
+    "authorUrl": "https://www.pexels.com/@pole-oluline-357825046",
+    "pexelsUrl": "https://www.pexels.com/photo/view-of-a-car-driving-on-a-street-along-the-coast-with-view-of-blue-water-under-clear-sky-15767315/",
+    "query": "scenic coastal drive red sea"
+  },
+  {
+    "id": "transfer-van-interior",
+    "file": "transfers/transfer-van-interior.webp",
+    "source": "Pexels",
+    "author": "Lee Salem",
+    "authorUrl": "https://www.pexels.com/@charlotteblackcarservice",
+    "pexelsUrl": "https://www.pexels.com/photo/interior-of-spacious-black-leather-minivan-36377055/",
+    "query": "van interior comfortable seats"
+  },
+  {
+    "id": "transfer-suv-2",
+    "file": "transfers/transfer-suv-2.webp",
+    "source": "Pexels",
+    "author": "Stephen Leonardi",
+    "authorUrl": "https://www.pexels.com/@stephen-leonardi-587681991",
+    "pexelsUrl": "https://www.pexels.com/photo/suv-off-roading-adventure-in-the-desert-landscape-28638873/",
+    "query": "suv desert road dust"
+  },
+  {
+    "id": "transfer-intercity",
+    "file": "transfers/transfer-intercity.webp",
+    "source": "Pexels",
+    "author": "Kareem Abo el magd",
+    "authorUrl": "https://www.pexels.com/@kareem-abo-el-magd-1837542975",
+    "pexelsUrl": "https://www.pexels.com/photo/twilight-urban-street-in-damanhour-egypt-36513328/",
+    "query": "intercity road egypt landscape"
+  },
+  {
+    "id": "transfer-night-drive",
+    "file": "transfers/transfer-night-drive.webp",
+    "source": "Pexels",
+    "author": "Burak The Weekender",
+    "authorUrl": "https://www.pexels.com/@weekendplayer",
+    "pexelsUrl": "https://www.pexels.com/photo/bokeh-lights-67088/",
+    "query": "night drive road lights"
+  },
+  {
+    "id": "rent-bike",
+    "file": "rentals/rent-bike.webp",
+    "source": "Pexels",
+    "author": "Luciana Lambert",
+    "authorUrl": "https://www.pexels.com/@luciana-lambert-2855856",
+    "pexelsUrl": "https://www.pexels.com/photo/people-riding-bicycles-near-the-sea-5990283/",
+    "query": "bicycle bike beach promenade"
+  },
+  {
+    "id": "transfer-boat-transfer",
+    "file": "transfers/transfer-boat-transfer.webp",
+    "source": "Pexels",
+    "author": "Yunus KALÇIK",
+    "authorUrl": "https://www.pexels.com/@yunus-kalcik-767005764",
+    "pexelsUrl": "https://www.pexels.com/photo/motorboat-on-sea-coast-in-istanbul-19364152/",
+    "query": "boat transfer sea crossing"
+  },
+  {
+    "id": "rent-snorkel-gear",
+    "file": "rentals/rent-snorkel-gear.webp",
+    "source": "Pexels",
+    "author": "mali maeder",
+    "authorUrl": "https://www.pexels.com/@mali",
+    "pexelsUrl": "https://www.pexels.com/photo/black-rubber-flipper-on-gray-concrete-surface-during-daytime-91474/",
+    "query": "snorkel gear mask fins"
+  },
+  {
+    "id": "rent-e-bike",
+    "file": "rentals/rent-e-bike.webp",
+    "source": "Pexels",
+    "author": "Jean Fourche",
+    "authorUrl": "https://www.pexels.com/@jean-fourche-1046629814",
+    "pexelsUrl": "https://www.pexels.com/photo/bicycle-with-surfboard-in-biarritz-sunset-39474820/",
+    "query": "electric bike coast road"
+  },
+  {
+    "id": "rent-kayak",
+    "file": "rentals/rent-kayak.webp",
+    "source": "Pexels",
+    "author": "dansev",
+    "authorUrl": "https://www.pexels.com/@dansev-537664851",
+    "pexelsUrl": "https://www.pexels.com/photo/colorful-kayaks-on-a-beach-shoreline-36886714/",
+    "query": "kayak beach red sea"
+  },
+  {
+    "id": "rent-sup-board",
+    "file": "rentals/rent-sup-board.webp",
+    "source": "Pexels",
+    "author": "zeynep uluç",
+    "authorUrl": "https://www.pexels.com/@zeynep",
+    "pexelsUrl": "https://www.pexels.com/photo/paddleboarding-on-a-calm-sea-under-blue-sky-38928869/",
+    "query": "paddleboard sup water calm"
+  },
+  {
+    "id": "rent-jeep",
+    "file": "rentals/rent-jeep.webp",
+    "source": "Pexels",
+    "author": "Borys Zaitsev",
+    "authorUrl": "https://www.pexels.com/@mrborys",
+    "pexelsUrl": "https://www.pexels.com/photo/vehicle-travelling-in-the-desert-7973415/",
+    "query": "jeep rental desert sinai"
+  },
+  {
+    "id": "rent-scooter",
+    "file": "rentals/rent-scooter.webp",
+    "source": "Pexels",
+    "author": "G. Jau",
+    "authorUrl": "https://www.pexels.com/@gjau",
+    "pexelsUrl": "https://www.pexels.com/photo/vintage-scooters-parked-on-italian-street-38774195/",
+    "query": "scooter moped coastal town"
+  },
+  {
+    "id": "live-blue-hole-2",
+    "file": "live/live-blue-hole-2.webp",
+    "source": "Pexels",
+    "author": "Jeffry Surianto",
+    "authorUrl": "https://www.pexels.com/@andromeda99",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-buildings-on-the-shore-in-dahab-egypt-17814812/",
+    "query": "blue hole spot dahab"
+  },
+  {
+    "id": "live-lighthouse-2",
+    "file": "live/live-lighthouse-2.webp",
+    "source": "Pexels",
+    "author": "Francesco Ungaro",
+    "authorUrl": "https://www.pexels.com/@francesco-ungaro",
+    "pexelsUrl": "https://www.pexels.com/photo/blackside-hawkfish-and-coral-reef-13610657/",
+    "query": "lighthouse reef dahab camera"
+  },
+  {
+    "id": "rent-equipment",
+    "file": "rentals/rent-equipment.webp",
+    "source": "Pexels",
+    "author": "Kampus Production",
+    "authorUrl": "https://www.pexels.com/@kampus",
+    "pexelsUrl": "https://www.pexels.com/photo/blue-surfboard-on-the-sand-7938888/",
+    "query": "water sports equipment beach"
+  },
+  {
+    "id": "live-canyon-2",
+    "file": "live/live-canyon-2.webp",
+    "source": "Pexels",
+    "author": "Ayden Zaki",
+    "authorUrl": "https://www.pexels.com/@aydenzaki",
+    "pexelsUrl": "https://www.pexels.com/photo/man-in-black-diving-suit-under-water-8029908/",
+    "query": "canyon dive site dahab"
+  },
+  {
+    "id": "live-lagoon-2",
+    "file": "live/live-lagoon-2.webp",
+    "source": "Pexels",
+    "author": "Moussa Idrissi",
+    "authorUrl": "https://www.pexels.com/@mographe",
+    "pexelsUrl": "https://www.pexels.com/photo/kitesurfing-adventure-in-dakhla-s-scenic-lagoon-30560213/",
+    "query": "lagoon kitesurf spot dahab"
+  },
+  {
+    "id": "conc-hero-beach",
+    "file": "hero/conc-hero-beach.webp",
+    "source": "Pexels",
+    "author": "Sameh  Solow",
+    "authorUrl": "https://www.pexels.com/@sameh-solow-1279480285",
+    "pexelsUrl": "https://www.pexels.com/photo/kitesurfing-on-sea-coast-at-sunset-24286488/",
+    "query": "dahab beach golden sand egypt"
+  },
+  {
+    "id": "conc-hero-sunset",
+    "file": "hero/conc-hero-sunset.webp",
+    "source": "Pexels",
+    "author": "Sameh  Solow",
+    "authorUrl": "https://www.pexels.com/@sameh-solow-1279480285",
+    "pexelsUrl": "https://www.pexels.com/photo/kitesurfing-on-sea-coast-at-sunset-24286488/",
+    "query": "sunset dahab sea golden"
+  },
+  {
+    "id": "conc-hero-reef",
+    "file": "hero/conc-hero-reef.webp",
+    "source": "Pexels",
+    "author": "Mo Ismail",
+    "authorUrl": "https://www.pexels.com/@mo-ismail-2130628",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-boats-on-sea-22643815/",
+    "query": "coral reef aerial red sea"
+  },
+  {
+    "id": "conc-hero-desert",
+    "file": "hero/conc-hero-desert.webp",
+    "source": "Pexels",
+    "author": "Rana Obaid",
+    "authorUrl": "https://www.pexels.com/@rana",
+    "pexelsUrl": "https://www.pexels.com/photo/deserted-field-841343/",
+    "query": "sinai desert panoramic egypt"
+  },
+  {
+    "id": "splash-aerial",
+    "file": "hero/splash-aerial.webp",
+    "source": "Pexels",
+    "author": "Jeffry Surianto",
+    "authorUrl": "https://www.pexels.com/@andromeda99",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-buildings-on-the-shore-in-dahab-egypt-17814812/",
+    "query": "aerial dahab coast blue water"
+  },
+  {
+    "id": "splash-underwater",
+    "file": "hero/splash-underwater.webp",
+    "source": "Pexels",
+    "author": "Atlantic Ambience",
+    "authorUrl": "https://www.pexels.com/@freestockpro",
+    "pexelsUrl": "https://www.pexels.com/photo/three-people-diving-on-body-of-water-1540108/",
+    "query": "underwater diver blue sea egypt"
+  },
+  {
+    "id": "conc-hero-mountain",
+    "file": "hero/conc-hero-mountain.webp",
+    "source": "Pexels",
+    "author": "Ahmed zaki",
+    "authorUrl": "https://www.pexels.com/@zaki25",
+    "pexelsUrl": "https://www.pexels.com/photo/sunset-over-rocky-mountains-in-sharm-el-sheikh-28322806/",
+    "query": "sinai mountain range egypt"
+  },
+  {
+    "id": "story-snorkel-kid",
+    "file": "gallery/story-snorkel-kid.webp",
+    "source": "Pexels",
+    "author": "Dana Englich",
+    "authorUrl": "https://www.pexels.com/@dana-englich-6925954",
+    "pexelsUrl": "https://www.pexels.com/photo/girl-while-snorkeling-5985956/",
+    "query": "kid snorkeling shallow water"
+  },
+  {
+    "id": "splash-beach-palm",
+    "file": "hero/splash-beach-palm.webp",
+    "source": "Pexels",
+    "author": "Jeffry Surianto",
+    "authorUrl": "https://www.pexels.com/@andromeda99",
+    "pexelsUrl": "https://www.pexels.com/photo/aerial-view-of-buildings-on-the-shore-in-dahab-egypt-17814812/",
+    "query": "palm trees beach resort dahab"
+  },
+  {
+    "id": "splash-desert-golden",
+    "file": "hero/splash-desert-golden.webp",
+    "source": "Pexels",
+    "author": "Layla Yehia",
+    "authorUrl": "https://www.pexels.com/@layla-yehia-2193740",
+    "pexelsUrl": "https://www.pexels.com/photo/brown-sand-under-blue-sky-3880383/",
+    "query": "desert golden sand dunes egypt"
+  },
+  {
+    "id": "story-beach-sunset-2",
+    "file": "gallery/story-beach-sunset-2.webp",
+    "source": "Pexels",
+    "author": "Vitaly Gariev",
+    "authorUrl": "https://www.pexels.com/@silverkblack",
+    "pexelsUrl": "https://www.pexels.com/photo/silhouettes-celebrate-sunset-with-smoke-bombs-36713111/",
+    "query": "friends beach sunset silhouettes"
+  },
+  {
+    "id": "story-diver-selfie",
+    "file": "gallery/story-diver-selfie.webp",
+    "source": "Pexels",
+    "author": "John Cahil Rom",
+    "authorUrl": "https://www.pexels.com/@cahilrom",
+    "pexelsUrl": "https://www.pexels.com/photo/snorkeling-man-underwater-photography-3041872/",
+    "query": "diver selfie underwater reef"
+  },
+  {
+    "id": "story-campfire",
+    "file": "gallery/story-campfire.webp",
+    "source": "Pexels",
+    "author": "Stephen Leonardi",
+    "authorUrl": "https://www.pexels.com/@stephen-leonardi-587681991",
+    "pexelsUrl": "https://www.pexels.com/photo/starlit-camping-in-desert-with-friends-28638981/",
+    "query": "campfire desert night friends"
+  },
+  {
+    "id": "story-market-browse",
+    "file": "gallery/story-market-browse.webp",
+    "source": "Pexels",
+    "author": "Valentin Ilas",
+    "authorUrl": "https://www.pexels.com/@valentin-ilas-2154050328",
+    "pexelsUrl": "https://www.pexels.com/photo/cozy-evening-market-stall-shopping-experience-35099510/",
+    "query": "browsing local market crafts"
+  },
+  {
+    "id": "plan-adventure",
+    "file": "planner/plan-adventure.webp",
+    "source": "Pexels",
+    "author": "Youhana Nassif",
+    "authorUrl": "https://www.pexels.com/@youhananassif",
+    "pexelsUrl": "https://www.pexels.com/photo/hikers-ascending-rocky-path-in-south-sinai-38498626/",
+    "query": "adventure activity outdoor sinai"
+  },
+  {
+    "id": "plan-relax",
+    "file": "planner/plan-relax.webp",
+    "source": "Pexels",
+    "author": "Elina Sazonova",
+    "authorUrl": "https://www.pexels.com/@elina-sazonova",
+    "pexelsUrl": "https://www.pexels.com/photo/shallow-focus-of-hanging-woven-hammock-4206584/",
+    "query": "relaxing beach hammock quiet"
+  },
+  {
+    "id": "plan-foodie",
+    "file": "planner/plan-foodie.webp",
+    "source": "Pexels",
+    "author": "Bert Christiaens",
+    "authorUrl": "https://www.pexels.com/@bert-christiaens-2570221",
+    "pexelsUrl": "https://www.pexels.com/photo/food-on-a-plate-5555878/",
+    "query": "foodie experience local cuisine"
+  },
+  {
+    "id": "plan-cultural",
+    "file": "planner/plan-cultural.webp",
+    "source": "Pexels",
+    "author": "Omar Abozeid",
+    "authorUrl": "https://www.pexels.com/@omar-abozeid-155326595",
+    "pexelsUrl": "https://www.pexels.com/photo/egyptian-man-pointing-in-traditional-garb-outdoors-35540045/",
+    "query": "cultural experience egypt local"
+  },
+  {
+    "id": "plan-family",
+    "file": "planner/plan-family.webp",
+    "source": "Pexels",
+    "author": "Bulat Khamitov",
+    "authorUrl": "https://www.pexels.com/@bulat",
+    "pexelsUrl": "https://www.pexels.com/photo/a-kid-wearing-cap-and-white-long-sleeves-sitting-on-the-shore-of-a-beach-4547557/",
+    "query": "family vacation beach kids"
+  },
+  {
+    "id": "plan-solo",
+    "file": "planner/plan-solo.webp",
+    "source": "Pexels",
+    "author": "Alexey Demidov",
+    "authorUrl": "https://www.pexels.com/@alexeydemidov",
+    "pexelsUrl": "https://www.pexels.com/photo/backview-of-a-backpacker-10887435/",
+    "query": "solo traveler backpack beach"
+  },
+  {
+    "id": "plan-couple",
+    "file": "planner/plan-couple.webp",
+    "source": "Pexels",
+    "author": "Ray Bilcliff",
+    "authorUrl": "https://www.pexels.com/@raybilcliff",
+    "pexelsUrl": "https://www.pexels.com/photo/couple-standing-on-rocky-shore-14262829/",
+    "query": "couple romantic sunset beach"
+  },
+  {
+    "id": "mytrip-hero-beach",
+    "file": "mytrip/mytrip-hero-beach.webp",
+    "source": "Pexels",
+    "author": "Tomi Saputra",
+    "authorUrl": "https://www.pexels.com/@udatommo",
+    "pexelsUrl": "https://www.pexels.com/photo/sunny-day-at-bali-beach-with-surfers-39233944/",
+    "query": "trip hero beach panorama"
+  },
+  {
+    "id": "mytrip-hero-desert",
+    "file": "mytrip/mytrip-hero-desert.webp",
+    "source": "Pexels",
+    "author": "MART  PRODUCTION",
+    "authorUrl": "https://www.pexels.com/@mart-production",
+    "pexelsUrl": "https://www.pexels.com/photo/a-man-and-a-woman-walking-on-brown-sand-8869296/",
+    "query": "trip hero desert adventure"
+  },
+  {
+    "id": "mytrip-hero-dive",
+    "file": "mytrip/mytrip-hero-dive.webp",
+    "source": "Pexels",
+    "author": "Graham Henderson",
+    "authorUrl": "https://www.pexels.com/@graham-henderson-37078134",
+    "pexelsUrl": "https://www.pexels.com/photo/snake-near-people-diving-7169290/",
+    "query": "trip hero diving underwater"
+  },
+  {
+    "id": "mytrip-hero-sunset",
+    "file": "mytrip/mytrip-hero-sunset.webp",
+    "source": "Pexels",
+    "author": "Valter Zhara",
+    "authorUrl": "https://www.pexels.com/@valter-zhara-164968736",
+    "pexelsUrl": "https://www.pexels.com/photo/silhouette-of-men-on-a-boat-during-sunset-12476838/",
+    "query": "trip hero sunset calm"
+  },
+  {
+    "id": "journ-arrival",
+    "file": "journey/journ-arrival.webp",
+    "source": "Pexels",
+    "author": "Omkar Pendsay",
+    "authorUrl": "https://www.pexels.com/@omkar-pendsay-432283713",
+    "pexelsUrl": "https://www.pexels.com/photo/view-of-people-walking-in-the-airport-hallway-17259764/",
+    "query": "airport arrival gate egypt"
+  },
+  {
+    "id": "journ-packing",
+    "file": "journey/journ-packing.webp",
+    "source": "Pexels",
+    "author": "Ketut Subiyanto",
+    "authorUrl": "https://www.pexels.com/@ketut-subiyanto",
+    "pexelsUrl": "https://www.pexels.com/photo/focus-woman-packing-suitcase-on-bed-4245905/",
+    "query": "packing suitcase travel preparation"
+  },
+  {
+    "id": "journ-first-steps",
+    "file": "journey/journ-first-steps.webp",
+    "source": "Pexels",
+    "author": "Sameh  Solow",
+    "authorUrl": "https://www.pexels.com/@sameh-solow-1279480285",
+    "pexelsUrl": "https://www.pexels.com/photo/dahab-city-in-egypt-24286489/",
+    "query": "first steps beach hotel dahab"
+  },
+  {
+    "id": "journ-morning-routine",
+    "file": "journey/journ-morning-routine.webp",
+    "source": "Pexels",
+    "author": "Roman Chernov",
+    "authorUrl": "https://www.pexels.com/@roman-chernov-812606789",
+    "pexelsUrl": "https://www.pexels.com/photo/peaceful-ocean-view-from-balcony-35919939/",
+    "query": "morning routine balcony sea view"
+  },
+  {
+    "id": "journ-rest-afternoon",
+    "file": "journey/journ-rest-afternoon.webp",
+    "source": "Pexels",
+    "author": "Nothing Ahead",
+    "authorUrl": "https://www.pexels.com/@ian-panelo",
+    "pexelsUrl": "https://www.pexels.com/photo/young-man-relaxing-in-a-hammock-20151138/",
+    "query": "rest afternoon hammock quiet"
+  },
+  {
+    "id": "journ-adventure-day",
+    "file": "journey/journ-adventure-day.webp",
+    "source": "Pexels",
+    "author": "Jeff Vinluan",
+    "authorUrl": "https://www.pexels.com/@jeff-vinluan-20921030",
+    "pexelsUrl": "https://www.pexels.com/photo/girl-riding-a-zip-line-9223078/",
+    "query": "adventure day activity fun"
+  },
+  {
+    "id": "spont-morning-swim",
+    "file": "spontaneous/spont-morning-swim.webp",
+    "source": "Pexels",
+    "author": "Anna McDonald",
+    "authorUrl": "https://www.pexels.com/@anna-mcdonald-583613655",
+    "pexelsUrl": "https://www.pexels.com/photo/woman-in-water-on-sea-shore-17115031/",
+    "query": "morning swim sea quiet"
+  },
+  {
+    "id": "journ-departure",
+    "file": "journey/journ-departure.webp",
+    "source": "Pexels",
+    "author": "Cheng Shi Song",
+    "authorUrl": "https://www.pexels.com/@cheng-shi-song-427082720",
+    "pexelsUrl": "https://www.pexels.com/photo/back-view-of-couple-embracing-at-airport-21235995/",
+    "query": "departure airport goodbye"
+  },
+  {
+    "id": "journ-memory-photo",
+    "file": "journey/journ-memory-photo.webp",
+    "source": "Pexels",
+    "author": "https://kaboompics.com/",
+    "authorUrl": "https://www.pexels.com/@karola-g",
+    "pexelsUrl": "https://www.pexels.com/photo/hand-of-a-person-holding-photographs-4960133/",
+    "query": "photo memory travel keepsake"
+  },
+  {
+    "id": "spont-evening-walk",
+    "file": "spontaneous/spont-evening-walk.webp",
+    "source": "Pexels",
+    "author": "Sameh  Solow",
+    "authorUrl": "https://www.pexels.com/@sameh-solow-1279480285",
+    "pexelsUrl": "https://www.pexels.com/photo/kitesurfing-on-sea-coast-at-sunset-24286488/",
+    "query": "evening walk promenade dahab"
+  },
+  {
+    "id": "spont-night-market",
+    "file": "spontaneous/spont-night-market.webp",
+    "source": "Pexels",
+    "author": "Hossam Ashoor",
+    "authorUrl": "https://www.pexels.com/@hossamashoor",
+    "pexelsUrl": "https://www.pexels.com/photo/men-by-street-food-stall-at-night-25642497/",
+    "query": "night market lights egypt"
+  },
+  {
+    "id": "spont-afternoon-read",
+    "file": "spontaneous/spont-afternoon-read.webp",
+    "source": "Pexels",
+    "author": "Julia Sakelli",
+    "authorUrl": "https://www.pexels.com/@juliasakelli",
+    "pexelsUrl": "https://www.pexels.com/photo/woman-reading-a-book-under-an-umbrella-on-a-beach-5429737/",
+    "query": "reading book beach shade"
+  },
+  {
+    "id": "spont-random-dive",
+    "file": "spontaneous/spont-random-dive.webp",
+    "source": "Pexels",
+    "author": "Lachlan  Ross",
+    "authorUrl": "https://www.pexels.com/@lachlan-ross",
+    "pexelsUrl": "https://www.pexels.com/photo/unrecognizable-man-jumping-into-blue-sea-5967835/",
+    "query": "spontaneous dive impromptu"
+  },
+  {
+    "id": "spont-sunset-point",
+    "file": "spontaneous/spont-sunset-point.webp",
+    "source": "Pexels",
+    "author": "Arlind D",
+    "authorUrl": "https://www.pexels.com/@arlindphotography",
+    "pexelsUrl": "https://www.pexels.com/photo/scenic-twilight-view-of-lefkada-coastline-38942810/",
+    "query": "sunset viewing point sea"
+  },
+  {
+    "id": "spont-cafe-discover",
+    "file": "spontaneous/spont-cafe-discover.webp",
+    "source": "Pexels",
+    "author": "Alperen Bozkurt",
+    "authorUrl": "https://www.pexels.com/@alperenbozkurt",
+    "pexelsUrl": "https://www.pexels.com/photo/patio-of-cafe-with-mural-and-potted-plants-17576562/",
+    "query": "hidden cafe discovery bohemian"
+  },
+  {
+    "id": "profile-achievement",
+    "file": "profile/profile-achievement.webp",
+    "source": "Pexels",
+    "author": "DS stories",
+    "authorUrl": "https://www.pexels.com/@ds-stories",
+    "pexelsUrl": "https://www.pexels.com/photo/bronze-medal-on-white-7267601/",
+    "query": "achievement badge travel trophy"
+  },
+  {
+    "id": "profile-traveler",
+    "file": "profile/profile-traveler.webp",
+    "source": "Pexels",
+    "author": "Heru Dharma",
+    "authorUrl": "https://www.pexels.com/@heru-dharma-2148751843",
+    "pexelsUrl": "https://www.pexels.com/photo/smiling-man-enjoying-a-day-at-the-beach-36948530/",
+    "query": "traveler portrait happy beach"
+  },
+  {
+    "id": "spont-beach-chill",
+    "file": "spontaneous/spont-beach-chill.webp",
+    "source": "Pexels",
+    "author": "Meriç Tuna",
+    "authorUrl": "https://www.pexels.com/@merictuna",
+    "pexelsUrl": "https://www.pexels.com/photo/tranquil-beach-gathering-at-sunset-30418294/",
+    "query": "beach chill relaxed afternoon"
+  },
+  {
+    "id": "prog-first-timer",
+    "file": "programs/prog-first-timer.webp",
+    "source": "Pexels",
+    "author": "Msaidi Art",
+    "authorUrl": "https://www.pexels.com/@msaidi",
+    "pexelsUrl": "https://www.pexels.com/photo/captivating-eyes-behind-a-blue-scarf-close-up-38797805/",
+    "query": "first time visitor dahab excited"
+  },
+  {
+    "id": "profile-collection",
+    "file": "profile/profile-collection.webp",
+    "source": "Pexels",
+    "author": "Amar  Preciado",
+    "authorUrl": "https://www.pexels.com/@amar",
+    "pexelsUrl": "https://www.pexels.com/photo/photos-on-wooden-wall-13699200/",
+    "query": "photo collection travel memories"
+  },
+  {
+    "id": "prog-adventure-week",
+    "file": "programs/prog-adventure-week.webp",
+    "source": "Pexels",
+    "author": "Walter Rock",
+    "authorUrl": "https://www.pexels.com/@walter-rock-242489429",
+    "pexelsUrl": "https://www.pexels.com/photo/people-with-helmets-rafting-12328763/",
+    "query": "adventure week activity packed"
+  }
+]
