@@ -16,16 +16,24 @@ coverage
 !.env.example
 *.local.md
 *.local.json
-data/*
-!data/dahab_local_commerce.json
-!data/instagram
 
-# Documentation and the legacy self-certification scripts: 77 markdown files and
-# 22 tsx-run scripts that no runtime code path imports.
+# Runtime database files only. The seed JSON under data/ is read at boot.
+data/*.sqlite
+data/*.sqlite-shm
+data/*.sqlite-wal
+data/*.seq
+data/locks
+data/backups
+data/cms-media
+data/payment-receipts
+data/daygi_chats.json
+data/daygi_beta_telemetry.json
+data/daygi_tasks.json
+data/audit-archive-*.jsonl
+
+# Documentation. The admin proof route imports server/test at runtime,
+# so that directory stays in the image.
 docs
-*.md
-!README.md
-server/test
 
 .claude
 .vscode
